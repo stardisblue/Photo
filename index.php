@@ -8,6 +8,7 @@ use Rave\Core\Autoloader;
 use Rave\Library\Core\IO\In;
 
 const ROOT = __DIR__;
+const WEB_ROOT= 'http://infolimon/~pascualf/Photo/';
 
 require_once ROOT . '/Core/Autoloader.php';
 
