@@ -2,7 +2,6 @@
 
 namespace Rave\Core;
 
-use Rave\Config\Config;
 use Rave\Core\Exception\IOException;
 
 /**
@@ -11,23 +10,23 @@ use Rave\Core\Exception\IOException;
  */
 abstract class Controller
 {
-	/**
-	 * Constantes représentants le niveau
-	 * d'importance d'un log
-	 * @var int
-	 * 	Code de niveau d'importance du log
-	 */
-	const LOG_NOTICE = 0;
-	const LOG_WARNING = 1;
-	const LOG_FATAL_ERROR = 2;
+    /**
+     * Constantes représentants le niveau
+     * d'importance d'un log
+     * @var int
+     * 	Code de niveau d'importance du log
+     */
+    const LOG_NOTICE = 0;
+    const LOG_WARNING = 1;
+    const LOG_FATAL_ERROR = 2;
 	
-	/**
-	 * Attribut statique contenant le nom
-	 * du fichier de log courrant
-	 * @var string
-	 * 	Nom du fichier de log
-	 */
-	private static $_currentLogFile;
+    /**
+     * Attribut statique contenant le nom
+     * du fichier de log courrant
+     * @var string
+     * 	Nom du fichier de log
+     */
+    private static $_currentLogFile;
 	
     /**
      * Nom de la vue chargée en tant que layout
@@ -65,7 +64,7 @@ abstract class Controller
         if ($this->layout === false) {
             echo $content;
         } else {
-            include_once ROOT. '/Application/View/Layout/' . $this->layout . '.php';
+            include_once ROOT . '/Application/View/Layout/' . $this->layout . '.php';
         }
     }
     
@@ -76,7 +75,7 @@ abstract class Controller
      */
     protected function redirect($page)
     {
-    	header('Location: ' . $page);
+    	header('Location: ' . WEB_ROOT . '/' . $page);
     }
     
     /**
@@ -103,9 +102,9 @@ abstract class Controller
         }
         
         try {
-        	$this->_writeLog($log);
+            $this->_writeLog($log);
         } catch (IOException $ioException) {
-        	Error::create($ioException->getMessage(), '500');
+            Error::create($ioException->getMessage(), '500');
         }
     }
     
@@ -121,18 +120,18 @@ abstract class Controller
     	if (isset(self::$_currentLogFile)) {
     		file_put_contents(self::$_currentLogFile, $message . PHP_EOL, FILE_APPEND);
     	} else {
-    		if (file_exists(ROOT . '/Log') === false) {
-    			mkdir(ROOT . '/Log');
-    		}
+            if (file_exists(ROOT . '/Log') === false) {
+            	mkdir(ROOT . '/Log');
+            }
     		
-    		self::$_currentLogFile = ROOT . '/Log/' . date('d-m-Y') . '.log';
+            self::$_currentLogFile = ROOT . '/Log/' . date('d-m-Y') . '.log';
     	
-    		if (file_exists(self::$_currentLogFile) === false && fopen(self::$_currentLogFile, 'a') === false) {
-    			throw new IOException('Unable to create log file');
-    		}
+            if (file_exists(self::$_currentLogFile) === false && fopen(self::$_currentLogFile, 'a') === false) {
+        	throw new IOException('Unable to create log file');
+            }
     	
-    		$this->_writeLog($message);
-		}
+            $this->_writeLog($message);
+        }
     }
 
     /**

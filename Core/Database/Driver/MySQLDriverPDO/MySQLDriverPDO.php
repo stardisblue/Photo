@@ -11,8 +11,6 @@ use PDO, PDOException;
 class MySQLDriverPDO implements DriverInterface
 {
     private static $_instance;
-    
-	const FETCH_STYLE = PDO::FETCH_OBJ;
 
     private static function _getInstance()
     {
@@ -30,15 +28,15 @@ class MySQLDriverPDO implements DriverInterface
     
     private static function _queryDatabase($statement, array $values, $unique) {
     	try {
-    		$sql = self::_getInstance()->prepare($statement);
-    		$sql->execute($values);
-    		if ($unique === true) {
-    			return $sql->fetch(self::FETCH_STYLE);
-    		} else {
-    			return $sql->fetchAll(self::FETCH_STYLE);
-    		}
+            $sql = self::_getInstance()->prepare($statement);
+            $sql->execute($values);
+            if ($unique === true) {
+            	return $sql->fetch(PDO::FETCH_OBJ);
+            } else {
+    		return $sql->fetchAll(PDO::FETCH_OBJ);
+            }
     	} catch (PDOException $pdoException) {
-    		Error::create($pdoException->getMessage(), '500');
+            Error::create($pdoException->getMessage(), '500');
     	}
     }
     

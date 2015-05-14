@@ -35,7 +35,7 @@ class Config
      */
     private static $_database = [
         'host'     => 'localhost',
-        'database' => 'database',
+        'database' => 'photo',
         'login'    => 'root',
         'password' => 'root'
     ];
@@ -64,6 +64,11 @@ class Config
         '403' => 'error/forbidden'
     ];
 
+    private static $_session = [
+        'admin' => '4e8z3f7vdff8ze65azd25ef46e4f986z',
+        'user'  => 'f4e6h2v5z9f56se4fs67er4ht4h+drgr'
+    ];
+    
     /**
      * Grain de sel pour la fonction de Hashage
      * @var string
@@ -76,7 +81,7 @@ class Config
      * @var array
      * 	Clé, iv encodé en hexa, cypher et mode de chiffrement
      */
-    private static $_cookie = [
+    private static $_encryption = [
     	'mode'   => MCRYPT_MODE_CBC,
     	'cypher' => MCRYPT_RIJNDAEL_256,
     	'key'    => 'c70911343b8a3b94f5780ce5e65d2daa',
@@ -113,9 +118,9 @@ class Config
     public static function getDatabase($key)
     {
     	if (isset(self::$_database[$key])) {
-        	return self::$_database[$key];
+            return self::$_database[$key];
     	} else {
-    		Error::create('Unknown database key ' . $key, '500');
+            Error::create('Unknown database key ' . $key, '500');
     	}
     }
 
@@ -141,10 +146,26 @@ class Config
     public static function getError($key)
     {
     	if (isset(self::$_error[$key])) {
-    		return self::$_error[$key];
+            return self::$_error[$key];
     	} else {
-    		Error::create('Unknown error key ' . $key, '404');
+            Error::create('Unknown error key ' . $key, '404');
     	}
+    }
+    
+    /**
+     * Méthode accesseur
+     * @param string
+     *  Clé de session demandée
+     * @return string
+     *  Clé de la session
+     */
+    public static function getSession($key)
+    {
+        if (isset(self::$_session[$key])) {
+            return self::$_session[$key];
+        } else {
+            Error::create('Unknown session key ' . $key, '500');
+        }
     }
 
     /**
@@ -157,16 +178,16 @@ class Config
         return self::$_databaseSeed;
     }
 
-	/**
-	 * Méthode accesseur
-	 * @return mixed
-	 * 	Entrée demandée
-	 * @param string
-	 * 	Clé du tableau cookie
-	 */
-    public static function getCookie($key)
+    /**
+     * Méthode accesseur
+     * @return mixed
+     * 	Entrée demandée
+     * @param string
+     * 	Clé du tableau cookie
+     */
+    public static function getEncryption($key)
     {
-    	return self::$_cookie[$key];
+    	return self::$_encryption[$key];
     }
 
 }
