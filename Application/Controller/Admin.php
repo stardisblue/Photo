@@ -7,6 +7,7 @@ use Rave\Library\Core\IO\In;
 
 use Rave\Application\Model\AdminModel;
 use Rave\Application\Model\PhotoModel;
+use Rave\Application\Model\CommentModel;
 
 use Rave\Library\Core\Security\File;
 use Rave\Library\Core\Security\String;
@@ -120,6 +121,16 @@ class Admin extends Controller
         if (Session::check('admin')) {
             $photos = PhotoModel::selectAll();
             $this->loadView('managePhoto', ['photos' => $photos]);
+        } else {
+            $this->redirect('admin');
+        }
+    }
+
+    public function manage_comment()
+    {
+        if (Session::check('admin')) {
+            $comments = CommentModel::selectAll();
+            $this->loadView('manageComment', ['comments' => $comments]);
         } else {
             $this->redirect('admin');
         }

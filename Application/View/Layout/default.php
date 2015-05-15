@@ -6,43 +6,21 @@
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0" />
 
         <!-- Google Web Font -->
-        <link href="<?= WEB_ROOT ?>/public/css/inconsolata.css" rel="stylesheet" type="text/css">
-        <link href="<?= WEB_ROOT ?>/public/css/source-sans-pro-extralight.css" rel="stylesheet" type="text/css">
+        <link href="<?= WEB_ROOT ?>/public/css/template/inconsolata.css" rel="stylesheet" type="text/css">
+        <link href="<?= WEB_ROOT ?>/public/css/template/source-sans-pro-extralight.css" rel="stylesheet" type="text/css">
         
         <link rel="stylesheet" href="<?= WEB_ROOT ?>/public/css/bootstrap.min.css">
-        
-        <!-- OWL Slider -->
-        <link rel="stylesheet" href="http://infolimon/~pascualf/Photo/public/css/owl.carousel.css">
-        <link rel="stylesheet" href="http://infolimon/~pascualf/Photo/public/css/owl.theme.css">
-
-        <!-- Web Icons Font -->
-        <link rel="stylesheet" href="http://arabella.elitefingers.com/html/css/pe-icon-7-stroke.css">
-        <link rel="stylesheet" href="http://arabella.elitefingers.com/html/css/iconmoon.css">
-        <link rel="stylesheet" href="http://arabella.elitefingers.com/html/css/et-line.css">
 
         <!-- Tabs -->
-        <link rel="stylesheet" type="text/css" href="http://arabella.elitefingers.com/html/css/tabs.css" />
-        <link rel="stylesheet" type="text/css" href="http://arabella.elitefingers.com/html/css/tabstyles.css" />
+        <link rel="stylesheet" type="text/css" href="<?= WEB_ROOT ?>/public/css/template/tabs.css" />
+        <link rel="stylesheet" type="text/css" href="<?= WEB_ROOT ?>/public/css/template/tabstyles.css" />
 
         <!-- Costum Styles -->
-        <link rel="stylesheet" href="http://arabella.elitefingers.com/html/css/main.css">
-        <link rel="stylesheet" href="http://arabella.elitefingers.com/html/css/responsive.css">
-
-        <!-- Favicon -->
-        <link rel="icon" type="image/ico" href="favicon.ico">
-
-        <!-- Modernizer & Respond js -->
-        <script src="http://arabella.elitefingers.com/html/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-        <style>
-            p {
-                font-family: "SourceSansPro-extralight";
-            }
-        </style>
+        <link rel="stylesheet" href="<?= WEB_ROOT ?>/public/css/template/main.css">
+        <link rel="stylesheet" href="<?= WEB_ROOT ?>/public/css/template/responsive.css">
     </head>
 
     <body>
-        <p>Caca</p>
-        
         <div class="preloader">
             <span class="load"></span>
         </div>
@@ -355,15 +333,15 @@
             </div>
         </footer>
 
-        <script src="http://arabella.elitefingers.com/html/js/vendor/jquery-1.11.2.min.js"></script>
-        <script src="http://arabella.elitefingers.com/html/js/vendor/bootstrap.min.js"></script>
-        <script src="http://arabella.elitefingers.com/html/js/vendor/classie.js"></script>
-        <script src="http://arabella.elitefingers.com/html/js/vendor/isotope.pkgd.min.js"></script>
-        <script src="http://arabella.elitefingers.com/html/js/vendor/waypoints.min.js"></script>
-        <script src="http://arabella.elitefingers.com/html/js/vendor/jquery.counterup.min.js"></script>
-        <script src="http://arabella.elitefingers.com/html/js/vendor/owl.carousel.min.js"></script>
-        <script src="http://arabella.elitefingers.com/html/js/vendor/tabs.js"></script>
-        <script src="http://arabella.elitefingers.com/html/js/arabella.js"></script>
+        <script src="<?= WEB_ROOT ?>/public/js/template/jquery-1.11.2.min.js"></script>
+        <script src="<?= WEB_ROOT ?>/public/js/template/bootstrap.min.js"></script>
+        <script src="<?= WEB_ROOT ?>/public/js/template/classie.js"></script>
+        <script src="<?= WEB_ROOT ?>/public/js/template/isotope.pkgd.min.js"></script>
+        <script src="<?= WEB_ROOT ?>/public/js/template/waypoints.min.js"></script>
+        <script src="<?= WEB_ROOT ?>/public/js/template/jquery.counterup.min.js"></script>
+        <script src="<?= WEB_ROOT ?>/public/js/template/owl.carousel.min.js"></script>
+        <script src="<?= WEB_ROOT ?>/public/js/template/tabs.js"></script>
+        <script src="<?= WEB_ROOT ?>/public/js/template/arabella.js"></script>
     </body>
 
 </html>

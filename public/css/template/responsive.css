@@ -1,0 +1,183 @@
+
+/* 1. Small devices (tablets, 768px and Up) */
+@media (min-width: 768px) { 
+
+	.float-left{
+		float: left;
+	}
+
+	.float-right{
+		float: right;
+	}
+
+}
+
+/* 2. Small devices (tablets, 768px and Down) */
+@media (max-width: 768px){
+	.navigation{
+		max-width: 750px;
+		width: 100%;
+	}
+}
+
+/* 2. Small devices (tablets, 767px and Down) */
+@media (max-width: 767px) {
+	.works-filter {
+		margin: auto;
+	}
+
+	.logo img{
+		max-width: 140px;
+	} 
+	.works-filter a {
+		font-size: 15px;
+	}
+	
+	.height-3column, .height-4column{
+		height: 245px !important;
+	}
+
+	
+
+	.single-post-tags ul{
+		margin-left: 2px;
+	}
+	.testimonial-inner {
+	  padding-top: 100px;
+	}
+
+	.margin-top{
+		margin-top: 50px;
+	}
+
+	.filter-tabs ul li {
+	  margin-right: 0;
+	}
+
+	.filter-tabs ul li a {
+	  padding: 6px 13px 6px 13px;
+	}
+
+	.main-title {
+	  padding: 50px 0 0 0;
+	}
+
+	.height-1, .height-2{
+	    height: 240px !important;
+	}
+
+	.back-btn a{
+	    text-align: center;
+	    padding-left:0;
+	}
+	.forward-btn a {
+	  text-align: center;
+	  padding-right: 0;
+	}
+
+	.portfolio-controls i.left, .portfolio-controls i.right {
+	  width: 100%;
+	}
+	
+	.map{
+		height: 200px;
+	}
+	
+}
+
+/* 2. Medium devices (desktops, 992px and Down) */
+@media (max-width: 991px){
+	.hover-overlay-inner{
+		max-width: 250px;
+	}
+	.avatar-picture{
+		text-align: left;
+	}
+
+	.single-post-content, .blog-post-date{
+		margin-top: 0;
+	}
+
+	.back-btn, .home-btn, .forward-btn{
+	    width: 33.3333333%;
+	}
+	
+	.height-3column{
+		height: 240px;
+	}
+
+	.height-4column{
+		height: 142px;
+	}
+
+
+	.works-filter {
+		height: 135px;
+	}
+
+	.height-1{
+	    height: 255px;
+	    overflow: hidden;
+	    margin-bottom: 30px;
+	    clear: both;
+	    position: relative;
+	}
+	.height-2{
+	    height: 140px;
+	    overflow: hidden;
+	    margin-bottom: 30px;
+	    clear: both;
+	    position: relative;
+	}
+
+	.member-info-inner, .member-social{
+		float: none;
+	}
+	.member-info{
+		text-align: center;
+	}
+
+	.social-media ul li {
+	  width: 50%;
+	  float: left;
+	}
+
+	.blog-content-inner{
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+	.blog-date {
+	  font-size: 60px;
+	  line-height: 69px;
+	}
+
+}
+
+
+/* Large devices (large desktops, 1200px and Down) */
+@media (max-width: 1199px) { 
+	.member-image {
+	  	height: 340px;
+	}
+}
+
+
+@media (max-width: 767px){
+	.menu-wrap {
+		position: absolute;
+		z-index: 1001;
+		width: 100%;
+		font-size: 1.15em;
+		padding:0;
+		padding-top: 30px;
+		-webkit-transform: translate3d(-100%,0,0);
+		transform: translate3d(-100%,0,0);
+	}
+
+	.menu-contact-information span{
+		font-size: 13px;
+	}
+}
+
+
