@@ -148,4 +148,17 @@ abstract class Model
 		return self::_getInstance()->queryOne('SELECT Count(' . static::$primary . ') AS count FROM ' . static::$table)->count;
     }
 
+    /**
+     * Méthode permettant de vérifier l'existance
+     * d'une entrée
+     * @param $primary
+     *  Valeur de la clé primaire
+     * @return bool
+     *  Retourne true si la valeur existe
+     */
+    public static function exists($primary)
+    {
+        return self::_getInstance()->queryOne('SELECT Count(' . static::$primary . ') AS count FROM ' . static::$table . ' WHERE ' . static::$primary . ' = :primary', [':primary' => $primary])->count > 0;
+    }
+
 }

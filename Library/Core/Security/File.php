@@ -32,28 +32,28 @@ class File
      */
     public static function moveUploadedFile($fileName, $uploadPath, array $extensions = [], array $mimeTypes = [])
     {
-	if (isset($_FILES[$fileName]) === false) {
+        if (isset($_FILES[$fileName]) === false) {
             throw new UploadException('Can not find uploaded file in superglobale FILES');
-	}
-	
-	$fileExtension = strrchr($_FILES[$fileName]['name'], '.');
-	
-	if (empty($extensions) === false && in_array($fileExtension, $extensions) === false) {
+        }
+
+        $fileExtension = strrchr($_FILES[$fileName]['name'], '.');
+
+        if (empty($extensions) === false && in_array($fileExtension, $extensions) === false) {
             throw new FileTypeException('Wrong file extension');
-	}
-	
-	$uploadedFileName = uniqid() . $fileExtension;
-	$fileInfo = finfo_open(FILEINFO_MIME_TYPE);
-	
-	if (empty($mimeTypes) === false && in_array(finfo_file($fileInfo, $_FILES[$fileName]['tmp_name']), $mimeTypes) === false) {
+        }
+
+        $uploadedFileName = uniqid() . $fileExtension;
+        $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+
+        if (empty($mimeTypes) === false && in_array(finfo_file($fileInfo, $_FILES[$fileName]['tmp_name']), $mimeTypes) === false) {
             throw new FileTypeException('Wrong MIME type');
         }
-	
-	finfo_close($fileInfo);
-	
-	if (move_uploaded_file($_FILES[$fileName]['tmp_name'], ROOT . '/' . $uploadPath . '/' . $uploadedFileName) === false) {
+
+        finfo_close($fileInfo);
+
+        if (move_uploaded_file($_FILES[$fileName]['tmp_name'], ROOT . '/' . $uploadPath . '/' . $uploadedFileName) === false) {
             throw new IOException('Failed to move the uploaded file');
-	}
+        }
 	
         return $uploadedFileName;
     }

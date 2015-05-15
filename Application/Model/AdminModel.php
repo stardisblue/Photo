@@ -8,7 +8,7 @@ class AdminModel extends Model
 {
 
     protected static $table = 'admin';
-    
+
     protected static $primary = 'login';
 
 }
