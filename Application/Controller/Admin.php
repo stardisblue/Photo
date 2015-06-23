@@ -13,7 +13,6 @@ use Rave\Library\Core\Security\File;
 use Rave\Library\Core\Security\String;
 use Rave\Library\Core\Security\Session;
 
-
 class Admin extends Controller
 {
     const DEFAULT_IMAGE_NAME = 'error';
@@ -56,84 +55,85 @@ class Admin extends Controller
 
     public function logout()
     {
-        if (Session::check('admin')) {
-            Session::delete('admin');
-            $this->redirect('admin/logout-success');
-        } else {
-            $this->redirect('admin/logout-error');
-        }
+        $this->check('admin/logout-error');
+        Session::delete('admin');
+        $this->redirect('admin/logout-success');
     }
     
     public function manage()
     {
-        if (Session::check('admin')) {
-            $this->loadView('manage', ['manage' => true]);
-        } else {
-            $this->redirect('admin');
-        }
+        $this->check();
+        $this->loadView('manage', ['manage' => true]);
     }
 
     public function account()
     {
+        $this->check();
+
         $login = Session::get('login');
 
-        if (Session::check('admin')) {
-            if (In::isSetPost('login')) {
-                AdminModel::update($login, ['login' => In::post('login')]);
-                $this->redirect('admin');
+        if (In::isSetPost('login')) {
+            if (In::isSetPost(['changePassword', 'oldPassword', 'newPassword'])) {
+                $admin = AdminModel::select($login);
+
+                if (String::hash(In::post('oldPassword')) === $admin->password) {
+                    AdminModel::update($login, [
+                        'login' => In::post('login'),
+                        'password' => String::hash(In::post('newPassword'))
+                    ]);
+                    Session::set('login', In::post('login'));
+
+                    $this->redirect('admin/modification-success');
+                } else {
+                    $this->redirect('admin/wrong-password');
+                }
             } else {
-                $this->loadView('account', ['login' => $login]);
+                AdminModel::update($login, ['login' => In::post('login')]);
+                Session::set('login', In::post('login'));
             }
+            $this->redirect('admin/modification-success');
         } else {
-            $this->redirect('admin');
+            $this->loadView('account', ['login' => trim($login)]);
         }
     }
 
     public function add_photo()
     {
-        if (Session::check('admin')) {
-            if (In::isSetPost(['title', 'description'])) {
-                $fileName = self::DEFAULT_IMAGE_NAME;
+        $this->check();
 
-                try {
-                    $fileName = File::moveUploadedFile('photo', 'public/photo', ['.jpg', '.png']);
-                } catch (Exception $exception) {
-                    Error::create($exception->getMessage(), '500');
-                }
+        if (In::isSetPost(['title', 'description'])) {
+            $fileName = self::DEFAULT_IMAGE_NAME;
 
-                PhotoModel::insert([
-                    'name' => $fileName,
-                    'title' => In::post('title'),
-                    'description' => In::post('description')
-                ]);
-
-                $this->redirect('admin');
-            } else {
-                $this->loadView('addPhoto');
+            try {
+                $fileName = File::moveUploadedFile('photo', 'public/photo', ['.jpg', '.png']);
+            } catch (Exception $exception) {
+                Error::create($exception->getMessage(), '500');
             }
-        } else {
+
+            PhotoModel::insert([
+                'name' => $fileName,
+                'title' => In::post('title'),
+                'description' => In::post('description')
+            ]);
+
             $this->redirect('admin');
+        } else {
+            $this->loadView('addPhoto');
         }
     }
 
     public function manage_photo()
     {
-        if (Session::check('admin')) {
-            $photos = PhotoModel::selectAll();
-            $this->loadView('managePhoto', ['photos' => $photos]);
-        } else {
-            $this->redirect('admin');
-        }
+        $this->check();
+        $photos = PhotoModel::selectAll();
+        $this->loadView('managePhoto', ['photos' => $photos]);
     }
 
     public function manage_comment()
     {
-        if (Session::check('admin')) {
-            $comments = CommentModel::selectAll();
-            $this->loadView('manageComment', ['comments' => $comments]);
-        } else {
-            $this->redirect('admin');
-        }
+        $this->check();
+        $comments = CommentModel::selectAll();
+        $this->loadView('manageComment', ['comments' => $comments]);
     }
 
     public function wrong_login()
@@ -154,6 +154,18 @@ class Admin extends Controller
     public function logout_error()
     {
         $this->loadView('logoutError');
+    }
+
+    public function modification_success()
+    {
+        $this->loadView('modificationSuccess');
+    }
+
+    private function check($page = 'admin')
+    {
+        if (Session::check('admin') === false) {
+            $this->redirect('admin');
+        }
     }
 
 }
