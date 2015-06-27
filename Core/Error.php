@@ -14,8 +14,10 @@ class Error
      * Méthode permettant de créer une erreur
      * Redirection vers une page d'erreur si
      * l'application est en mode production
-     * @param string $error
+     * @param string $errorMessage
      *  Message d'erreur
+     * @param string $errorCode
+     *  Code d'erreur
      */
     public static function create($errorMessage, $errorCode = '404')
     {
@@ -29,6 +31,8 @@ class Error
     /**
      * Méthode de redirection vers une page
      * d'erreur
+     * @param string $errorCode
+     *  Code d'erreur
      */
     private static function _show($errorCode)
     {

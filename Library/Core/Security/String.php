@@ -21,7 +21,7 @@ class String
      */
     public static function hash($data)
     {
-	return hash('whirlpool', $data . Config::getDatabaseSeed(), false);
+	    return hash('whirlpool', $data . Config::getDatabaseSeed(), false);
     }
 
     /**
@@ -35,9 +35,9 @@ class String
     public static function clean($data)
     {
     	$trimmedData = trim($data);
-	$escapedData = stripslashes($trimmedData);
-	$cleanedData = htmlspecialchars($escapedData);
-	return $cleanedData;
+        $escapedData = stripslashes($trimmedData);
+        $cleanedData = htmlspecialchars($escapedData);
+        return $cleanedData;
     }
 
     /**

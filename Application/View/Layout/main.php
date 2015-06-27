@@ -16,16 +16,13 @@
     <body>
         <nav id="menu">
             <ul>
-                <li><a href="">Link</a></li>
+                <li><a href="<?= WEB_ROOT ?>/photo">Photos</a></li>
                 <li><a href="">Link</a></li>
                 <li><a href="">Link</a></li>
             </ul>
         </nav>
 
-        <div id="main-carousel">
-            <div class="item"><img src="<?= WEB_ROOT ?>/public/img/wall.jpg" alt="Photo"></div>
-            <div class="item"><img src="<?= WEB_ROOT ?>/public/img/wall3.jpg" alt="Photo"></div>
-        </div>
+        <?= $content ?>
 
         <script src="<?= WEB_ROOT ?>/public/js/owlcarousel/owl.carousel.min.js"></script>
         <script src="<?= WEB_ROOT ?>/public/js/owlcarousel/application.js"></script>

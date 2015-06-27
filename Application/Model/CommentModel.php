@@ -11,4 +11,9 @@ class CommentModel extends Model
 
     protected static $primary = 'id';
 
+    public static function selectById($id)
+    {
+        return self::_getInstance()->query('SELECT * FROM comment WHERE id = :id', [':id' => $id]);
+    }
+
 }

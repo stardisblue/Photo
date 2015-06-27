@@ -101,8 +101,8 @@ class Admin extends Controller
     {
         $this->check();
 
-        if (In::isSetPost(['title', 'description'])) {
-            $fileName = self::DEFAULT_IMAGE_NAME;
+        if (In::isSetPost(['title', 'description', 'tags'])) {
+           $fileName = self::DEFAULT_IMAGE_NAME;
 
             try {
                 $fileName = File::moveUploadedFile('photo', 'public/photo', ['.jpg', '.png']);
@@ -112,6 +112,7 @@ class Admin extends Controller
 
             PhotoModel::insert([
                 'name' => $fileName,
+                'tags' => In::post('tags'),
                 'title' => In::post('title'),
                 'description' => In::post('description')
             ]);
@@ -129,11 +130,75 @@ class Admin extends Controller
         $this->loadView('managePhoto', ['photos' => $photos]);
     }
 
+    public function update_photo($id)
+    {
+        $this->check();
+        $photoId = is_numeric($id) ? (int) $id : 0;
+
+        if (In::isSetPost(['title', 'description', 'tags'])) {
+            PhotoModel::update($photoId, [
+                'tags' => In::post('tags'),
+                'title' => In::post('title'),
+                'description' => In::post('description')
+            ]);
+            $this->redirect('admin/manage-photo');
+        } else {
+            $photo = PhotoModel::select($photoId);
+
+            if ($photo === false) {
+                $this->redirect('admin/manage-photo');
+            }
+
+            $this->loadView('updatePhoto', ['photo' => $photo]);
+        }
+    }
+
+    public function delete_photo($id)
+    {
+        $this->check();
+        $photoId = is_numeric($id) ? (int) $id : 0;
+        $photo = PhotoModel::select($photoId);
+        PhotoModel::delete($photoId);
+        unlink(ROOT . '/public/photo/' . $photo->name);
+        $this->redirect('admin/manage-photo');
+    }
+
     public function manage_comment()
     {
         $this->check();
         $comments = CommentModel::selectAll();
         $this->loadView('manageComment', ['comments' => $comments]);
+    }
+
+    public function update_comment($id)
+    {
+        $this->check();
+        $commentId = is_numeric($id) ? (int) $id : 0;
+
+        if (In::isSetPost(['title', 'author', 'content'])) {
+            CommentModel::update($commentId, [
+                'title' => In::post('title'),
+                'author' => In::post('author'),
+                'content' => String::clean(In::post('content'))
+            ]);
+            $this->redirect('admin/manage-comment');
+        } else {
+            $comment = CommentModel::select($commentId);
+
+            if ($comment === false) {
+                $this->redirect('admin/manage-comment');
+            }
+
+            $this->loadView('updateComment', ['comment' => $comment]);
+        }
+    }
+
+    public function delete_comment($id)
+    {
+        $this->check();
+        $commentId = is_numeric($id) ? (int) $id : 0;
+        CommentModel::delete($commentId);
+        $this->redirect('admin/manage-comment');
     }
 
     public function wrong_login()

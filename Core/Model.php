@@ -45,7 +45,7 @@ abstract class Model
 		if (isset(self::$_driver) === false) {
 			self::$_driver = DriverFactory::connect(Config::getDatabaseDriver());
 		}
-		
+
 		return self::$_driver;
 	}
     
