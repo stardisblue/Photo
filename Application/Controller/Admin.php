@@ -5,9 +5,13 @@ use Rave\Core\Controller;
 
 use Rave\Library\Core\IO\In;
 
+use Rave\Application\Model\TagModel;
 use Rave\Application\Model\AdminModel;
 use Rave\Application\Model\PhotoModel;
 use Rave\Application\Model\CommentModel;
+use Rave\Application\Model\IdentifyModel;
+
+use Rave\Library\Custom\Photo;
 
 use Rave\Library\Core\Security\File;
 use Rave\Library\Core\Security\String;
@@ -37,9 +41,9 @@ class Admin extends Controller
             if (AdminModel::exists(In::post('login'))) {
                 $admin = AdminModel::select(In::post('login'));
 
-                if (String::hash(In::post('password')) === $admin->password) {
+                if (String::hash(In::post('password')) === $admin->admin_password) {
                     Session::login('admin');
-                    Session::set('login', $admin->login);
+                    Session::set('login', $admin->admin_login);
 
                     $this->redirect('admin/manage');
                 } else {
@@ -76,10 +80,10 @@ class Admin extends Controller
             if (In::isSetPost(['changePassword', 'oldPassword', 'newPassword'])) {
                 $admin = AdminModel::select($login);
 
-                if (String::hash(In::post('oldPassword')) === $admin->password) {
+                if (String::hash(In::post('oldPassword')) === $admin->admin_password) {
                     AdminModel::update($login, [
-                        'login' => In::post('login'),
-                        'password' => String::hash(In::post('newPassword'))
+                        'admin_login' => In::post('login'),
+                        'admin_password' => String::hash(In::post('newPassword'))
                     ]);
                     Session::set('login', In::post('login'));
 
@@ -88,7 +92,7 @@ class Admin extends Controller
                     $this->redirect('admin/wrong-password');
                 }
             } else {
-                AdminModel::update($login, ['login' => In::post('login')]);
+                AdminModel::update($login, ['admin_login' => In::post('login')]);
                 Session::set('login', In::post('login'));
             }
             $this->redirect('admin/modification-success');
@@ -101,21 +105,49 @@ class Admin extends Controller
     {
         $this->check();
 
-        if (In::isSetPost(['title', 'description', 'tags'])) {
-           $fileName = self::DEFAULT_IMAGE_NAME;
+        if (In::isSetPost(['title', 'subtitle', 'description', 'tags'])) {
+            $fileName = self::DEFAULT_IMAGE_NAME;
 
             try {
-                $fileName = File::moveUploadedFile('photo', 'public/photo', ['.jpg', '.png']);
+                $fileName = File::moveUploadedFile('photo', 'public/img/photo', ['.jpg', '.png']);
+            } catch (Exception $exception) {
+                Error::create($exception->getMessage(), '500');
+            }
+
+            $extension = strrchr($fileName, '.');
+
+            $type = $extension === '.png' ? Photo::TYPE_PNG : Photo::TYPE_JPEG;
+
+            try {
+                $photo = new Photo(ROOT . '/public/img/photo/' . $fileName, $type);
+                $photo->createResized(ROOT . '/public/img/photo/thumb/' . $fileName, 120, 130);
+                $photo->createResizedWidth(ROOT . '/public/img/photo/gallery/' . $fileName, 545);
             } catch (Exception $exception) {
                 Error::create($exception->getMessage(), '500');
             }
 
             PhotoModel::insert([
-                'name' => $fileName,
-                'tags' => In::post('tags'),
-                'title' => In::post('title'),
-                'description' => In::post('description')
+                'photo_name' => $fileName,
+                'photo_title' => In::post('title'),
+                'photo_subtitle' => In::post('subtitle'),
+                'photo_description' => In::post('description')
             ]);
+
+            $tags = explode(',', str_replace('#', null, trim(In::post('tags'))));
+
+            $photoId = PhotoModel::selectLastId();
+
+            foreach ($tags as $tag)
+            {
+                if (TagModel::existsTagName($tag) === false) {
+                    TagModel::insert(['tag_name' => $tag]);
+                }
+
+                IdentifyModel::insert([
+                    'photo_id' => $photoId,
+                    'tag_id' => TagModel::selectTagId($tag)
+                ]);
+            }
 
             $this->redirect('admin');
         } else {
@@ -137,10 +169,29 @@ class Admin extends Controller
 
         if (In::isSetPost(['title', 'description', 'tags'])) {
             PhotoModel::update($photoId, [
-                'tags' => In::post('tags'),
-                'title' => In::post('title'),
-                'description' => In::post('description')
+                'photo_title' => In::post('title'),
+                'photo_subtitle' => In::post('subtitle'),
+                'photo_description' => In::post('description')
             ]);
+
+            $tags = explode(',', str_replace('#', null, trim(In::post('tags'))));
+
+            $photoId = PhotoModel::selectLastId();
+
+            IdentifyModel::deleteTagWherePhotoId($photoId);
+
+            foreach ($tags as $tag)
+            {
+                if (TagModel::existsTagName($tag) === false) {
+                    TagModel::insert(['tag_name' => $tag]);
+                }
+
+                IdentifyModel::insert([
+                    'photo_id' => $photoId,
+                    'tag_id' => TagModel::selectTagId($tag)
+                ]);
+            }
+
             $this->redirect('admin/manage-photo');
         } else {
             $photo = PhotoModel::select($photoId);
@@ -149,7 +200,22 @@ class Admin extends Controller
                 $this->redirect('admin/manage-photo');
             }
 
-            $this->loadView('updatePhoto', ['photo' => $photo]);
+            $tags = null;
+            $tagArray = TagModel::selectPhotoTag($photoId);
+
+            if (empty($tagArray) === false) {
+                foreach ($tagArray as $tag)
+                {
+                    $tags .= '#' . $tag->tag_name . ', ';
+                }
+
+                $tags = rtrim($tags, ', ');
+            }
+
+            $this->loadView('updatePhoto', [
+                'tags' => $tags,
+                'photo' => $photo
+            ]);
         }
     }
 
@@ -159,7 +225,9 @@ class Admin extends Controller
         $photoId = is_numeric($id) ? (int) $id : 0;
         $photo = PhotoModel::select($photoId);
         PhotoModel::delete($photoId);
-        unlink(ROOT . '/public/photo/' . $photo->name);
+        unlink(ROOT . '/public/img/photo/' . $photo->name);
+        unlink(ROOT . '/public/img/photo/thumb/' . $photo->name);
+        unlink(ROOT . '/public/img/photo/gallery/' . $photo->name);
         $this->redirect('admin/manage-photo');
     }
 
@@ -177,10 +245,11 @@ class Admin extends Controller
 
         if (In::isSetPost(['title', 'author', 'content'])) {
             CommentModel::update($commentId, [
-                'title' => In::post('title'),
-                'author' => In::post('author'),
-                'content' => String::clean(In::post('content'))
+                'comment_title' => In::post('title'),
+                'comment_author' => In::post('author'),
+                'comment_content' => String::clean(In::post('content'))
             ]);
+
             $this->redirect('admin/manage-comment');
         } else {
             $comment = CommentModel::select($commentId);
@@ -226,7 +295,7 @@ class Admin extends Controller
         $this->loadView('modificationSuccess');
     }
 
-    private function check($page = 'admin')
+    private function check()
     {
         if (Session::check('admin') === false) {
             $this->redirect('admin');

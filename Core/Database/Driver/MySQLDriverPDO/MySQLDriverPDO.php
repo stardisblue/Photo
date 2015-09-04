@@ -30,11 +30,11 @@ class MySQLDriverPDO implements DriverInterface
     	try {
             $sql = self::_getInstance()->prepare($statement);
             $sql->execute($values);
+
             if ($unique === true) {
             	return $sql->fetch(PDO::FETCH_OBJ);
-            } else {
-    		    return $sql->fetchAll(PDO::FETCH_OBJ);
             }
+            return $sql->fetchAll(PDO::FETCH_OBJ);
     	} catch (PDOException $pdoException) {
             Error::create($pdoException->getMessage(), '500');
     	}

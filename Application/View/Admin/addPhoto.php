@@ -4,6 +4,10 @@
         <input class="form-control" type="text" name="title"/>
     </div>
     <div class="form-group">
+        <label>Subtitle</label>
+        <input class="form-control" type="text" name="subtitle"/>
+    </div>
+    <div class="form-group">
         <label>Description</label>
         <textarea class="form-control" name="description"></textarea>
     </div>

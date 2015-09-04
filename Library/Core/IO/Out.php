@@ -88,9 +88,9 @@ class Out
      * @param string $message
      *  Message
      */
-    public static function mail($to, $subject, $message)
+    public static function mail($to, $subject, $message, $header = null)
     {
-        mail($to, $subject, $message);
+        mail($to, $subject, $message, $header);
     }
 
 }

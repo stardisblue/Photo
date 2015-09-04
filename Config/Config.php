@@ -17,7 +17,7 @@ class Config
      * @var boolean
      *  Vrai si mode debug, faux si mode production
      */
-    private static $_debug = false;
+    private static $_debug = true;
     
     /**
      * Attribut déterminant le driver de base de données
@@ -86,6 +86,15 @@ class Config
     	'cypher' => MCRYPT_RIJNDAEL_256,
     	'key'    => 'c70911343b8a3b94f5780ce5e65d2daa',
     	'iv'     => 'dc4931bc7b44eebb62e4e5e590a54461401b8ea9d9b39546d7aab4b44cdfe3c6'
+    ];
+
+    /**
+     * Différents emails
+     * @var array
+     *  Emails importants
+     */
+    private static $_email = [
+        'contact' => 'azercoit@gmail.com'
     ];
     
     /**
@@ -188,6 +197,18 @@ class Config
     public static function getEncryption($key)
     {
     	return self::$_encryption[$key];
+    }
+
+    /**
+     * Méthode accesseur
+     * @return string
+     * 	Entrée demandée
+     * @param string
+     * 	Clé du tableau email
+     */
+    public static function getEmail($key)
+    {
+        return self::$_email[$key];
     }
 
 }

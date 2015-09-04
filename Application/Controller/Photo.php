@@ -14,8 +14,7 @@ class Photo extends Controller
 
     public function index()
     {
-        $photos = PhotoModel::selectAll();
-        $this->loadView('allPhotos', ['photos' => $photos]);
+        $this->loadView('gallery', ['photos' => PhotoModel::selectAll()]);
     }
 
     public function display($id)

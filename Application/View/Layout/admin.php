@@ -4,9 +4,9 @@
     <head>
         <meta charset="utf-8"/>
         <title>Administration zone</title>
-        <link href="<?= WEB_ROOT ?>/public/css/admin.css" rel="stylesheet" type="text/css"/>
-        <link href="<?= WEB_ROOT ?>/public/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <script src="<?= WEB_ROOT ?>/public/js/vendor/jquery.min.js" type="text/javascript" rel="script"></script>
+        <link href="<?= WEB_ROOT ?>/public/css/admin/admin.css" rel="stylesheet" type="text/css"/>
+        <link href="<?= WEB_ROOT ?>/public/css/admin/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="<?= WEB_ROOT ?>/public/js/jquery.min.js" type="text/javascript" rel="script"></script>
     </head>
 
     <body>

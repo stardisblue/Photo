@@ -7,13 +7,13 @@ use Rave\Core\Model;
 class CommentModel extends Model
 {
 
-    protected static $table = 'comment';
+    protected static $table = 'rave_comment';
 
-    protected static $primary = 'id';
+    protected static $primary = 'comment_id';
 
     public static function selectById($id)
     {
-        return self::_getInstance()->query('SELECT * FROM comment WHERE id = :id', [':id' => $id]);
+        return self::_getInstance()->query('SELECT * FROM ' . self::$table . ' WHERE ' . self::$primary . ' = :id', [':id' => $id]);
     }
 
 }

@@ -2,6 +2,10 @@
 
 use Rave\Core\Controller;
 
+use Rave\Library\Custom\Cron;
+
+use \Rave\Application\Model\PhotoModel;
+
 class Main extends Controller
 {
 
@@ -12,7 +16,9 @@ class Main extends Controller
 
     public function index()
     {
-	    $this->loadView('slider');
+	    $this->loadView('slider', ['photos' => PhotoModel::selectAll()]);
+
+        Cron::execute();
     }
 
 }
