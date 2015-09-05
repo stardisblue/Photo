@@ -206,7 +206,7 @@ class Admin extends Controller
             if (empty($tagArray) === false) {
                 foreach ($tagArray as $tag)
                 {
-                    $tags .= '#' . $tag->tag_name . ', ';
+                    $tags .= '#' . trim($tag->tag_name) . ', ';
                 }
 
                 $tags = rtrim($tags, ', ');

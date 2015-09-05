@@ -2,82 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96f3a41a-908c-401f-8bae-ba2e744e3d0b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/Controller/Contact.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/Model/ContactModel.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Library/Custom/Cron.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/Model/IdentifyModel.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Library/Custom/Photo.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/Model/TagModel.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/View/Contact/contact_form.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cron/timestamp" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/apple_icons_114x114.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/apple_icons_57x57.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/apple_icons_72x72.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/bgs/1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/bgs/map.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/10.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/11.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/12.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/13.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/14.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/15.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/16.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/17.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/18.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/9.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/10.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/11.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/12.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/13.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/14.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/15.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/16.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/17.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/18.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/9.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/wall.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/img/wall3.jpg" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/css/admin.css" afterPath="$PROJECT_DIR$/public/css/admin/admin.css" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/css/fa/fa.eot" afterPath="$PROJECT_DIR$/public/font/FontAwesome.eot" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/css/fa/fa.otf" afterPath="$PROJECT_DIR$/public/font/FontAwesome.otf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/css/fa/fa.svg" afterPath="$PROJECT_DIR$/public/font/FontAwesome.svg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/css/fa/fa.ttf" afterPath="$PROJECT_DIR$/public/font/FontAwesome.ttf" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/css/fa/fa.woff" afterPath="$PROJECT_DIR$/public/font/FontAwesome.woff" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/1.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/1.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/1.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/1.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/2.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/2.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/2.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/2.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/3.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/3.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/3.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/3.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/4.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/4.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/4.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/4.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/5.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/5.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/5.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/5.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/6.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/6.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/6.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/6.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/7.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/7.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/7.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/7.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/8.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/8.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/8.jpg" afterPath="$PROJECT_DIR$/public/img/gallery/slider/thumbs/8.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Controller/Admin.php" afterPath="$PROJECT_DIR$/Application/Controller/Admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Model/AdminModel.php" afterPath="$PROJECT_DIR$/Application/Model/AdminModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Model/CommentModel.php" afterPath="$PROJECT_DIR$/Application/Model/CommentModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Config/Config.php" afterPath="$PROJECT_DIR$/Config/Config.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Controller/Main.php" afterPath="$PROJECT_DIR$/Application/Controller/Main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Core/Database/Driver/MySQLDriverPDO/MySQLDriverPDO.php" afterPath="$PROJECT_DIR$/Core/Database/Driver/MySQLDriverPDO/MySQLDriverPDO.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Library/Core/IO/Out.php" afterPath="$PROJECT_DIR$/Library/Core/IO/Out.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Controller/Photo.php" afterPath="$PROJECT_DIR$/Application/Controller/Photo.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Model/PhotoModel.php" afterPath="$PROJECT_DIR$/Application/Model/PhotoModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/View/Admin/addPhoto.php" afterPath="$PROJECT_DIR$/Application/View/Admin/addPhoto.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/View/Layout/admin.php" afterPath="$PROJECT_DIR$/Application/View/Layout/admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/View/Photo/display.php" afterPath="$PROJECT_DIR$/Application/View/Photo/display.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/View/Photo/gallery.php" afterPath="$PROJECT_DIR$/Application/View/Photo/gallery.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/View/Layout/main.php" afterPath="$PROJECT_DIR$/Application/View/Layout/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/View/Admin/managePhoto.php" afterPath="$PROJECT_DIR$/Application/View/Admin/managePhoto.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/View/Main/slider.php" afterPath="$PROJECT_DIR$/Application/View/Main/slider.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/css/theme.css" afterPath="$PROJECT_DIR$/public/css/theme.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/theme.js" afterPath="$PROJECT_DIR$/public/js/theme.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/View/Admin/updatePhoto.php" afterPath="$PROJECT_DIR$/Application/View/Admin/updatePhoto.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Photo.iws" />
@@ -126,8 +51,8 @@
       <file leaf-file-name="Admin.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Application/Controller/Admin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.54697984" vertical-offset="3472" max-vertical-offset="5580">
-              <caret line="211" column="24" selection-start-line="211" selection-start-column="24" selection-end-line="211" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.4161074" vertical-offset="3496" max-vertical-offset="5580">
+              <caret line="208" column="55" selection-start-line="208" selection-start-column="55" selection-end-line="208" selection-end-column="55" />
               <folding>
                 <element signature="e#7#27#0#PHP" expanded="true" />
               </folding>
@@ -999,8 +924,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Application/Controller/Admin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.54697984" vertical-offset="3472" max-vertical-offset="5580">
-          <caret line="211" column="24" selection-start-line="211" selection-start-column="24" selection-end-line="211" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.4161074" vertical-offset="3496" max-vertical-offset="5580">
+          <caret line="208" column="55" selection-start-line="208" selection-start-column="55" selection-end-line="208" selection-end-column="55" />
           <folding>
             <element signature="e#7#27#0#PHP" expanded="true" />
           </folding>
