@@ -36,8 +36,8 @@
                 </div>
                 <div class="search_fadder"></div>
                 <div class="header_search">
-                    <form name="search_form" method="get" action="#" class="search_form">
-                        <input type="text" name="s" value="" placeholder="Search the site..." class="field_search">
+                    <form name="search_form" method="post" action="<?= WEB_ROOT ?>/photo/search" class="search_form">
+                        <input type="text" name="search" placeholder="Search the site..." class="field_search">
                     </form>
                 </div>
             </nav>

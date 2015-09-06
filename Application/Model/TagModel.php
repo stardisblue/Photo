@@ -21,6 +21,11 @@ class TagModel extends Model
         return self::_getInstance()->query('SELECT tag_name FROM ' . self::$table . ' NATURAL JOIN rave_identify NATURAL JOIN rave_photo WHERE photo_id = :photo_id', [':photo_id' => $id]);
     }
 
+    public static function selectPopularTag($limit)
+    {
+        return self::_getInstance()->query('SELECT tag_name, count(tag_id) as count_id FROM rave_tag NATURAL JOIN rave_identify GROUP BY tag_name ORDER BY count_id DESC', [':limit' => $limit]);
+    }
+
     public static function existsTagName($name)
     {
         return self::_getInstance()->queryOne('SELECT Count(tag_id) AS tag_count FROM ' . self::$table . ' WHERE tag_name = :tag_name', [':tag_name' => $name])->tag_count > 0;

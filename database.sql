@@ -6,15 +6,6 @@ CREATE TABLE IF NOT EXISTS `rave_admin` (
 
 INSERT INTO `rave_admin` (`admin_login`, `admin_password`) VALUES ('admin', 'a46bd2c15e3c249de6e5da2b5e05baae53c77158c4e75a6355b60aa479ac40d8067c016a5c1effbaefe1637b9630627f163aa519f00c527d0575666e2ab0bc35');
 
-CREATE TABLE IF NOT EXISTS `rave_comment` (
-  `comment_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `comment_title` VARCHAR(250) NOT NULL,
-  `comment_author` VARCHAR(200) NOT NULL,
-  `comment_content` VARCHAR(1000) NOT NULL,
-  `comment_publication` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`comment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 CREATE TABLE IF NOT EXISTS `rave_photo` (
   `photo_id` INT(11) NOT NULL AUTO_INCREMENT,
   `photo_name` VARCHAR(250) NOT NULL,
@@ -25,6 +16,17 @@ CREATE TABLE IF NOT EXISTS `rave_photo` (
   `photo_description` VARCHAR(1000) NOT NULL,
   `photo_publication` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`photo_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `rave_comment` (
+  `photo_id` INT(11) NOT NULL,
+  `comment_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `comment_author` VARCHAR(200) NOT NULL,
+  `comment_message` VARCHAR(1000) NOT NULL,
+  `comment_publication` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`photo_id`) REFERENCES `rave_photo` (`photo_id`)
+    ON UPDATE CASCADE ON DELETE CASCADE,
+  PRIMARY KEY (`comment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `rave_tag` (

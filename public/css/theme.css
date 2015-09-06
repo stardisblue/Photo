@@ -1221,6 +1221,7 @@ body {
 }
 
 .custom_bg.img_bg {
+    background: url("../img/background/contact.jpg");
     background-size: cover;
 }
 
@@ -1971,6 +1972,10 @@ footer .copyright {
     background: url(../img/oyster_sprite.png) no-repeat -220px 0;
 }
 
+.socials_list li a.ico_social_500px:before {
+    background: url(../img/oyster_sprite.png) no-repeat -260px 0;
+}
+
 .socials_list li a.ico_social_facebook:after {
     background: url(../img/oyster_sprite.png) no-repeat 0 -20px;
 }
@@ -2017,6 +2022,10 @@ footer .copyright {
 
 .socials_list li a.ico_social_linked:after {
     background: url(../img/oyster_sprite.png) no-repeat -220px -20px;
+}
+
+.socials_list li a.ico_social_500px:after {
+    background: url(../img/oyster_sprite.png) no-repeat -260px -20px;
 }
 
 .socials_toggler {

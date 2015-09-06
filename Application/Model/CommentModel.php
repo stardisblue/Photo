@@ -13,7 +13,7 @@ class CommentModel extends Model
 
     public static function selectById($id)
     {
-        return self::_getInstance()->query('SELECT * FROM ' . self::$table . ' WHERE ' . self::$primary . ' = :id', [':id' => $id]);
+        return self::_getInstance()->query('SELECT * FROM ' . self::$table . ' WHERE photo_id = :photo_id', [':photo_id' => $id]);
     }
 
 }

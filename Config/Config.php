@@ -17,7 +17,7 @@ class Config
      * @var boolean
      *  Vrai si mode debug, faux si mode production
      */
-    private static $_debug = true;
+    private static $_debug = false;
     
     /**
      * Attribut déterminant le driver de base de données

@@ -4,22 +4,21 @@ use Rave\Core\Controller;
 use Rave\Library\Core\IO\In;
 use Rave\Application\Model\CommentModel;
 
-class Comment extends Controller {
-
-    public function __construct()
-    {
-        $this->setLayout('main');
-    }
+class Comment extends Controller
+{
 
     public function add($id)
     {
-        if (In::isSetPost(['title', 'author', 'content'])) {
+        if (In::isSetPost(['author', 'message'])) {
             $photoId = is_numeric($id) ? (int) $id : 0;
+
             CommentModel::insert([
-                'title' => In::post('title'),
-                'author' => In::post('author'),
-                'content' => In::post('content')
+                'photo_id' => $photoId,
+                'comment_author' => In::post('author'),
+                'comment_message' => In::post('message')
             ]);
+
+            $this->redirect('photo/display/' . $photoId);
         } else {
             $this->redirect('photo');
         }

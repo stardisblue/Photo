@@ -85,6 +85,7 @@ class Admin extends Controller
                         'admin_login' => In::post('login'),
                         'admin_password' => String::hash(In::post('newPassword'))
                     ]);
+
                     Session::set('login', In::post('login'));
 
                     $this->redirect('admin/modification-success');
@@ -120,7 +121,6 @@ class Admin extends Controller
 
             try {
                 $photo = new Photo(ROOT . '/public/img/photo/' . $fileName, $type);
-                $photo->createResized(ROOT . '/public/img/photo/thumb/' . $fileName, 120, 130);
                 $photo->createResizedWidth(ROOT . '/public/img/photo/gallery/' . $fileName, 545);
             } catch (Exception $exception) {
                 Error::create($exception->getMessage(), '500');
@@ -133,7 +133,7 @@ class Admin extends Controller
                 'photo_description' => In::post('description')
             ]);
 
-            $tags = explode(',', str_replace('#', null, trim(In::post('tags'))));
+            $tags = explode(',', str_replace(' ', null, str_replace('#', null, In::post('tags'))));
 
             $photoId = PhotoModel::selectLastId();
 
@@ -174,7 +174,7 @@ class Admin extends Controller
                 'photo_description' => In::post('description')
             ]);
 
-            $tags = explode(',', str_replace('#', null, trim(In::post('tags'))));
+            $tags = explode(',', str_replace(' ', null, str_replace('#', null, In::post('tags'))));
 
             $photoId = PhotoModel::selectLastId();
 
@@ -225,9 +225,8 @@ class Admin extends Controller
         $photoId = is_numeric($id) ? (int) $id : 0;
         $photo = PhotoModel::select($photoId);
         PhotoModel::delete($photoId);
-        unlink(ROOT . '/public/img/photo/' . $photo->name);
-        unlink(ROOT . '/public/img/photo/thumb/' . $photo->name);
-        unlink(ROOT . '/public/img/photo/gallery/' . $photo->name);
+        unlink(ROOT . '/public/img/photo/' . $photo->photo_name);
+        unlink(ROOT . '/public/img/photo/gallery/' . $photo->photo_name);
         $this->redirect('admin/manage-photo');
     }
 

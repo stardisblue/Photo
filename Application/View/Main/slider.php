@@ -15,7 +15,7 @@
 <script>
     gallery_set = [
         <?php foreach ($photos as $photo): ?>
-            {image: "<?= WEB_ROOT ?>/public/img/photo/<?= $photo->photo_name ?>", thmb: "<?= WEB_ROOT ?>/public/img/photo/thumb/<?= $photo->photo_name ?>", alt: "<?= $photo->photo_title ?>", title: "<?= $photo->photo_title ?>", description: "<?= $photo->photo_subtitle ?>", titleColor: "#ffffff", descriptionColor: "#ffffff"},
+            {image: "<?= WEB_ROOT ?>/public/img/photo/<?= $photo->photo_name ?>", thmb: "<?= WEB_ROOT ?>/public/img/photo/<?= $photo->photo_name ?>", alt: "<?= $photo->photo_title ?>", title: "<?= $photo->photo_title ?>", description: "<?= $photo->photo_subtitle ?>", titleColor: "#ffffff", descriptionColor: "#ffffff"},
         <?php endforeach; ?>
     ];
 

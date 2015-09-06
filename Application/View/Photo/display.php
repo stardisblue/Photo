@@ -16,18 +16,17 @@
                                             </div>
                                             <div class="blogpreview_top">
                                                 <div class="box_date">
-                                                    <span class="box_month">Mar</span>
-                                                    <span class="box_day">03</span>
+                                                    <span class="box_month"><?= $photo->photo_month ?></span>
+                                                    <span class="box_day"><?= $photo->photo_day ?></span>
                                                 </div>
                                                 <div class="listing_meta">
-                                                    <span>in <a href="javascript:void(0)">Portrait</a></span>
-                                                    <span><a href="javascript:void(0)">3 comments</a></span>
-                                                    <span class="preview_skills">Time spent: 12 hours</span><span class="preview_skills">Camera: Canon EOS 5D Mark II</span>
+                                                    <span><?php foreach ($tags as $tag) { echo '#' . $tag->tag_name . ' '; } ?></span>
+                                                    <span><a href="javascript:void(0)"><?= count($comments) === 1 ? '1 comment' : count($comments) . ' comments' ?></a></span>
                                                 </div>
                                                 <div class="author_ava"><img alt="" src="img/avatar/2.jpg" class="avatar" height="72" width="72" /></div>
                                             </div>
-                                            <h3 class="blogpost_title">Simple Fullwidth Image Post</h3>
-                                        </div><!--.blog_post_page -->
+                                            <h3 class="blogpost_title"><?= $photo->photo_title ?></h3>
+                                        </div>
 
                                         <div class="blog_post_content">
                                             <article class="contentarea sp_contentarea">
@@ -36,7 +35,7 @@
                                                         <div class="module_content">
                                                             <p>Donec tempus velit eleifend, sagittis dolor et, commodo neque. Suspendisse sit amet neque laoreet est facilisis vulputate ut congue lectus. Integer eget ligula euismod, cursus turpis vel, malesuada metus. Nullam a ipsum eget elit ultricies interdum. Donec fringilla elit quis tortor faucibus, id condimentum tortor consequat. Sed aliquet lectus ante, nec molestie metus porttitor condimentum. Donec porttitor libero nisl, a laoreet diam volutpat sit amet.</p>
                                                         </div>
-                                                    </div><!-- .module_cont -->
+                                                    </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="span12 module_number_3 module_cont pb0 module_text_area">
@@ -59,10 +58,10 @@
                                             </div>
 
                                             <div class="block_likes">
-                                                <div class="post-views"><i class="stand_icon icon-eye"></i> <span>5458</span></div>
+                                                <div class="post-views"><i class="stand_icon icon-eye"></i> <span><?= $photo->photo_visit ?></span></div>
                                                 <div class="gallery_likes gallery_likes_add ">
                                                     <i class="stand_icon icon-heart-o"></i>
-                                                    <span>45</span>
+                                                    <span><?= $photo->photo_like ?></span>
                                                 </div>
                                             </div>
 
@@ -76,73 +75,30 @@
                                 <div class="row">
                                     <div class="span12">
                                         <div id="comments">
-                                            <h4 class="headInModule postcomment">3 Comments: </h4>
+                                            <h4 class="headInModule postcomment"><?= count($comments) === 1 ? '1 Comment:' : count($comments) . ' Comments:' ?></h4>
                                             <ol class="commentlist">
-                                                <li class="comment odd alt thread-odd thread-alt depth-1">
-                                                    <div class="stand_comment">
-                                                        <div class="commentava wrapped_img">
-                                                            <img alt="" src="<?= WEB_ROOT ?>/public/img/avatar/3.jpg" class="avatar" height="96" width="96" />
-                                                            <div class="img_inset"></div>
-                                                        </div>
-                                                        <div class="thiscommentbody">
-                                                            <div class="comment_info">
-                                                                <h6 class="author_name">John Doe </h6>
-                                                                <h6 class="date">July 11, 2014</h6>
-                                                                <span class="comments"><a class="comment-reply-link" href="javascript:void(0)">Reply</a></span>
-                                                            </div>
-                                                            <p>Awesome!</p>
-                                                        </div>
-                                                        <div class="clear"></div>
-                                                    </div>
-                                                    <ul class="children">
-                                                        <li class="comment byuser comment-author-gt3dev bypostauthor even depth-2">
-                                                            <div class="stand_comment">
-                                                                <div class="commentava wrapped_img">
-                                                                    <img alt="" src="<?= WEB_ROOT ?>/public/img/avatar/2.jpg" class="avatar" height="96" width="96" />
-                                                                    <div class="img_inset"></div>
+                                                <?php foreach ($comments as $comment): ?>
+                                                    <li class="comment odd alt thread-odd thread-alt depth-1">
+                                                            <div class="thiscommentbody">
+                                                                <div class="comment_info">
+                                                                    <h6 class="author_name"><?= $comment->comment_author ?></h6>
+                                                                    <h6 class="date"><?= $comment->comment_publication ?></h6>
                                                                 </div>
-                                                                <div class="thiscommentbody">
-                                                                    <div class="comment_info">
-                                                                        <h6 class="author_name">gt3dev </h6>
-                                                                        <h6 class="date">July 11, 2014</h6>
-                                                                        <span class="comments"><a class="comment-reply-link" href="javascript:void(0)">Reply</a></span>
-                                                                    </div>
-                                                                    <p>Thanks!</p>
-                                                                </div>
-                                                                <div class="clear"></div>
+                                                                <p><?= $comment->comment_message ?></p>
                                                             </div>
-                                                        </li><!-- #comment-## -->
-                                                    </ul><!-- .children -->
-                                                </li><!-- #comment-## -->
-                                                <li class="comment odd alt thread-even depth-1">
-                                                    <div class="stand_comment">
-                                                        <div class="commentava wrapped_img">
-                                                            <img alt="" src="<?= WEB_ROOT ?>/public/img/avatar/4.jpg" class="avatar" height="96" width="96" />
-                                                            <div class="img_inset"></div>
-                                                        </div>
-                                                        <div class="thiscommentbody">
-                                                            <div class="comment_info">
-                                                                <h6 class="author_name">Tom White </h6>
-                                                                <h6 class="date">July 11, 2014</h6>
-                                                                <span class="comments"><a class="comment-reply-link" href="javascript:void(0)">Reply</a></span>
-                                                            </div>
-                                                            <p>Amazing theme!</p>
-                                                        </div>
-                                                        <div class="clear"></div>
-                                                    </div>
-                                                </li><!-- #comment-## -->
+                                                            <div class="clear"></div>
+                                                    </li>
+                                                <?php endforeach; ?>
                                             </ol>
 
                                             <hr class="comment_hr">
 
                                             <div id="respond" class="comment-respond">
                                                 <h3 id="reply-title" class="comment-reply-title">Leave a Comment!</h3>
-                                                <form action="javascript:void(0)" method="post" id="commentform" class="comment-form">
-                                                    <p class="comment-notes">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+                                                <form action="<?= WEB_ROOT ?>/comment/add/<?= $photo->photo_id ?>" method="post" id="commentform" class="comment-form">
+                                                    <p class="comment-notes">Required fields are marked <span class="required">*</span></p>
                                                     <label class="label-name"></label><input type="text" placeholder="Name *" title="Name *" id="author" name="author" class="form_field">
-                                                    <label class="label-email"></label><input type="text" placeholder="Email *" title="Email *" id="email" name="email" class="form_field">
-                                                    <label class="label-web"></label><input type="text" placeholder="URL" title="URL" id="web" name="url" class="form_field">
-                                                    <label class="label-message"></label><textarea name="comment" cols="45" rows="5" placeholder="Message..." id="comment-message" class="form_field"></textarea>
+                                                    <label class="label-message"></label><textarea name="message" cols="45" rows="5" placeholder="Message..." id="comment-message" class="form_field"></textarea>
                                                     <p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></p>
                                                     <p class="form-submit"><input name="submit" type="submit" id="submit" value="Post Comment" /></p>
                                                 </form>
