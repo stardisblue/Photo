@@ -2,28 +2,53 @@
 
 namespace Rave\Library\Custom;
 
+use Rave\Application\Model\LikeModel;
 use Rave\Application\Model\ContactModel;
 
 class Cron
 {
     private static $_tasks = [
-        'cleanIp'
+        'flushLike' => 86400,
+        'flushContact' => 1200
     ];
 
     public static function execute()
     {
-        if (time() > (int) file_get_contents(ROOT . '/cron/timestamp') + 20 * 60) {
-            foreach (self::$_tasks as $task) {
-                forward_static_call([__CLASS__, $task]);
-            }
+        $iniFile = parse_ini_file(ROOT . '/cron/timestamp.ini');
 
-            file_put_contents(ROOT . '/cron/timestamp', time());
+        foreach (self::$_tasks as $task => $time)
+        {
+            if (time() > $iniFile[$task] + $time) {
+                forward_static_call([__CLASS__, $task]);
+                $iniFile[$task] = time();
+                self::writeIniFile($iniFile, ROOT . '/cron/timestamp.ini');
+            }
         }
     }
 
-    private static function cleanIp()
+    private static function writeIniFile($array, $file)
+    {
+        $result = [];
+
+        foreach($array as $key => $value)
+        {
+            $result[] = $key . '=' . $value;
+        }
+
+        if ($filePointer = fopen($file, 'w')) {
+            fwrite($filePointer, implode("\r\n", $result));
+            fclose($filePointer);
+        }
+    }
+
+    private static function flushContact()
     {
         ContactModel::deleteAll();
+    }
+
+    private static function flushLike()
+    {
+        LikeModel::deleteAll();
     }
 
 }

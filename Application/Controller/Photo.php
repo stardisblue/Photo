@@ -72,14 +72,17 @@ class Photo extends Controller
 
         if (LikeModel::liked(String::hash($_SERVER['REMOTE_ADDR']), $photoId) === false) {
             $photo = PhotoModel::select($photoId);
-            PhotoModel::update($photoId, ['photo_like' => $photo->photo_like + 1]);
 
-            LikeModel::insert([
-                'photo_id' => $photoId,
-                'like_ip' => String::hash($_SERVER['REMOTE_ADDR'])
-            ]);
+            if ($photo !== false) {
+                PhotoModel::update($photoId, ['photo_like' => $photo->photo_like + 1]);
 
-            echo PhotoModel::select($photoId)->photo_like;
+                LikeModel::insert([
+                    'photo_id' => $photoId,
+                    'like_ip' => String::hash($_SERVER['REMOTE_ADDR'])
+                ]);
+
+                echo PhotoModel::select($photoId)->photo_like;
+            }
         } else {
             echo 'BAN';
         }

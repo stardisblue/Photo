@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `rave_photo` (
 CREATE TABLE IF NOT EXISTS `rave_comment` (
   `photo_id` INT(11) NOT NULL,
   `comment_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `comment_ip` VARCHAR(128) NOT NULL,
   `comment_author` VARCHAR(200) NOT NULL,
   `comment_message` VARCHAR(1000) NOT NULL,
   `comment_publication` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -39,9 +40,9 @@ CREATE TABLE IF NOT EXISTS `rave_identify`(
   `tag_id` INT(11) NOT NULL,
   `photo_id` INT(11) NOT NULL,
   FOREIGN KEY (`tag_id`) REFERENCES `rave_tag` (`tag_id`)
-  ON DELETE CASCADE ON UPDATE CASCADE,
+    ON DELETE CASCADE ON UPDATE CASCADE,
   FOREIGN KEY (`photo_id`) REFERENCES `rave_photo` (`photo_id`)
-  ON DELETE CASCADE ON UPDATE CASCADE,
+    ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (`tag_id`, `photo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -49,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `rave_like` (
   `like_ip` VARCHAR(128) NOT NULL,
   `photo_id` INT(11) NOT NULL,
   FOREIGN KEY (`photo_id`) REFERENCES `rave_photo` (`photo_id`)
-  ON DELETE CASCADE ON UPDATE CASCADE,
+    ON DELETE CASCADE ON UPDATE CASCADE,
   PRIMARY KEY (`like_ip`, `photo_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

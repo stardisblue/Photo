@@ -85,7 +85,7 @@
 
                                             <div id="respond" class="comment-respond">
                                                 <h3 id="reply-title" class="comment-reply-title">Leave a Comment!</h3>
-                                                <form action="<?= WEB_ROOT ?>/comment/add/<?= $photo->photo_id ?>" method="post" id="commentform" class="comment-form">
+                                                <form action="#" method="post" id="commentform" class="comment-form">
                                                     <p class="comment-notes">Required fields are marked <span class="required">*</span></p>
                                                     <label class="label-name"></label><input type="text" placeholder="Name *" title="Name *" id="author" name="author" class="form_field">
                                                     <label class="label-message"></label><textarea name="message" cols="45" rows="5" placeholder="Message..." id="comment-message" class="form_field"></textarea>
@@ -123,31 +123,31 @@
 </footer>
 
 <div class="content_bg"></div>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/$-ui.min.js"></script>
 <script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/modules.js"></script>
 <script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/theme.js"></script>
 <script>
-    jQuery(document).ready(function(){
+    $(document).ready(function(){
         "use strict";
-        jQuery('.commentlist').find('li').each(function(){
-            if (jQuery(this).find('ul').size() > 0) {
-                jQuery(this).addClass('has_ul');
+        $('.commentlist').find('li').each(function(){
+            if ($(this).find('ul').size() > 0) {
+                $(this).addClass('has_ul');
             }
         });
-        jQuery('.form-allowed-tags').width(jQuery('#commentform').width() - jQuery('.form-submit').width() - 13);
+        $('.form-allowed-tags').width($('#commentform').width() - $('.form-submit').width() - 13);
 
-        jQuery('.pf_output_container').each(function(){
-            if (jQuery(this).html() == '') {
-                jQuery(this).parents('.blog_post_page').addClass('no_pf');
+        $('.pf_output_container').each(function(){
+            if ($(this).html() == '') {
+                $(this).parents('.blog_post_page').addClass('no_pf');
             } else {
-                jQuery(this).parents('.blog_post_page').addClass('has_pf');
+                $(this).parents('.blog_post_page').addClass('has_pf');
             }
         });
 
     });
-    jQuery(window).resize(function(){
+    $(window).resize(function(){
         "use strict";
-        jQuery('.form-allowed-tags').width(jQuery('#commentform').width() - jQuery('.form-submit').width() - 13);
+        $('.form-allowed-tags').width($('#commentform').width() - $('.form-submit').width() - 13);
     });
 
     $('#ajax_like').click(function(event) {
@@ -164,6 +164,27 @@
                 } else {
                     $('#ajax_like span').html(result);
                     alert('Thanks for liking :)');
+                }
+            }
+        });
+    });
+
+    $('#commentform').submit(function(event) {
+        event.preventDefault();
+
+        var url = '<?= WEB_ROOT ?>/comment/add/<?= $photo->photo_id ?>';
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: $('#commentform').serialize(),
+            success: function(result) {
+                if (result === 'BAN') {
+                    alert('Enough comments for today :)');
+                } else if (result === 'ERROR') {
+                    alert('Please write a message');
+                } else {
+                    location.reload();
                 }
             }
         });
