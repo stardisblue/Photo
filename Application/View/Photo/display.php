@@ -25,25 +25,13 @@
                                                 </div>
                                                 <div class="author_ava"><img alt="" src="img/avatar/2.jpg" class="avatar" height="72" width="72" /></div>
                                             </div>
-                                            <h3 class="blogpost_title"><?= $photo->photo_title ?></h3>
+                                            <h3 class="blogpost_title"><?= $parser->parse($photo->photo_title) ?></h3>
                                         </div>
 
                                         <div class="blog_post_content">
                                             <article class="contentarea sp_contentarea">
                                                 <div class="row">
-                                                    <div class="span12 first-module module_number_1 module_cont pb20 module_text_area">
-                                                        <div class="module_content">
-                                                            <p>Donec tempus velit eleifend, sagittis dolor et, commodo neque. Suspendisse sit amet neque laoreet est facilisis vulputate ut congue lectus. Integer eget ligula euismod, cursus turpis vel, malesuada metus. Nullam a ipsum eget elit ultricies interdum. Donec fringilla elit quis tortor faucibus, id condimentum tortor consequat. Sed aliquet lectus ante, nec molestie metus porttitor condimentum. Donec porttitor libero nisl, a laoreet diam volutpat sit amet.</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="span12 module_number_3 module_cont pb0 module_text_area">
-                                                        <div class="module_content">
-                                                            <p>Phasellus varius quam placerat velit vestibulum congue. Nullam pharetra vulputate sagittis. Vestibulum id aliquet eros. Etiam malesuada nulla libero, eu dictum risus convallis vel. Morbi tincidunt dapibus dolor id varius. Sed et suscipit sapien, a fermentum est. Donec ac massa quam. Ut posuere orci rhoncus varius gravida. Fusce ipsum arcu, tempor sit amet augue venenatis, varius sollicitudin enim. Nullam sed auctor nunc. Proin sapien odio, facilisis vitae diam sit amet, vulputate dictum dui. Suspendisse non nisl et erat condimentum tempor ac sit amet arcu.</p>
-                                                            <p>Duis et sagittis felis. Fusce sit amet luctus dui, ultricies tincidunt lacus. Phasellus porttitor, tortor in iaculis dapibus, quam nisi hendrerit justo, ut facilisis enim eros vel justo. Quisque luctus pellentesque dolor vitae adipiscing. Phasellus et varius nisl. Sed quis dapibus nulla, vel pellentesque magna. Pellentesque quis turpis vitae felis vehicula scelerisque vel eu neque. Suspendisse tincidunt, lacus nec tempus pellentesque, turpis felis pulvinar enim, id fringilla mi nulla nec turpis. Morbi elit mi, cursus et lectus in, pharetra ornare quam.</p>
-                                                        </div>
-                                                    </div><!-- .module_cont -->
+                                                    <?= $parser->parse($photo->photo_description) ?>
                                                 </div>
                                             </article>
                                         </div>
@@ -60,8 +48,10 @@
                                             <div class="block_likes">
                                                 <div class="post-views"><i class="stand_icon icon-eye"></i> <span><?= $photo->photo_visit ?></span></div>
                                                 <div class="gallery_likes gallery_likes_add ">
-                                                    <i class="stand_icon icon-heart-o"></i>
-                                                    <span><?= $photo->photo_like ?></span>
+                                                    <a href="#" id="ajax_like">
+                                                        <i class="stand_icon icon-heart-o"></i>
+                                                        <span><?= $photo->photo_like ?></span>
+                                                    </a>
                                                 </div>
                                             </div>
 
@@ -82,9 +72,9 @@
                                                             <div class="thiscommentbody">
                                                                 <div class="comment_info">
                                                                     <h6 class="author_name"><?= $comment->comment_author ?></h6>
-                                                                    <h6 class="date"><?= $comment->comment_publication ?></h6>
+                                                                    <h6 class="date"><?= $comment->comment_date ?></h6>
                                                                 </div>
-                                                                <p><?= $comment->comment_message ?></p>
+                                                                <p><?= $parser->parse($comment->comment_message) ?></p>
                                                             </div>
                                                             <div class="clear"></div>
                                                     </li>
@@ -99,37 +89,33 @@
                                                     <p class="comment-notes">Required fields are marked <span class="required">*</span></p>
                                                     <label class="label-name"></label><input type="text" placeholder="Name *" title="Name *" id="author" name="author" class="form_field">
                                                     <label class="label-message"></label><textarea name="message" cols="45" rows="5" placeholder="Message..." id="comment-message" class="form_field"></textarea>
-                                                    <p class="form-allowed-tags">You may use these <abbr title="HyperText Markup Language">HTML</abbr> tags and attributes:  <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></p>
+                                                    <p class="form-allowed-tags">You may use these <abbr title="Markdown">Markdown</abbr> tags: <code>[This is an example inline link](yoururl.com) or **message** for strong front</code></p>
                                                     <p class="form-submit"><input name="submit" type="submit" id="submit" value="Post Comment" /></p>
                                                 </form>
-                                            </div><!-- #respond -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
-                            </div><!-- .contentarea -->
+                            </div>
                         </div>
                     </div>
                     <div class="clear"></div>
-                </div><!-- .fl-container -->
+                </div>
                 <div class="clear"></div>
             </div>
-        </div><!-- .container -->
-    </div><!-- .content_wrapper -->
-</div><!-- .main_wrapper -->
+        </div>
+    </div>
+</div>
 
 <footer>
     <div class="footer_wrapper container">
-        <div class="copyright">Copyright &copy; 2014 Oyster HTML Template. All Rights Reserved.</div>
+        <div class="copyright">Copyright &copy; KaiserCoder. Made with Oyster HTML Template. All Rights Reserved.</div>
         <div class="socials_wrapper">
             <ul class="socials_list">
-                <li><a class="ico_social_dribbble" target="_blank" href="http://dribbble.com/" title="Dribbble"></a></li>
                 <li><a class="ico_social_gplus" target="_blank" href="https://plus.google.com/" title="Google+"></a></li>
-                <li><a class="ico_social_vimeo" target="_blank" href="https://vimeo.com/" title="Vimeo"></a></li>
-                <li><a class="ico_social_pinterest" target="_blank" href="http://pinterest.com" title="Pinterest"></a></li>
                 <li><a class="ico_social_facebook" target="_blank" href="http://facebook.com" title="Facebook"></a></li>
-                <li><a class="ico_social_twitter" target="_blank" href="http://twitter.com" title="Twitter"></a></li>
-                <li><a class="ico_social_instagram" target="_blank" href="http://instagram.com" title="Instagram"></a></li>
+                <li><a class="ico_social_500px" target="_blank" href="http://500px.com" title="500px"></a></li>
             </ul>
         </div>
         <div class="clear"></div>
@@ -162,5 +148,24 @@
     jQuery(window).resize(function(){
         "use strict";
         jQuery('.form-allowed-tags').width(jQuery('#commentform').width() - jQuery('.form-submit').width() - 13);
+    });
+
+    $('#ajax_like').click(function(event) {
+        event.preventDefault();
+
+        var url = '<?= WEB_ROOT ?>/photo/like/<?= $photo->photo_id ?>';
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            success: function(result) {
+                if (result === 'BAN') {
+                    alert('You already liked this photo');
+                } else {
+                    $('#ajax_like span').html(result);
+                    alert('Thanks for liking :)');
+                }
+            }
+        });
     });
 </script>

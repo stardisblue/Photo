@@ -3,13 +3,17 @@
 use Rave\Core\Controller;
 
 use Rave\Library\Core\IO\In;
+use Rave\Library\Core\Security\String;
+use Rave\Library\Core\Parser\Parsedown;
 
 use Rave\Application\Model\TagModel;
+use Rave\Application\Model\LikeModel;
 use Rave\Application\Model\PhotoModel;
 use Rave\Application\Model\CommentModel;
 
 class Photo extends Controller
 {
+    const COMMENT_LIMIT = 10;
 
     public function __construct()
     {
@@ -44,25 +48,41 @@ class Photo extends Controller
             $this->redirect('photo');
         }
 
+        $parser = Parsedown::instance();
+
         $tags = TagModel::selectPhotoTag($photoId);
-        $comments = CommentModel::selectById($photoId);
+        $comments = CommentModel::selectById($photoId, self::COMMENT_LIMIT);
         PhotoModel::update($photoId, ['photo_visit' => $photo->photo_visit + 1]);
 
         $this->loadView('display', [
             'tags' => $tags,
             'photo' => $photo,
-            'comments' => $comments
+            'parser' => $parser,
+            'comments' => $comments,
         ]);
     }
 
     public function like($id)
     {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $this->redirect('photo');
+        }
+
         $photoId = is_numeric($id) ? (int) $id : 0;
 
-        $photo = PhotoModel::select($photoId);
-        PhotoModel::update($photoId, ['photo_like' => $photo->photo_like + 1]);
+        if (LikeModel::liked(String::hash($_SERVER['REMOTE_ADDR']), $photoId) === false) {
+            $photo = PhotoModel::select($photoId);
+            PhotoModel::update($photoId, ['photo_like' => $photo->photo_like + 1]);
 
-        $this->redirect('photo');
+            LikeModel::insert([
+                'photo_id' => $photoId,
+                'like_ip' => String::hash($_SERVER['REMOTE_ADDR'])
+            ]);
+
+            echo PhotoModel::select($photoId)->photo_like;
+        } else {
+            echo 'BAN';
+        }
     }
 
     public function search()

@@ -21,7 +21,7 @@
                         <div class="block_likes">
                             <div class="post-views"><i class="stand_icon icon-eye"></i> <span><?= $photo->photo_visit ?></span></div>
                             <div class="gallery_likes gallery_likes_add already_liked">
-                                <a href="<?= WEB_ROOT ?>/photo/like/<?= $photo->photo_id ?>">
+                                <a id="ajax_like<?= $photo->photo_id ?>" onclick="ajaxLike(<?= $photo->photo_id ?>)">
                                     <i class="stand_icon icon-heart"></i>
                                     <span><?= $photo->photo_like ?></span>
                                 </a>
@@ -34,6 +34,7 @@
     </div>
 </div>
 <div class="preloader"></div>
+
 <footer class="fullwidth">
     <div class="footer_wrapper">
         <div class="copyright">Copyright &copy; KaiserCoder. Made with Oyster HTML Template. All Rights Reserved.</div>
@@ -47,6 +48,7 @@
         <div class="clear"></div>
     </div>
 </footer>
+
 <div class="content_bg"></div>
 <script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/modules.js"></script>
@@ -54,11 +56,28 @@
 <script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/jquery.isotope.min.js"></script>
 <script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/sorting.js"></script>
 <script type="text/javascript">
-    jQuery(document).ready(function($){
+    $(document).ready(function() {
         "use strict";
         setTimeout(function(){
-            jQuery('.fullscreen_block').removeClass('hided');
-        },2500);
-        setTimeout("jQuery('.preloader').remove()", 2700);
+            $('.fullscreen_block').removeClass('hided');
+        }, 2500);
+        setTimeout("$('.preloader').remove()", 2700);
     });
+
+    var ajaxLike = function(id) {
+        var url = '<?= WEB_ROOT ?>/photo/like/' + id;
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            success: function(result) {
+                if (result === 'BAN') {
+                    alert('You already liked this photo');
+                } else {
+                    $('#ajax_like' + id + ' span').html(result);
+                    alert('Thanks for liking :)');
+                }
+            }
+        });
+    };
 </script>

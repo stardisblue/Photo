@@ -14,11 +14,11 @@
                                                 <div id="note"></div>
                                                 <div id="fields">
                                                     <form id="ajax-contact-form" action="#">
-                                                        <div class="w50 pr7"><input type="text" name="name" value="" placeholder="Name *" /></div>
-                                                        <div class="w50"><input type="text" name="email" value="" placeholder="Email *" /></div>
+                                                        <div class="w50 pr7"><input type="text" name="name" value="" placeholder="Name" /></div>
+                                                        <div class="w50"><input type="text" name="email" value="" placeholder="Email" /></div>
                                                         <div class="clear"></div>
                                                         <input type="text" name="subject" value="" placeholder="Subject" />
-                                                        <textarea name="message" id="message" placeholder="Message *"></textarea>
+                                                        <textarea name="message" id="message" placeholder="Message"></textarea>
                                                         <input type="submit" value="Send a message">
                                                     </form>
                                                 </div>
@@ -30,31 +30,13 @@
                                                 <li class="contact_info_item">
                                                     <div class="contact_info_wrapper">
                                                         <span class="contact_info_icon"><i class="icon-home"></i></span>
-                                                        <div class="contact_info_text">5512 Lorem Vestibulum 666/13</div>
-                                                    </div>
-                                                </li>
-                                                <li class="contact_info_item">
-                                                    <div class="contact_info_wrapper">
-                                                        <span class="contact_info_icon"><i class="icon-phone"></i></span>
-                                                        <div class="contact_info_text">+1 800 789 50 12</div>
+                                                        <div class="contact_info_text">Montpellier / France</div>
                                                     </div>
                                                 </li>
                                                 <li class="contact_info_item">
                                                     <div class="contact_info_wrapper">
                                                         <span class="contact_info_icon"><i class="icon-envelope"></i></span>
-                                                        <div class="contact_info_text"><a href="#">mail@oyster.com</a></div>
-                                                    </div>
-                                                </li>
-                                                <li class="contact_info_item">
-                                                    <div class="contact_info_wrapper">
-                                                        <span class="contact_info_icon"><i class="icon-skype"></i></span>
-                                                        <div class="contact_info_text">Skype</div>
-                                                    </div>
-                                                </li>
-                                                <li class="contact_info_item">
-                                                    <div class="contact_info_wrapper">
-                                                        <span class="contact_info_icon"><i class="icon-twitter"></i></span>
-                                                        <div class="contact_info_text"><a href="#">Twitter</a></div>
+                                                        <div class="contact_info_text"><a href="mailto:contact@florianpascual.com">contact@florianpascual.com</a></div>
                                                     </div>
                                                 </li>
                                                 <li class="contact_info_item">
@@ -65,30 +47,12 @@
                                                 </li>
                                                 <li class="contact_info_item">
                                                     <div class="contact_info_wrapper">
-                                                        <span class="contact_info_icon"><i class="icon-dribbble"></i></span>
-                                                        <div class="contact_info_text"><a href="#">Dribbble</a></div>
-                                                    </div>
-                                                </li>
-                                                <li class="contact_info_item">
-                                                    <div class="contact_info_wrapper">
                                                         <span class="contact_info_icon"><i class="icon-flickr"></i></span>
                                                         <div class="contact_info_text"><a href="#">Flickr</a></div>
                                                     </div>
                                                 </li>
-                                                <li class="contact_info_item">
-                                                    <div class="contact_info_wrapper">
-                                                        <span class="contact_info_icon"><i class="icon-youtube-play"></i></span>
-                                                        <div class="contact_info_text"><a href="#">YouTube</a></div>
-                                                    </div>
-                                                </li>
-                                                <li class="contact_info_item">
-                                                    <div class="contact_info_wrapper">
-                                                        <span class="contact_info_icon"><i class="icon-pinterest"></i></span>
-                                                        <div class="contact_info_text"><a href="#">Pinterest</a></div>
-                                                    </div>
-                                                </li>
                                             </ul>
-                                        </div><!-- .module_cont -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>

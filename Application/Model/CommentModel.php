@@ -11,9 +11,9 @@ class CommentModel extends Model
 
     protected static $primary = 'comment_id';
 
-    public static function selectById($id)
+    public static function selectById($id, $limit)
     {
-        return self::_getInstance()->query('SELECT * FROM ' . self::$table . ' WHERE photo_id = :photo_id', [':photo_id' => $id]);
+        return self::_getInstance()->query('SELECT comment_id, comment_author, comment_message, DATE_FORMAT(comment_publication, \'%d/%m/%Y %k:%i\') AS comment_date FROM ' . self::$table . ' WHERE photo_id = :photo_id ORDER BY comment_publication DESC LIMIT ' . $limit, [':photo_id' => $id]);
     }
 
 }

@@ -53,7 +53,7 @@ class Admin extends Controller
                 $this->redirect('admin/wrong-login');
             }
         } else {
-            $this->loadView('loginForm');
+            $this->loadView('login_form');
         }
     }
 
@@ -151,7 +151,7 @@ class Admin extends Controller
 
             $this->redirect('admin');
         } else {
-            $this->loadView('addPhoto');
+            $this->loadView('add_photo');
         }
     }
 
@@ -159,7 +159,7 @@ class Admin extends Controller
     {
         $this->check();
         $photos = PhotoModel::selectAll();
-        $this->loadView('managePhoto', ['photos' => $photos]);
+        $this->loadView('manage_photo', ['photos' => $photos]);
     }
 
     public function update_photo($id)
@@ -167,7 +167,7 @@ class Admin extends Controller
         $this->check();
         $photoId = is_numeric($id) ? (int) $id : 0;
 
-        if (In::isSetPost(['title', 'description', 'tags'])) {
+        if (In::isSetPost(['title', 'subtitle', 'description', 'tags'])) {
             PhotoModel::update($photoId, [
                 'photo_title' => In::post('title'),
                 'photo_subtitle' => In::post('subtitle'),
@@ -212,7 +212,7 @@ class Admin extends Controller
                 $tags = rtrim($tags, ', ');
             }
 
-            $this->loadView('updatePhoto', [
+            $this->loadView('update_photo', [
                 'tags' => $tags,
                 'photo' => $photo
             ]);
@@ -234,7 +234,7 @@ class Admin extends Controller
     {
         $this->check();
         $comments = CommentModel::selectAll();
-        $this->loadView('manageComment', ['comments' => $comments]);
+        $this->loadView('manage_comment', ['comments' => $comments]);
     }
 
     public function update_comment($id)
@@ -257,7 +257,7 @@ class Admin extends Controller
                 $this->redirect('admin/manage-comment');
             }
 
-            $this->loadView('updateComment', ['comment' => $comment]);
+            $this->loadView('update_comment', ['comment' => $comment]);
         }
     }
 
@@ -271,27 +271,27 @@ class Admin extends Controller
 
     public function wrong_login()
     {
-        $this->loadView('wrongLogin');
+        $this->loadView('wrong_login');
     }
 
     public function wrong_password()
     {
-        $this->loadView('wrongPassword');
+        $this->loadView('wrong_password');
     }
 
     public function logout_success()
     {
-        $this->loadView('logoutSuccess');
+        $this->loadView('logout_success');
     }
 
     public function logout_error()
     {
-        $this->loadView('logoutError');
+        $this->loadView('logout_error');
     }
 
     public function modification_success()
     {
-        $this->loadView('modificationSuccess');
+        $this->loadView('modification_success');
     }
 
     private function check()
