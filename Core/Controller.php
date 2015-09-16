@@ -57,10 +57,12 @@ abstract class Controller
             extract(array_merge($this->data, $data));
         }
 
-        $file = ROOT . '/Application/View/' . get_class($this) . '/' . $view . '.php';
+        $controller = explode('\\', get_class($this));
+
+        $file = ROOT . '/Application/View/' . end($controller) . '/' . $view . '.php';
 
         ob_start();
-        
+
         if (file_exists($file)) {
             include_once $file;
         } else {

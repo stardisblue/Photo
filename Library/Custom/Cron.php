@@ -14,30 +14,15 @@ class Cron
 
     public static function execute()
     {
-        $iniFile = parse_ini_file(ROOT . '/cron/timestamp.ini');
+        $json = json_decode(file_get_contents(ROOT . '/cron/timestamp.json'));
 
         foreach (self::$_tasks as $task => $time)
         {
-            if (time() > $iniFile[$task] + $time) {
+            if (time() > $json->$task + $time) {
                 forward_static_call([__CLASS__, $task]);
-                $iniFile[$task] = time();
-                self::writeIniFile($iniFile, ROOT . '/cron/timestamp.ini');
+                $json->$task = time();
+                file_put_contents(ROOT . '/cron/timestamp.json', json_encode($json));
             }
-        }
-    }
-
-    private static function writeIniFile($array, $file)
-    {
-        $result = [];
-
-        foreach($array as $key => $value)
-        {
-            $result[] = $key . '=' . $value;
-        }
-
-        if ($filePointer = fopen($file, 'w')) {
-            fwrite($filePointer, implode("\r\n", $result));
-            fclose($filePointer);
         }
     }
 

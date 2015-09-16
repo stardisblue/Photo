@@ -1,5 +1,7 @@
 <?php
 
+namespace Rave\Application\Controller;
+
 use Rave\Core\Error;
 use Rave\Core\Controller;
 
@@ -29,9 +31,9 @@ class Admin extends Controller
     public function index()
     {
         if (Session::check('admin')) {
-            $this->redirect('admin/manage');
+            $this->redirect('admin-manage');
         } else {
-            $this->redirect('admin/login');
+            $this->redirect('admin-login');
         }
     }
     
@@ -45,12 +47,12 @@ class Admin extends Controller
                     Session::login('admin');
                     Session::set('login', $admin->admin_login);
 
-                    $this->redirect('admin/manage');
+                    $this->redirect('admin-manage');
                 } else {
-                    $this->redirect('admin/wrong-password');
+                    $this->redirect('admin-wrong-password');
                 }
             } else {
-                $this->redirect('admin/wrong-login');
+                $this->redirect('admin-wrong-login');
             }
         } else {
             $this->loadView('login_form');
@@ -59,9 +61,9 @@ class Admin extends Controller
 
     public function logout()
     {
-        $this->check('admin/logout-error');
+        $this->check('admin');
         Session::delete('admin');
-        $this->redirect('admin/logout-success');
+        $this->redirect('admin-logout-success');
     }
     
     public function manage()
@@ -88,21 +90,21 @@ class Admin extends Controller
 
                     Session::set('login', In::post('login'));
 
-                    $this->redirect('admin/modification-success');
+                    $this->redirect('admin-modification-success');
                 } else {
-                    $this->redirect('admin/wrong-password');
+                    $this->redirect('admin-wrong-password');
                 }
             } else {
                 AdminModel::update($login, ['admin_login' => In::post('login')]);
                 Session::set('login', In::post('login'));
             }
-            $this->redirect('admin/modification-success');
+            $this->redirect('admin-modification-success');
         } else {
             $this->loadView('account', ['login' => trim($login)]);
         }
     }
 
-    public function add_photo()
+    public function addPhoto()
     {
         $this->check();
 
@@ -155,14 +157,14 @@ class Admin extends Controller
         }
     }
 
-    public function manage_photo()
+    public function managePhoto()
     {
         $this->check();
         $photos = PhotoModel::selectAll();
         $this->loadView('manage_photo', ['photos' => $photos]);
     }
 
-    public function update_photo($id)
+    public function updatePhoto($id)
     {
         $this->check();
         $photoId = is_numeric($id) ? (int) $id : 0;
@@ -192,12 +194,12 @@ class Admin extends Controller
                 ]);
             }
 
-            $this->redirect('admin/manage-photo');
+            $this->redirect('admin-manage-photo');
         } else {
             $photo = PhotoModel::select($photoId);
 
             if ($photo === false) {
-                $this->redirect('admin/manage-photo');
+                $this->redirect('admin-manage-photo');
             }
 
             $tags = null;
@@ -219,7 +221,7 @@ class Admin extends Controller
         }
     }
 
-    public function delete_photo($id)
+    public function deletePhoto($id)
     {
         $this->check();
         $photoId = is_numeric($id) ? (int) $id : 0;
@@ -227,17 +229,17 @@ class Admin extends Controller
         PhotoModel::delete($photoId);
         unlink(ROOT . '/public/img/photo/' . $photo->photo_name);
         unlink(ROOT . '/public/img/photo/gallery/' . $photo->photo_name);
-        $this->redirect('admin/manage-photo');
+        $this->redirect('admin-manage-photo');
     }
 
-    public function manage_comment()
+    public function manageComment()
     {
         $this->check();
         $comments = CommentModel::selectAll();
         $this->loadView('manage_comment', ['comments' => $comments]);
     }
 
-    public function update_comment($id)
+    public function updateComment($id)
     {
         $this->check();
         $commentId = is_numeric($id) ? (int) $id : 0;
@@ -249,47 +251,47 @@ class Admin extends Controller
                 'comment_content' => String::clean(In::post('content'))
             ]);
 
-            $this->redirect('admin/manage-comment');
+            $this->redirect('admin-manage-comment');
         } else {
             $comment = CommentModel::select($commentId);
 
             if ($comment === false) {
-                $this->redirect('admin/manage-comment');
+                $this->redirect('admin-manage-comment');
             }
 
             $this->loadView('update_comment', ['comment' => $comment]);
         }
     }
 
-    public function delete_comment($id)
+    public function deleteComment($id)
     {
         $this->check();
         $commentId = is_numeric($id) ? (int) $id : 0;
         CommentModel::delete($commentId);
-        $this->redirect('admin/manage-comment');
+        $this->redirect('admin-manage-comment');
     }
 
-    public function wrong_login()
+    public function wrongLogin()
     {
         $this->loadView('wrong_login');
     }
 
-    public function wrong_password()
+    public function wrongPassword()
     {
         $this->loadView('wrong_password');
     }
 
-    public function logout_success()
+    public function logoutSuccess()
     {
         $this->loadView('logout_success');
     }
 
-    public function logout_error()
+    public function logoutError()
     {
         $this->loadView('logout_error');
     }
 
-    public function modification_success()
+    public function modificationSuccess()
     {
         $this->loadView('modification_success');
     }

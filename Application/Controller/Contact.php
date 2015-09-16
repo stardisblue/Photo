@@ -1,5 +1,7 @@
 <?php
 
+namespace Rave\Application\Controller;
+
 use Rave\Core\Controller;
 
 use Rave\Config\Config;

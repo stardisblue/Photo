@@ -1,5 +1,7 @@
 <?php
 
+namespace Rave\Application\Controller;
+
 require_once 'Photo.php';
 
 use Rave\Core\Controller;
