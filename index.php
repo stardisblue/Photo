@@ -91,6 +91,14 @@ $router->get('/admin-update-comment-:id', 'Admin#updateComment')->with('id', '([
 
 $router->post('/admin-update-comment-:id', 'Admin#updateComment')->with('id', '([0-9]{0,6})');
 
+$router->get('/admin-wrong-login', 'Admin#wrongLogin');
+
+$router->get('/admin-wrong-password', 'Admin#wrongPassword');
+
+$router->get('/admin-logout-success', 'Admin#logoutSuccess');
+
+$router->get('/admin-logout-error', 'Admin#logoutError');
+
 $router->get('/admin-modification-success', 'Admin#modificationSuccess');
 
 /**
