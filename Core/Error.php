@@ -39,15 +39,15 @@ class Error
         switch ($errorCode) {
             case '403':
                 header('HTTP/1.0 403 Forbidden');
-                header('Location: ' . Config::getError('403'));
+                header('Location: ' . WEB_ROOT . '/' . Config::getError('403'));
                 break;
             case '404':
                 header('HTTP/1.0 404 Not Found');
-                header('Location: ' . Config::getError('404'));
+                header('Location: ' . WEB_ROOT . '/' . Config::getError('404'));
                 break;
             case '500':
                 header('HTTP/1.0 500 Internal Server Error');
-                header('Location: ' . Config::getError('500'));
+                header('Location: ' . WEB_ROOT . '/' . Config::getError('500'));
                 break;
         }
         die();

@@ -2,6 +2,8 @@
 
 namespace Rave\Application\Controller;
 
+use Exception;
+
 use Rave\Core\Error;
 use Rave\Core\Controller;
 
@@ -244,11 +246,10 @@ class Admin extends Controller
         $this->check();
         $commentId = is_numeric($id) ? (int) $id : 0;
 
-        if (In::isSetPost(['title', 'author', 'content'])) {
+        if (In::isSetPost(['author', 'message'])) {
             CommentModel::update($commentId, [
-                'comment_title' => In::post('title'),
                 'comment_author' => In::post('author'),
-                'comment_content' => String::clean(In::post('content'))
+                'comment_message' => String::clean(In::post('message'))
             ]);
 
             $this->redirect('admin-manage-comment');

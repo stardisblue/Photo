@@ -11,8 +11,8 @@
             <?php foreach ($photos as $photo): ?>
                 <tr>
                     <td><?= $photo->photo_title ?></td>
-                    <td><a href="<?= WEB_ROOT ?>/admin-update-photo/<?= $photo->photo_id ?>">Update</a></td>
-                    <td><a href="<?= WEB_ROOT ?>/admin-delete-photo/<?= $photo->photo_id ?>">X</a></td>
+                    <td><a href="<?= WEB_ROOT ?>/admin-update-photo-<?= $photo->photo_id ?>">Update</a></td>
+                    <td><a href="<?= WEB_ROOT ?>/admin-delete-photo-<?= $photo->photo_id ?>">X</a></td>
                 </tr>
             <?php endforeach ?>
         </tbody>

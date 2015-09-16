@@ -77,6 +77,20 @@ $router->post('/admin-add-photo', 'Admin#addPhoto');
 
 $router->get('/admin-manage-photo', 'Admin#managePhoto');
 
+$router->get('/admin-manage-comment', 'Admin#manageComment');
+
+$router->get('/admin-delete-photo-:id', 'Admin#deletePhoto')->with('id', '([0-9]{0,6})');
+
+$router->get('/admin-delete-comment-:id', 'Admin#deleteComment')->with('id', '([0-9]{0,6})');
+
+$router->get('/admin-update-photo-:id', 'Admin#updatePhoto')->with('id', '([0-9]{0,6})');
+
+$router->post('/admin-update-photo-:id', 'Admin#updatePhoto')->with('id', '([0-9]{0,6})');
+
+$router->get('/admin-update-comment-:id', 'Admin#updateComment')->with('id', '([0-9]{0,6})');
+
+$router->post('/admin-update-comment-:id', 'Admin#updateComment')->with('id', '([0-9]{0,6})');
+
 $router->get('/admin-modification-success', 'Admin#modificationSuccess');
 
 /**
