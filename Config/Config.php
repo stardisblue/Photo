@@ -17,7 +17,7 @@ class Config
      * @var boolean
      *  Vrai si mode debug, faux si mode production
      */
-    private static $_debug = false;
+    private static $_debug = true;
     
     /**
      * Attribut déterminant le driver de base de données
@@ -59,9 +59,9 @@ class Config
      *  pour chaque type d'erreur
      */
     private static $_error = [
-        '500' => 'error/internal-server-error',
-        '404' => 'error/not-found',
-        '403' => 'error/forbidden'
+        '500' => 'internal-server-error',
+        '404' => 'not-found',
+        '403' => 'forbidden'
     ];
 
     private static $_session = [

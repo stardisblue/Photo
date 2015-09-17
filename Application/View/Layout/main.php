@@ -36,7 +36,7 @@
                 </div>
                 <div class="search_fadder"></div>
                 <div class="header_search">
-                    <form name="search_form" method="post" action="<?= WEB_ROOT ?>/photo/search" class="search_form">
+                    <form name="search_form" method="post" action="<?= WEB_ROOT ?>/search" class="search_form">
                         <input type="text" name="search" placeholder="Search the site..." class="field_search">
                     </form>
                 </div>

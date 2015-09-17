@@ -1,7 +1,7 @@
 <div class="wrapper404">
     <div class="container404">
         <h1 class="title404">404 Error</h1>
-        <form name="search_field" method="post" action="<?= WEB_ROOT ?>/photo/search" class="search_form search404">
+        <form name="search_field" method="post" action="<?= WEB_ROOT ?>/search" class="search_form search404">
             <input type="text" name="search" class="field_search">
             <a href="javascript:void(0);" class="search_button"><i class="icon-search"></i>Search</a>
         </form>

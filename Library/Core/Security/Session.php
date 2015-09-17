@@ -67,7 +67,7 @@ class Session
      */
     public static function get($session)
     {
-        return isset($_SESSION[$session]) ? mcrypt_decrypt(Config::getEncryption('cypher'), Config::getEncryption('key'), base64_decode($_SESSION[$session]), Config::getEncryption('mode'), hex2bin(Config::getEncryption('iv'))) : null;
+        return isset($_SESSION[$session]) ? trim(mcrypt_decrypt(Config::getEncryption('cypher'), Config::getEncryption('key'), base64_decode($_SESSION[$session]), Config::getEncryption('mode'), hex2bin(Config::getEncryption('iv')))) : null;
     }
 
     /**

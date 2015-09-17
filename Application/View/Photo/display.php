@@ -153,7 +153,7 @@
     $('#ajax_like').click(function(event) {
         event.preventDefault();
 
-        var url = '<?= WEB_ROOT ?>/photo/like/<?= $photo->photo_id ?>';
+        var url = '<?= WEB_ROOT ?>/photo-like-<?= $photo->photo_id ?>';
 
         $.ajax({
             url: url,
@@ -172,7 +172,7 @@
     $('#commentform').submit(function(event) {
         event.preventDefault();
 
-        var url = '<?= WEB_ROOT ?>/comment/add/<?= $photo->photo_id ?>';
+        var url = '<?= WEB_ROOT ?>/comment-add-<?= $photo->photo_id ?>';
 
         $.ajax({
             url: url,

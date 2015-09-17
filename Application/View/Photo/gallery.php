@@ -10,14 +10,14 @@
             <div class="blogpost_preview_fw element<?php foreach ($tags[$photo->photo_id] as $tag) { echo ' ' . $tag->tag_name; } ?>">
                 <div class="fw_preview_wrapper">
                     <div class="gallery_item_wrapper">
-                        <a href="<?= WEB_ROOT ?>/photo/display/<?= $photo->photo_id ?>" >
+                        <a href="<?= WEB_ROOT ?>/photo-display-<?= $photo->photo_id ?>" >
                             <img src="<?= WEB_ROOT ?>/public/img/photo/gallery/<?= $photo->photo_name ?>" alt="" class="fw_featured_image" width="540">
                             <div class="gallery_fadder"></div>
                             <span class="gallery_ico"><i class="stand_icon icon-eye"></i></span>
                         </a>
                     </div>
                     <div class="grid-port-cont">
-                        <h6><a href="<?= WEB_ROOT ?>/photo/display/<?= $photo->photo_id ?>"><?= $photo->photo_title ?></a></h6>
+                        <h6><a href="<?= WEB_ROOT ?>/photo-display-<?= $photo->photo_id ?>"><?= $photo->photo_title ?></a></h6>
                         <div class="block_likes">
                             <div class="post-views"><i class="stand_icon icon-eye"></i> <span><?= $photo->photo_visit ?></span></div>
                             <div class="gallery_likes gallery_likes_add already_liked">
@@ -65,7 +65,7 @@
     });
 
     var ajaxLike = function(id) {
-        var url = '<?= WEB_ROOT ?>/photo/like/' + id;
+        var url = '<?= WEB_ROOT ?>/photo-like-' + id;
 
         $.ajax({
             url: url,

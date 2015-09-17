@@ -1,5 +1,7 @@
 <?php
 
+namespace Rave\Application\Controller;
+
 use Rave\Core\Controller;
 
 class Error extends Controller
@@ -10,19 +12,19 @@ class Error extends Controller
         $this->setLayout('main');
     }
 
-    public function internal_server_error()
+    public function internalServerError()
     {
         $this->loadView('internal_server_error');
-    }
-    
-    public function not_found()
-    {
-        $this->loadView('not_found');
     }
     
     public function forbidden()
     {
         $this->loadView('forbidden');
+    }
+
+    public function notFound()
+    {
+        $this->loadView('not_found');
     }
 
 }
