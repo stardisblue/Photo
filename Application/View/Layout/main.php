@@ -24,20 +24,20 @@
                 <div class="menu-main-menu-container">
                     <ul id="menu-main-menu" class="menu">
                         <li class="menu-item-has-children">
-                            <a href="<?= WEB_ROOT ?>"><span>Home</span></a>
+                            <a href="<?= WEB_ROOT ?>"><span><?= $header->home ?></span></a>
                         </li>
                         <li class="menu-item-has-children">
-                            <a href="<?= WEB_ROOT ?>/photo"><span>Gallery</span></a>
+                            <a href="<?= WEB_ROOT ?>/photo"><span><?= $header->gallery ?></span></a>
                         </li>
                         <li class="menu-item-has-children">
-                            <a href="<?= WEB_ROOT ?>/contact"><span>Contact</span></a>
+                            <a href="<?= WEB_ROOT ?>/contact"><span><?= $header->contact ?></span></a>
                         </li>
                     </ul>
                 </div>
                 <div class="search_fadder"></div>
                 <div class="header_search">
                     <form name="search_form" method="post" action="<?= WEB_ROOT ?>/search" class="search_form">
-                        <input type="text" name="search" placeholder="Search the site..." class="field_search">
+                        <input type="text" name="search" placeholder="<?= $header->search ?>..." class="field_search">
                     </form>
                 </div>
             </nav>
