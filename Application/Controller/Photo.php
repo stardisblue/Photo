@@ -20,6 +20,7 @@ class Photo extends Controller
     public function __construct()
     {
         $this->setLayout('main');
+        $this->setI18n(['header', 'tag', 'ajax']);
     }
 
     public function index()

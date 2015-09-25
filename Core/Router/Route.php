@@ -47,11 +47,11 @@ class Route
 
     public function call()
     {
-        if (is_string($this->_callable)) {
-            $parameters = explode('#', $this->_callable);
+        if (is_array($this->_callable)) {
+            $namespace = 'Rave\\Application\\Controller\\';
 
-            $method = $parameters[self::METHOD_INDEX];
-            $class = 'Rave\\Application\\Controller\\' . $parameters[self::CONTROLLER_INDEX];
+            $method = reset($this->_callable);
+            $class = $namespace . key($this->_callable);
 
             $controller = new $class();
 

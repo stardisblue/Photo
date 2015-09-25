@@ -12,6 +12,7 @@ class Main extends Controller
     public function __construct()
     {
         $this->setLayout('main');
+        $this->setI18n('header');
     }
 
     public function index()

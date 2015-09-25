@@ -2,6 +2,7 @@
 
 namespace Rave\Core;
 
+use Rave\Core\International\I18n;
 use Rave\Core\Exception\IOException;
 
 /**
@@ -29,12 +30,19 @@ abstract class Controller
     protected $data = [];
 
     /**
+     * Activer ou non la localisation
+     * @var bool
+     *  Si vrai, envoie les données du fichier json à la vue
+     */
+    protected $i18n = false;
+
+    /**
      * Nom de la vue chargée en tant que layout
      * @var string/boolean
      *  Nom de la vue, false si l'on ne souhaite pas de layout
      */
     protected $layout = false;
-	
+
     /**
      * Attribut statique contenant le nom
      * du fichier de log courrant
@@ -55,6 +63,21 @@ abstract class Controller
     {
         if (empty($data) === false || empty($this->data) === false) {
             extract(array_merge($this->data, $data));
+        }
+
+        if ($this->i18n !== false) {
+            $i18n = I18n::getInstance();
+
+            if (is_array($this->i18n)) {
+                $values = $i18n->parseMultiple($this->i18n);
+                foreach ($values as $value)
+                {
+                    extract($value);
+                }
+            } else {
+                $values = $i18n->parseSingle($this->i18n);
+                extract($values);
+            }
         }
 
         $controller = explode('\\', get_class($this));
@@ -156,6 +179,14 @@ abstract class Controller
     {
         $this->data = $data;
         $this->layout = file_exists(ROOT . '/Application/View/Layout/' . $layout . '.php') ? $layout : false;
+    }
+
+    /**
+     * Méthode permettant d'activer la localisation
+     */
+    protected function setI18n($file)
+    {
+        $this->i18n = $file;
     }
 
 }

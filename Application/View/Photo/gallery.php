@@ -1,6 +1,6 @@
 <div class="fullscreen_block hided">
     <ul class="optionset" data-option-key="filter">
-        <li class="selected"><a href="#filter" data-option-value="*">All Works</a></li>
+        <li class="selected"><a href="#filter" data-option-value="*"><?= $tag->all ?></a></li>
         <?php foreach ($popularTags as $tag): ?>
             <li><a data-option-value=".<?= $tag->tag_name ?>" href="#filter" title="View all post filed under <?= $tag->tag_name ?>"><?= ucfirst($tag->tag_name) ?></a></li>
         <?php endforeach; ?>
@@ -72,10 +72,10 @@
             method: 'POST',
             success: function(result) {
                 if (result === 'BAN') {
-                    alert('You already liked this photo');
+                    alert("<?= $ajax->ban ?>");
                 } else {
                     $('#ajax_like' + id + ' span').html(result);
-                    alert('Thanks for liking :)');
+                    alert("<?= $ajax->like ?>");
                 }
             }
         });

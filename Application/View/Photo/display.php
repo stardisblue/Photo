@@ -160,10 +160,10 @@
             method: 'POST',
             success: function(result) {
                 if (result === 'BAN') {
-                    alert('You already liked this photo');
+                    alert('<?= $ajax->ban ?>');
                 } else {
                     $('#ajax_like span').html(result);
-                    alert('Thanks for liking :)');
+                    alert('<?= $ajax->like ?>');
                 }
             }
         });
@@ -180,9 +180,9 @@
             data: $('#commentform').serialize(),
             success: function(result) {
                 if (result === 'BAN') {
-                    alert('Enough comments for today :)');
+                    alert("<?= $ajax->enough ?>");
                 } else if (result === 'ERROR') {
-                    alert('Please write a message');
+                    alert("<?= $ajax->empty ?>");
                 } else {
                     location.reload();
                 }
