@@ -20,7 +20,7 @@ class Photo extends Controller
     public function __construct()
     {
         $this->setLayout('main');
-        $this->setI18n(['header', 'tag', 'ajax']);
+        $this->setI18n(true);
     }
 
     public function index()
@@ -67,10 +67,6 @@ class Photo extends Controller
 
     public function like($id)
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            $this->redirect('photo');
-        }
-
         $photoId = is_numeric($id) ? (int) $id : 0;
 
         if (LikeModel::liked(String::hash($_SERVER['REMOTE_ADDR']), $photoId) === false) {

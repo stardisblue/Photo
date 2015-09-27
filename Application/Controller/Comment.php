@@ -16,10 +16,6 @@ class Comment extends Controller
 
     public function add($id)
     {
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            $this->redirect('photo');
-        }
-
         if (In::isSetPost(['author', 'message'])) {
 
             $photoId = is_numeric($id) ? (int) $id : 0;

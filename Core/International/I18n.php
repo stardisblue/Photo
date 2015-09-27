@@ -32,25 +32,13 @@ class I18n
         return self::$_instance;
     }
 
-    public function parseSingle($page)
+    public function parse()
     {
-        if (!isset($this->_parsed[$page])) {
-            $this->_parsed[$this->_language][$page] = json_decode(file_get_contents(ROOT . '/' . self::PATH . '/' . $this->_language . '/' . $page . '.json'));
+        if (!isset($this->_parsed[$this->_language])) {
+            $this->_parsed[$this->_language] = json_decode(file_get_contents(ROOT . '/' . self::PATH . '/' . $this->_language . '.json'));
         }
 
-        return [$page => $this->_parsed[$this->_language][$page]];
-    }
-
-    public function parseMultiple(array $pages)
-    {
-        $values = [];
-
-        foreach ($pages as $page)
-        {
-            $values[] = $this->parseSingle($page);
-        }
-
-        return $values;
+        return ['i18n' => $this->_parsed[$this->_language]];
     }
 
 }

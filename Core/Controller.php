@@ -65,19 +65,9 @@ abstract class Controller
             extract(array_merge($this->data, $data));
         }
 
-        if ($this->i18n !== false) {
+        if ($this->i18n === true) {
             $i18n = I18n::getInstance();
-
-            if (is_array($this->i18n)) {
-                $values = $i18n->parseMultiple($this->i18n);
-                foreach ($values as $value)
-                {
-                    extract($value);
-                }
-            } else {
-                $values = $i18n->parseSingle($this->i18n);
-                extract($values);
-            }
+            extract($i18n->parse());
         }
 
         $controller = explode('\\', get_class($this));
@@ -184,9 +174,9 @@ abstract class Controller
     /**
      * Méthode permettant d'activer la localisation
      */
-    protected function setI18n($file)
+    protected function setI18n($enabled)
     {
-        $this->i18n = $file;
+        $this->i18n = $enabled;
     }
 
 }

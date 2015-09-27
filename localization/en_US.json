@@ -1,0 +1,32 @@
+{
+  "headerHome": "Home",
+  "headerGallery": "Gallery",
+  "headerContact": "Contact",
+  "headerSearch": "Search the site",
+
+  "likeBan": "You already liked this photo",
+  "likeAdd": "Thanks for liking :)",
+
+  "commentMarkdown": "You may use these <abbr title=\"Markdown\">Markdown</abbr> tags: <code>[This is an example inline link](yoururl.com) or **message** for strong front</code>",
+  "commentEnough": "You posted enough comments for today :)",
+  "commentRequired": "Required fields are marked *",
+  "commentEmpty": "Please write a comment",
+  "commentLeave": "Leave a comment!",
+  "commentPost": "Post Comment",
+  "commentSingular": "comment",
+  "commentPlural": "comments",
+  "commentMessage": "Message *",
+  "commentName": "Name *",
+
+  "contactInformation": "Contact Information",
+  "contactTouch": "Get in touch with me",
+  "contactSend": "Send a message",
+  "contactMessage": "Message",
+  "contactSubject": "Subject",
+  "contactEmail": "Email",
+  "contactName": "Name",
+
+  "photoShare": "Share this:",
+
+  "tagAll": "All Works"
+}

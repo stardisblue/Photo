@@ -20,8 +20,8 @@
                                                     <span class="box_day"><?= $photo->photo_day ?></span>
                                                 </div>
                                                 <div class="listing_meta">
-                                                    <span><?php foreach ($tags as $tag) { echo '#' . $tag->tag_name . ' '; } ?></span>
-                                                    <span><a href="javascript:void(0)"><?= count($comments) === 1 ? '1 comment' : count($comments) . ' comments' ?></a></span>
+                                                    <span><?php foreach ($tags as $tag): ?> #<?= $tag->tag_name ?> <?php endforeach; ?></span>
+                                                    <span><a href="javascript:void(0)"><?= count($comments) === 1 ? '1 ' . $i18n->commentSingular : count($comments) . ' ' . $i18n->commentPlural ?></a></span>
                                                 </div>
                                                 <div class="author_ava"><img alt="" src="img/avatar/2.jpg" class="avatar" height="72" width="72" /></div>
                                             </div>
@@ -38,7 +38,7 @@
 
                                         <div class="blog_post-footer sp-blog_post-footer ">
                                             <div class="blogpost_share">
-                                                <span>Share this:</span>
+                                                <span><?= $i18n->photoShare ?></span>
                                                 <a href="javascript:void(0)" class="share_facebook"><i class="stand_icon icon-facebook-square"></i></a>
                                                 <a href="javascript:void(0)" class="share_pinterest"><i class="stand_icon icon-pinterest"></i></a>                                                    <a href="javascript:void(0)" class="share_tweet"><i class="stand_icon icon-twitter"></i></a>
                                                 <a href="javascript:void(0)" class="share_gplus"><i class="icon-google-plus-square"></i></a>
@@ -65,7 +65,7 @@
                                 <div class="row">
                                     <div class="span12">
                                         <div id="comments">
-                                            <h4 class="headInModule postcomment"><?= count($comments) === 1 ? '1 Comment:' : count($comments) . ' Comments:' ?></h4>
+                                            <h4 class="headInModule postcomment"><?= count($comments) === 1 ? '1 ' . $i18n->commentSingular . ':' : count($comments) . ' ' . $i18n->commentPlural . ':' ?></h4>
                                             <ol class="commentlist">
                                                 <?php foreach ($comments as $comment): ?>
                                                     <li class="comment odd alt thread-odd thread-alt depth-1">
@@ -84,13 +84,13 @@
                                             <hr class="comment_hr">
 
                                             <div id="respond" class="comment-respond">
-                                                <h3 id="reply-title" class="comment-reply-title">Leave a Comment!</h3>
+                                                <h3 id="reply-title" class="comment-reply-title"><?= $i18n->commentLeave ?></h3>
                                                 <form action="#" method="post" id="commentform" class="comment-form">
-                                                    <p class="comment-notes">Required fields are marked <span class="required">*</span></p>
-                                                    <label class="label-name"></label><input type="text" placeholder="Name *" title="Name *" id="author" name="author" class="form_field">
-                                                    <label class="label-message"></label><textarea name="message" cols="45" rows="5" placeholder="Message..." id="comment-message" class="form_field"></textarea>
-                                                    <p class="form-allowed-tags">You may use these <abbr title="Markdown">Markdown</abbr> tags: <code>[This is an example inline link](yoururl.com) or **message** for strong front</code></p>
-                                                    <p class="form-submit"><input name="submit" type="submit" id="submit" value="Post Comment" /></p>
+                                                    <p class="comment-notes"><?= $i18n->commentRequired ?></p>
+                                                    <label class="label-name"></label><input type="text" placeholder="<?= $i18n->commentName ?>" title="Name *" id="author" name="author" class="form_field">
+                                                    <label class="label-message"></label><textarea name="message" cols="45" rows="5" placeholder="<?= $i18n->commentMessage ?>" id="comment-message" class="form_field"></textarea>
+                                                    <p class="form-allowed-tags"><?= $i18n->commentMarkdown ?></p>
+                                                    <p class="form-submit"><input name="submit" type="submit" id="submit" value="<?= $i18n->commentPost ?>" /></p>
                                                 </form>
                                             </div>
                                         </div>
@@ -145,6 +145,7 @@
         });
 
     });
+
     $(window).resize(function(){
         "use strict";
         $('.form-allowed-tags').width($('#commentform').width() - $('.form-submit').width() - 13);
@@ -160,10 +161,10 @@
             method: 'POST',
             success: function(result) {
                 if (result === 'BAN') {
-                    alert('<?= $ajax->ban ?>');
+                    alert("<?= $i18n->likeBan ?>");
                 } else {
                     $('#ajax_like span').html(result);
-                    alert('<?= $ajax->like ?>');
+                    alert("<?= $i18n->likeAdd ?>");
                 }
             }
         });
@@ -180,9 +181,9 @@
             data: $('#commentform').serialize(),
             success: function(result) {
                 if (result === 'BAN') {
-                    alert("<?= $ajax->enough ?>");
+                    alert("<?= $i18n->commentEnough ?>");
                 } else if (result === 'ERROR') {
-                    alert("<?= $ajax->empty ?>");
+                    alert("<?= $i18n->commentEmpty ?>");
                 } else {
                     location.reload();
                 }

@@ -1,13 +1,13 @@
 <div class="fullscreen_block hided">
     <ul class="optionset" data-option-key="filter">
-        <li class="selected"><a href="#filter" data-option-value="*"><?= $tag->all ?></a></li>
+        <li class="selected"><a href="#filter" data-option-value="*"><?= $i18n->tagAll ?></a></li>
         <?php foreach ($popularTags as $tag): ?>
             <li><a data-option-value=".<?= $tag->tag_name ?>" href="#filter" title="View all post filed under <?= $tag->tag_name ?>"><?= ucfirst($tag->tag_name) ?></a></li>
         <?php endforeach; ?>
     </ul>
     <div class="fs_blog_module image-grid">
         <?php foreach ($photos as $photo): ?>
-            <div class="blogpost_preview_fw element<?php foreach ($tags[$photo->photo_id] as $tag) { echo ' ' . $tag->tag_name; } ?>">
+            <div class="blogpost_preview_fw element<?php foreach ($tags[$photo->photo_id] as $tag): ?> <?php echo $tag->tag_name; endforeach; ?>">
                 <div class="fw_preview_wrapper">
                     <div class="gallery_item_wrapper">
                         <a href="<?= WEB_ROOT ?>/photo-display-<?= $photo->photo_id ?>" >
@@ -72,10 +72,10 @@
             method: 'POST',
             success: function(result) {
                 if (result === 'BAN') {
-                    alert("<?= $ajax->ban ?>");
+                    alert("<?= $i18n->likeBan ?>");
                 } else {
                     $('#ajax_like' + id + ' span').html(result);
-                    alert("<?= $ajax->like ?>");
+                    alert("<?= $i18n->likeAdd ?>");
                 }
             }
         });
