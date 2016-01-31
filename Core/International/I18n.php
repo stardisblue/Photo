@@ -4,41 +4,38 @@ namespace Rave\Core\International;
 
 class I18n
 {
-    private $_language;
-    private $_parsed = [];
+    private $language;
+    private $parsed = [];
 
     const FRENCH = 'fr_FR';
     const ENGLISH = 'en_US';
 
-    private static $_instance;
+    private static $instance;
 
     const PATH = 'localization';
 
     private function __construct()
     {
         if (preg_match('#^fr(\S+)#', $_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-            $this->_language = self::FRENCH;
+            $this->language = self::FRENCH;
         } else {
-            $this->_language = self::ENGLISH;
+            $this->language = self::ENGLISH;
         }
     }
 
     public static function getInstance()
     {
-        if (!isset(self::$_instance)) {
-            self::$_instance = new self();
+        if (!isset(self::$instance)) {
+            self::$instance = new self();
         }
-
-        return self::$_instance;
+        return self::$instance;
     }
 
     public function parse()
     {
-        if (!isset($this->_parsed[$this->_language])) {
-            $this->_parsed[$this->_language] = json_decode(file_get_contents(ROOT . '/' . self::PATH . '/' . $this->_language . '.json'));
+        if (!isset($this->parsed[$this->language])) {
+            $this->parsed[$this->language] = json_decode(file_get_contents(ROOT . '/' . self::PATH . '/' . $this->language . '.json'));
         }
-
-        return ['i18n' => $this->_parsed[$this->_language]];
+        return ['i18n' => $this->parsed[$this->language]];
     }
-
 }

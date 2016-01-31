@@ -8,6 +8,12 @@ use Rave\Core\Error;
 use Rave\Core\Controller;
 
 use Rave\Library\Core\IO\In;
+use Rave\Library\Core\IO\Out;
+use Rave\Library\Core\IO\File;
+use Rave\Library\Core\Security\Auth;
+use Rave\Library\Core\Security\Password;
+
+use Rave\Library\Custom\Photo;
 
 use Rave\Application\Model\TagModel;
 use Rave\Application\Model\AdminModel;
@@ -15,56 +21,51 @@ use Rave\Application\Model\PhotoModel;
 use Rave\Application\Model\CommentModel;
 use Rave\Application\Model\IdentifyModel;
 
-use Rave\Library\Custom\Photo;
-
-use Rave\Library\Core\Security\File;
-use Rave\Library\Core\Security\String;
-use Rave\Library\Core\Security\Session;
-
 class Admin extends Controller
 {
     const DEFAULT_IMAGE_NAME = 'error';
 
     public function __construct()
     {
-        $this->setLayout('admin', ['loggedIn' => Session::check('admin')]);
+        $this->setLayout('admin', ['loggedIn' => Auth::check('admin')]);
     }
     
     public function index()
     {
-        if (Session::check('admin')) {
+        if (Auth::check('admin')) {
             $this->redirect('admin-manage');
-        } else {
-            $this->redirect('admin-login');
         }
+
+        $this->redirect('admin-login');
     }
     
     public function login()
     {
-        if (In::isSetPost(['login', 'password'])) {
-            if (AdminModel::exists(In::post('login'))) {
-                $admin = AdminModel::select(In::post('login'));
-
-                if (String::hash(In::post('password')) === $admin->admin_password) {
-                    Session::login('admin');
-                    Session::set('login', $admin->admin_login);
-
-                    $this->redirect('admin-manage');
-                } else {
-                    $this->redirect('admin-wrong-password');
-                }
-            } else {
-                $this->redirect('admin-wrong-login');
-            }
-        } else {
+        if (!In::isSetPost('login', 'password')) {
             $this->loadView('login_form');
+            exit;
         }
+
+        if (!AdminModel::exists(In::post('login'))) {
+            $this->redirect('admin-wrong-login');
+        }
+
+        $admin = AdminModel::select(In::post('login'));
+
+        if (!Password::verify(In::post('password'), $admin->admin_password)) {
+            $this->redirect('admin-wrong-password');
+        }
+
+        Auth::login('admin');
+        Out::session('login', $admin->admin_login);
+
+        $this->redirect('admin-manage');
     }
 
     public function logout()
     {
-        $this->check('admin');
-        Session::delete('admin');
+        $this->check();
+        Out::unsetSession('admin');
         $this->redirect('admin-logout-success');
     }
     
@@ -78,43 +79,45 @@ class Admin extends Controller
     {
         $this->check();
 
-        $login = Session::get('login');
+        $login = In::session('login');
 
-        if (In::isSetPost('login')) {
-            if (In::isSetPost(['changePassword', 'oldPassword', 'newPassword'])) {
-                $admin = AdminModel::select($login);
-
-                if (String::hash(In::post('oldPassword')) === $admin->admin_password) {
-                    AdminModel::update($login, [
-                        'admin_login' => In::post('login'),
-                        'admin_password' => String::hash(In::post('newPassword'))
-                    ]);
-
-                    Session::set('login', In::post('login'));
-
-                    $this->redirect('admin-modification-success');
-                } else {
-                    $this->redirect('admin-wrong-password');
-                }
-            } else {
-                AdminModel::update($login, ['admin_login' => In::post('login')]);
-                Session::set('login', In::post('login'));
-            }
-            $this->redirect('admin-modification-success');
-        } else {
+        if (!In::isSetPost('login')) {
             $this->loadView('account', ['login' => trim($login)]);
+            exit;
         }
+
+        if (In::isSetPost('changePassword', 'oldPassword', 'newPassword')) {
+            $admin = AdminModel::select($login);
+
+            if (Password::verify(In::post('oldPassword'), $admin->admin_password)) {
+                AdminModel::update($login, [
+                    'admin_login' => In::post('login'),
+                    'admin_password' => Password::hash(In::post('newPassword'))
+                ]);
+
+                Out::session('login', In::post('login'));
+
+                $this->redirect('admin-modification-success');
+            } else {
+                $this->redirect('admin-wrong-password');
+            }
+        } else {
+            AdminModel::update($login, ['admin_login' => In::post('login')]);
+            Out::session('login', In::post('login'));
+        }
+
+        $this->redirect('admin-modification-success');
     }
 
     public function addPhoto()
     {
         $this->check();
 
-        if (In::isSetPost(['title', 'subtitle', 'description', 'tags'])) {
+        if (In::isSetPost('title', 'subtitle', 'description', 'tags')) {
             $fileName = self::DEFAULT_IMAGE_NAME;
 
             try {
-                $fileName = File::moveUploadedFile('photo', 'public/img/photo', ['.jpg', '.png']);
+                $fileName = File::moveUploadedFile('photo', 'public/img/photo', ['.jpg', '.jpeg', '.png']);
             } catch (Exception $exception) {
                 Error::create($exception->getMessage(), '500');
             }
@@ -139,7 +142,7 @@ class Admin extends Controller
 
             $tags = explode(',', str_replace(' ', null, str_replace('#', null, In::post('tags'))));
 
-            $photoId = PhotoModel::selectLastId();
+            $photoId = PhotoModel::lastInsertId();
 
             foreach ($tags as $tag)
             {
@@ -180,7 +183,7 @@ class Admin extends Controller
 
             $tags = explode(',', str_replace(' ', null, str_replace('#', null, In::post('tags'))));
 
-            $photoId = PhotoModel::selectLastId();
+            $photoId = PhotoModel::lastInsertId();
 
             IdentifyModel::deleteTagWherePhotoId($photoId);
 
@@ -200,14 +203,14 @@ class Admin extends Controller
         } else {
             $photo = PhotoModel::select($photoId);
 
-            if ($photo === false) {
+            if (!$photo) {
                 $this->redirect('admin-manage-photo');
             }
 
             $tags = null;
             $tagArray = TagModel::selectPhotoTag($photoId);
 
-            if (empty($tagArray) === false) {
+            if (!empty($tagArray)) {
                 foreach ($tagArray as $tag)
                 {
                     $tags .= '#' . trim($tag->tag_name) . ', ';
@@ -246,7 +249,7 @@ class Admin extends Controller
         $this->check();
         $commentId = is_numeric($id) ? (int) $id : 0;
 
-        if (In::isSetPost(['author', 'message'])) {
+        if (In::isSetPost('author', 'message')) {
             CommentModel::update($commentId, [
                 'comment_author' => In::post('author'),
                 'comment_message' => String::clean(In::post('message'))
@@ -256,7 +259,7 @@ class Admin extends Controller
         } else {
             $comment = CommentModel::select($commentId);
 
-            if ($comment === false) {
+            if (!$comment) {
                 $this->redirect('admin-manage-comment');
             }
 
@@ -299,7 +302,7 @@ class Admin extends Controller
 
     private function check()
     {
-        if (Session::check('admin') === false) {
+        if (!Auth::check('admin')) {
             $this->redirect('admin');
         }
     }

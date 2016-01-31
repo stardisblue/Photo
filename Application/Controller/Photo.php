@@ -5,8 +5,8 @@ namespace Rave\Application\Controller;
 use Rave\Core\Controller;
 
 use Rave\Library\Core\IO\In;
-use Rave\Library\Core\Security\String;
-use Rave\Library\Core\Parser\Parsedown;
+use Rave\Library\Custom\Parsedown;
+use Rave\Library\Core\Security\Text;
 
 use Rave\Application\Model\TagModel;
 use Rave\Application\Model\LikeModel;
@@ -69,7 +69,7 @@ class Photo extends Controller
     {
         $photoId = is_numeric($id) ? (int) $id : 0;
 
-        if (LikeModel::liked(String::hash($_SERVER['REMOTE_ADDR']), $photoId) === false) {
+        if (LikeModel::liked(Text::hash($_SERVER['REMOTE_ADDR']), $photoId) === false) {
             $photo = PhotoModel::select($photoId);
 
             if ($photo !== false) {
@@ -77,7 +77,7 @@ class Photo extends Controller
 
                 LikeModel::insert([
                     'photo_id' => $photoId,
-                    'like_ip' => String::hash($_SERVER['REMOTE_ADDR'])
+                    'like_ip' => Text::hash($_SERVER['REMOTE_ADDR'])
                 ]);
 
                 echo PhotoModel::select($photoId)->photo_like;

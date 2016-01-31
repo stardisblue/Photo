@@ -13,22 +13,22 @@ class TagModel extends Model
 
     public static function selectTagId($name)
     {
-        return self::_getInstance()->queryOne('SELECT ' . self::$primary . ' AS max_id FROM ' . self::$table . ' WHERE tag_name = :tag_name', [':tag_name' => $name])->max_id;
+        return self::queryOne('SELECT ' . self::$primary . ' AS max_id FROM ' . self::$table . ' WHERE tag_name = :tag_name', [':tag_name' => $name])->max_id;
     }
 
     public static function selectPhotoTag($id)
     {
-        return self::_getInstance()->query('SELECT tag_name FROM ' . self::$table . ' NATURAL JOIN rave_identify NATURAL JOIN rave_photo WHERE photo_id = :photo_id', [':photo_id' => $id]);
+        return self::query('SELECT tag_name FROM ' . self::$table . ' NATURAL JOIN rave_identify NATURAL JOIN rave_photo WHERE photo_id = :photo_id', [':photo_id' => $id]);
     }
 
     public static function selectPopularTag($limit)
     {
-        return self::_getInstance()->query('SELECT tag_name, count(tag_id) as count_id FROM rave_tag NATURAL JOIN rave_identify GROUP BY tag_name ORDER BY count_id DESC', [':limit' => $limit]);
+        return self::query('SELECT tag_name, count(tag_id) as count_id FROM rave_tag NATURAL JOIN rave_identify GROUP BY tag_name ORDER BY count_id DESC', [':limit' => $limit]);
     }
 
     public static function existsTagName($name)
     {
-        return self::_getInstance()->queryOne('SELECT Count(tag_id) AS tag_count FROM ' . self::$table . ' WHERE tag_name = :tag_name', [':tag_name' => $name])->tag_count > 0;
+        return self::queryOne('SELECT Count(tag_id) AS tag_count FROM ' . self::$table . ' WHERE tag_name = :tag_name', [':tag_name' => $name])->tag_count > 0;
     }
 
 }

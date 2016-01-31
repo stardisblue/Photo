@@ -13,7 +13,12 @@ class ContactModel extends Model
 
     public static function deleteAll()
     {
-        self::_getInstance()->execute('DELETE FROM ' . self::$table);
+        self::execute('DELETE FROM ' . self::$table);
+    }
+
+    public static function exists(string $hash): bool
+    {
+        return self::queryOne('SELECT COUNT(' . self::$primary . ') AS counter FROM ' . self::$table . ' WHERE ' . self::$primary . ' = :hash', [':hash' => $hash])->counter > 0;
     }
 
 }

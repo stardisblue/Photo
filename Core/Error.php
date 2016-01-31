@@ -4,53 +4,39 @@ namespace Rave\Core;
 
 use Rave\Config\Config;
 
-/**
- * Classe chargée de gérer les erreurs et redirections 404
- */
+use Rave\Core\Exception\UnknownErrorException;
+
 class Error
 {
 
-    /**
-     * Méthode permettant de créer une erreur
-     * Redirection vers une page d'erreur si
-     * l'application est en mode production
-     * @param string $errorMessage
-     *  Message d'erreur
-     * @param string $errorCode
-     *  Code d'erreur
-     */
-    public static function create($errorMessage, $errorCode = '404')
+    public static function create(string $errorMessage, int $errorCode = 404)
     {
         if (Config::isDebug()) {
             die($errorMessage);
         } else {
-            self::_show($errorCode);
+            self::show($errorCode);
         }
     }
 
-    /**
-     * Méthode de redirection vers une page
-     * d'erreur
-     * @param string $errorCode
-     *  Code d'erreur
-     */
-    private static function _show($errorCode)
+    private static function show(int $errorCode)
     {
         switch ($errorCode) {
-            case '403':
-                header('HTTP/1.0 403 Forbidden');
-                header('Location: ' . WEB_ROOT . '/' . Config::getError('403'));
+            case 403:
+                header('HTTP/1.1 403 Forbidden');
                 break;
-            case '404':
-                header('HTTP/1.0 404 Not Found');
-                header('Location: ' . WEB_ROOT . '/' . Config::getError('404'));
+            case 404:
+                header('HTTP/1.1 404 Not Found');
                 break;
-            case '500':
-                header('HTTP/1.0 500 Internal Server Error');
-                header('Location: ' . WEB_ROOT . '/' . Config::getError('500'));
+            case 500:
+                header('HTTP/1.1 500 Internal Server Error');
                 break;
+            default:
+                throw new UnknownErrorException('Unknown error code ' . $errorCode);
         }
-        die();
+
+        header('Location: ' . WEB_ROOT . Config::getError($errorCode));
+
+        exit;
     }
 
 }

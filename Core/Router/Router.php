@@ -6,61 +6,61 @@ use Rave\Core\Exception\RouterException;
 
 class Router
 {
-    private $_url;
+    private $url;
 
-    private $_routes = [];
-    private $_namedRoutes = [];
+    private $routes = [];
+    private $namedRoutes = [];
 
-    public function __construct($url)
+    public function __construct(string $url)
     {
-        $this->_url = $url;
+        $this->url = $url;
     }
 
-    private function _add($method, $path, $callable, $name)
+    private function add(string $method, string $path, $callable, $name): Route
     {
         $route = new Route($path, $callable);
-        $this->_routes[$method][] = $route;
+        $this->routes[$method][] = $route;
 
         if (is_string($callable) && $name === null) {
             $name = $callable;
         }
 
         if ($name) {
-            $this->_namedRoutes[$name] = $route;
+            $this->namedRoutes[$name] = $route;
         }
 
         return $route;
     }
 
-    public function put($path, $callable, $name = null)
+    public function put(string $path, $callable, string $name = null): Route
     {
-        return $this->_add('PUT', $path, $callable, $name);
+        return $this->add('PUT', $path, $callable, $name);
     }
 
-    public function get($path, $callable, $name = null)
+    public function get(string $path, $callable, string $name = null): Route
     {
-        return $this->_add('GET', $path, $callable, $name);
+        return $this->add('GET', $path, $callable, $name);
     }
 
-    public function post($path, $callable, $name = null)
+    public function post(string $path, $callable, string $name = null): Route
     {
-        return $this->_add('POST', $path, $callable, $name);
+        return $this->add('POST', $path, $callable, $name);
     }
 
-    public function delete($path, $callable, $name = null)
+    public function delete(string $path, $callable, string $name = null): Route
     {
-        return $this->_add('DELETE', $path, $callable, $name);
+        return $this->add('DELETE', $path, $callable, $name);
     }
 
     public function run()
     {
-        if (!isset($this->_routes[$_SERVER['REQUEST_METHOD']])) {
+        if (!isset($this->routes[$_SERVER['REQUEST_METHOD']])) {
             throw new RouterException('REQUEST_METHOD does not exists');
         }
 
-        foreach ($this->_routes[$_SERVER['REQUEST_METHOD']] as $route)
+        foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route)
         {
-            if ($route->match($this->_url)) {
+            if ($route->match($this->url)) {
                 return $route->call();
             }
         }
@@ -68,13 +68,13 @@ class Router
         throw new RouterException('No matching route');
     }
 
-    public function url($name, $parameters = [])
+    public function url(string $name, $parameters = []): string
     {
-        if (!isset($this->_namedRoutes[$name])) {
+        if (!isset($this->namedRoutes[$name])) {
             throw new RouterException('No route matching this name');
         }
 
-        return $this->_namedRoutes[$name]->getUrl($parameters);
+        return $this->namedRoutes[$name]->getUrl($parameters);
     }
 
 }

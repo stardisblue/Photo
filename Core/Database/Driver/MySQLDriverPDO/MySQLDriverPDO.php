@@ -2,62 +2,70 @@
 
 namespace Rave\Core\Database\Driver\MySQLDriverPDO;
 
-use Rave\Core\Error;
-use Rave\Config\Config;
-use Rave\Core\Database\Driver\DriverInterface;
-
 use PDO, PDOException;
 
-class MySQLDriverPDO implements DriverInterface
-{
-    private static $_instance;
+use Rave\Core\Error;
+use Rave\Config\Config;
+use Rave\Core\Database\Driver\GenericDriver;
 
-    private static function _getInstance()
+class MySQLDriverPDO implements GenericDriver
+{
+    private static $instance;
+
+    private static function getInstance()
     {
-        if (isset(self::$_instance) === false) {
+        if (!isset(self::$instance)) {
             try {
-                self::$_instance = new PDO('mysql:dbname=' . Config::getDatabase('database') . ';host=' . Config::getDatabase('host'), Config::getDatabase('login'), Config::getDatabase('password'));
-                self::$_instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                self::$instance = new PDO('mysql:dbname=' . Config::getDatabase('database') . ';host=' . Config::getDatabase('host'), Config::getDatabase('login'), Config::getDatabase('password'), [PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8']);
+                self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $pdoException) {
-                Error::create($pdoException->getMessage(), '500');
+                Error::create($pdoException->getMessage(), 500);
             }
         }
 
-        return self::$_instance;
+        return self::$instance;
     }
     
-    private static function _queryDatabase($statement, array $values, $unique) {
+    private function queryDatabase(string $statement, array $values, bool $unique)
+    {
     	try {
-            $sql = self::_getInstance()->prepare($statement);
+            $sql = self::getInstance()->prepare($statement);
             $sql->execute($values);
 
             if ($unique === true) {
-            	return $sql->fetch(PDO::FETCH_OBJ);
+                $result = $sql->fetch(PDO::FETCH_OBJ);
+            	return $result === false ? null : $result;
             }
-            return $sql->fetchAll(PDO::FETCH_OBJ);
+            $result = $sql->fetchAll(PDO::FETCH_OBJ);
+            return $result === false ? null : $result;
     	} catch (PDOException $pdoException) {
-            Error::create($pdoException->getMessage(), '500');
+            Error::create($pdoException->getMessage(), 500);
     	}
     }
     
-    public static function query($statement, array $values = [])
+    public function query(string $statement, array $values = []): array
     {
-        return self::_queryDatabase($statement, $values, false);
+        return $this->queryDatabase($statement, $values, false);
     }
     
-    public static function queryOne($statement, array $values = [])
+    public function queryOne(string $statement, array $values = [])
     {
-    	return self::_queryDatabase($statement, $values, true);
+        return $this->queryDatabase($statement, $values, true);
     }
 
-    public static function execute($statement, array $values = [])
+    public function execute(string $statement, array $values = [])
     {
         try {
-            $sql = self::_getInstance()->prepare($statement);
+            $sql = $this->getInstance()->prepare($statement);
             $sql->execute($values);
         } catch (PDOException $pdoException) {
-            Error::create($pdoException->getMessage(), '500');
+            Error::create($pdoException->getMessage(), 500);
         }
+    }
+
+    public function lastInsertId(): string
+    {
+        return self::getInstance()->lastInsertId();
     }
 
 }
