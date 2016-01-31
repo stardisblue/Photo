@@ -16,7 +16,7 @@
 <header class="main_header">
     <div class="header_wrapper">
         <div class="logo_sect">
-            <a href="<?= WEB_ROOT ?>" class="logo"><img src="<?= WEB_ROOT ?>/public/img/logo.png" alt=""  class="logo_def"><img src="img/retina/logo.png" alt="" class="logo_retina"></a>
+            <a href="<?= WEB_ROOT ?>/" class="logo"><img src="<?= WEB_ROOT ?>/public/img/logo.png" alt=""  class="logo_def"><img src="img/retina/logo.png" alt="" class="logo_retina"></a>
             <div class="slogan">Florian Pascual Photography</div>
         </div>
         <div class="header_rp">
@@ -24,7 +24,7 @@
                 <div class="menu-main-menu-container">
                     <ul id="menu-main-menu" class="menu">
                         <li class="menu-item-has-children">
-                            <a href="<?= WEB_ROOT ?>"><span><?= $i18n->headerHome ?></span></a>
+                            <a href="<?= WEB_ROOT ?>/"><span><?= $i18n->headerHome ?></span></a>
                         </li>
                         <li class="menu-item-has-children">
                             <a href="<?= WEB_ROOT ?>/photo"><span><?= $i18n->headerGallery ?></span></a>

@@ -24,7 +24,7 @@
         jQuery('html').addClass('hasPag');
         jQuery('body').fs_gallery({
             fx: 'fade', /*fade, zoom, slide_left, slide_right, slide_top, slide_bottom*/
-            fit: 'no_fit',
+            fit: 'fit_always',
             slide_time: 3300, /*This time must be < then time in css*/
             autoplay: 1,
             show_controls: 1,
@@ -64,6 +64,8 @@
 
         jQuery('.main_header').removeClass('hided');
         jQuery('html').addClass('without_border');
+
+        $('body').attr('style', 'background: #000 !important');
     });
 </script>
 <script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/fs_gallery.js"></script>

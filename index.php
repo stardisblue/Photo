@@ -82,13 +82,19 @@ $router->get('/admin-add-photo', ['Admin' => 'addPhoto']);
 
 $router->post('/admin-add-photo', ['Admin' => 'addPhoto']);
 
+$router->post('/admin-add-gallery', ['Admin' => 'addGallery']);
+
 $router->get('/admin-manage-photo', ['Admin' => 'managePhoto']);
+
+$router->get('/admin-manage-gallery', ['Admin' => 'manageGallery']);
 
 $router->get('/admin-manage-comment', ['Admin' => 'manageComment']);
 
 $router->get('/admin-delete-photo-:id', ['Admin' => 'deletePhoto'])->with('id', '([0-9]{0,6})');
 
 $router->get('/admin-delete-comment-:id', ['Admin' => 'deleteComment'])->with('id', '([0-9]{0,6})');
+
+$router->get('/admin-delete-gallery-:id', ['Admin' => 'deleteGallery'])->with('id', '([0-9]{0,6})');
 
 $router->get('/admin-update-photo-:id', ['Admin' => 'updatePhoto'])->with('id', '([0-9]{0,6})');
 

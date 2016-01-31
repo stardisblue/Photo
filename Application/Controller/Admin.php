@@ -4,6 +4,7 @@ namespace Rave\Application\Controller;
 
 use Exception;
 
+use Rave\Application\Model\GalleryModel;
 use Rave\Core\Error;
 use Rave\Core\Controller;
 
@@ -162,6 +163,17 @@ class Admin extends Controller
         }
     }
 
+    public function addGallery()
+    {
+        $this->check();
+
+        if (In::isSetPost('photo')) {
+            GalleryModel::insert(['photo_id' => In::post('photo')]);
+        }
+
+        $this->redirect('admin-manage-gallery');
+    }
+
     public function managePhoto()
     {
         $this->check();
@@ -237,11 +249,28 @@ class Admin extends Controller
         $this->redirect('admin-manage-photo');
     }
 
+    public function deleteGallery($id)
+    {
+        $this->check();
+        $photoId = is_numeric($id) ? (int) $id : 0;
+        GalleryModel::delete($photoId);
+        $this->redirect('admin-manage-gallery');
+    }
+
     public function manageComment()
     {
         $this->check();
         $comments = CommentModel::selectAll();
         $this->loadView('manage_comment', ['comments' => $comments]);
+    }
+
+    public function manageGallery()
+    {
+        $this->check();
+        $this->loadView('manage_gallery', [
+            'select' => PhotoModel::selectAll(),
+            'photos' => GalleryModel::selectPhoto()
+        ]);
     }
 
     public function updateComment($id)

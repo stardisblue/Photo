@@ -21,7 +21,7 @@ class Contact extends Controller
 
     public function index()
     {
-        if (In::isSetPost('name', 'email', 'subject', 'message')) {
+        if (!In::isSetPost('name', 'email', 'subject', 'message')) {
             $this->loadView('contact_form');
             exit;
         }
