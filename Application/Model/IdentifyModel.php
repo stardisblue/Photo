@@ -13,7 +13,7 @@ class IdentifyModel extends Model
 
     public static function deleteTagWherePhotoId($id)
     {
-        self::_getInstance()->execute('DELETE FROM ' . self::$table . ' WHERE photo_id = :photo_id', [':photo_id' => $id]);
+        self::execute('DELETE FROM ' . self::$table . ' WHERE photo_id = :photo_id', [':photo_id' => $id]);
     }
 
 }

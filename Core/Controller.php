@@ -5,79 +5,27 @@ namespace Rave\Core;
 use Rave\Core\International\I18n;
 use Rave\Core\Exception\IOException;
 
-/**
- * Super classe abstraite Controller, doit être héritée par
- * tous les controleurs
- */
 abstract class Controller
 {
-    /**
-     * Constantes représentants le niveau
-     * d'importance d'un log
-     * @var int
-     * 	Code de niveau d'importance du log
-     */
     const LOG_NOTICE = 0;
     const LOG_WARNING = 1;
     const LOG_FATAL_ERROR = 2;
 
-    /**
-     * Données à passer à la vue
-     * par défaut
-     * @var array
-     *  Tableau des données
-     */
     protected $data = [];
 
-    /**
-     * Activer ou non la localisation
-     * @var bool
-     *  Si vrai, envoie les données du fichier json à la vue
-     */
     protected $i18n = false;
-
-    /**
-     * Nom de la vue chargée en tant que layout
-     * @var string/boolean
-     *  Nom de la vue, false si l'on ne souhaite pas de layout
-     */
     protected $layout = false;
 
-    /**
-     * Attribut statique contenant le nom
-     * du fichier de log courrant
-     * @var string
-     * 	Nom du fichier de log
-     */
-    private static $_currentLogFile;
+    private static $currentLogFile;
 
-    /**
-     * Méthode permettant de charger une vue
-     * et/ou de lui transmettre des données
-     * @param string $view
-     *  Nom de la vue
-     * @param array $data
-     *  Données à transmettre à la vue
-     */
-    protected function loadView($view, array $data = [])
+    protected function loadView(string $view, array $data = [])
     {
-        if (empty($data) === false || empty($this->data) === false) {
+        if (!empty($data) || !empty($this->data)) {
             extract(array_merge($this->data, $data));
         }
 
-        if ($this->i18n !== false) {
-            $i18n = I18n::getInstance();
-
-            if (is_array($this->i18n)) {
-                $values = $i18n->parseMultiple($this->i18n);
-                foreach ($values as $value)
-                {
-                    extract($value);
-                }
-            } else {
-                $values = $i18n->parseSingle($this->i18n);
-                extract($values);
-            }
+        if ($this->i18n) {
+            extract(I18n::getInstance()->parse());
         }
 
         $controller = explode('\\', get_class($this));
@@ -89,36 +37,25 @@ abstract class Controller
         if (file_exists($file)) {
             include_once $file;
         } else {
-            Error::create('Erreur chargement vue', '404');
+            Error::create('Erreur chargement vue', 404);
         }
 
         $content = ob_get_clean();
 
-        if ($this->layout === false) {
+        if (!$this->layout) {
             echo $content;
         } else {
             include_once ROOT . '/Application/View/Layout/' . $this->layout . '.php';
         }
     }
-    
-    /**
-     * Méthode de redirection
-     * @param string $page
-     * 	Page vers laquelle l'utilisateur doit être redirigé
-     */
-    protected function redirect($page)
+
+    protected function redirect(string $page = '')
     {
     	header('Location: ' . WEB_ROOT . '/' . $page);
+        exit;
     }
     
-    /**
-     * Méthode permettant d'écrire des logs
-     * @param string $message
-     * 	Message de log
-     * @param int $priority
-     * 	Priorité du log
-     */
-    protected function log($message, $priority = self::LOG_NOTICE)
+    protected function log(string $message, int $priority = self::LOG_NOTICE)
     {
     	$log = date('H:i:s');
 
@@ -135,58 +72,40 @@ abstract class Controller
         }
         
         try {
-            $this->_writeLog($log);
+            $this->writeLog($log);
         } catch (IOException $ioException) {
-            Error::create($ioException->getMessage(), '500');
+            Error::create($ioException->getMessage(), 500);
         }
     }
-    
-    /**
-     * Méthode privée d'écriture du log
-     * @param string $message
-     * 	Message de log
-     * @throws IOException
-     * 	Lance un exception d'entrée/sortie en cas d'erreur d'écriture
-     */
-    private function _writeLog($message)
+
+    private function writeLog(string $message)
     {
-    	if (isset(self::$_currentLogFile)) {
-    		file_put_contents(self::$_currentLogFile, $message . PHP_EOL, FILE_APPEND);
+    	if (isset(self::$currentLogFile)) {
+    		file_put_contents(self::$currentLogFile, $message . PHP_EOL, FILE_APPEND);
     	} else {
-            if (file_exists(ROOT . '/Log') === false) {
-            	mkdir(ROOT . '/Log');
+            if (file_exists(ROOT . '/log') === false) {
+            	mkdir(ROOT . '/log');
             }
     		
-            self::$_currentLogFile = ROOT . '/Log/' . date('d-m-Y') . '.log';
+            self::$currentLogFile = ROOT . '/log/' . date('d-m-Y') . '.log';
 
-            if (file_exists(self::$_currentLogFile) === false && fopen(self::$_currentLogFile, 'a') === false) {
+            if (!file_exists(self::$currentLogFile) && !fopen(self::$currentLogFile, 'a')) {
                 throw new IOException('Unable to create log file');
             }
 
-            $this->_writeLog($message);
+            $this->writeLog($message);
         }
     }
 
-    /**
-     * Méthode permettant de modifier le layout
-     * @param string $layout
-     *  Nom du layout, false si l'on ne souhaite
-     *  pas en charger
-     * @param array $data
-     *  Données à passer à la vue par défaut
-     */
     protected function setLayout($layout, array $data = [])
     {
         $this->data = $data;
         $this->layout = file_exists(ROOT . '/Application/View/Layout/' . $layout . '.php') ? $layout : false;
     }
 
-    /**
-     * Méthode permettant d'activer la localisation
-     */
-    protected function setI18n($file)
+    protected function setI18n(bool $status)
     {
-        $this->i18n = $file;
+        $this->i18n = $status;
     }
 
 }

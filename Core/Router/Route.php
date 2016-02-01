@@ -2,37 +2,39 @@
 
 namespace Rave\Core\Router;
 
+use Rave\Core\Error;
+
 class Route
 {
-    private $_path;
-    private $_callable;
+    private $path;
+    private $callable;
 
-    private $_matches = [];
-    private $_parameters = [];
+    private $matches = [];
+    private $parameters = [];
 
     const MATCH_INDEX = 1;
     const METHOD_INDEX = 1;
     const CONTROLLER_INDEX = 0;
 
-    public function __construct($path, $callable)
+    public function __construct(string $path, $callable)
     {
-        $this->_path = trim($path, '/');
-        $this->_callable = $callable;
+        $this->path = trim($path, '/');
+        $this->callable = $callable;
     }
 
-    private function _parameterMatch($match)
+    private function parameterMatch(array $match): string
     {
-        if (isset($this->_parameters[$match[self::MATCH_INDEX]])) {
-            return '(' . $this->_parameters[$match[self::MATCH_INDEX]] . ')';
+        if (isset($this->parameters[$match[self::MATCH_INDEX]])) {
+            return '(' . $this->parameters[$match[self::MATCH_INDEX]] . ')';
         }
 
         return '([^/]+)';
     }
 
-    public function match($url)
+    public function match(string $url): bool
     {
         $url = trim($url, '/');
-        $path = preg_replace_callback('#:([\w]+)#', [$this, '_parameterMatch'], $this->_path);
+        $path = preg_replace_callback('#:([\w]+)#', [$this, 'parameterMatch'], $this->path);
 
         if (!preg_match('#^' . $path . '$#i', $url, $matches)) {
             return false;
@@ -40,36 +42,48 @@ class Route
 
         array_shift($matches);
 
-        $this->_matches = $matches;
+        $this->matches = $matches;
 
         return true;
     }
 
     public function call()
     {
-        if (is_array($this->_callable)) {
+        if (is_array($this->callable)) {
             $namespace = 'Rave\\Application\\Controller\\';
 
-            $method = reset($this->_callable);
-            $class = $namespace . key($this->_callable);
+            $method = reset($this->callable);
+            $class = $namespace . key($this->callable);
+
+            if (!class_exists($class)) {
+                Error::create('Router: class ' . $class . 'does not exists', 500);
+            }
 
             $controller = new $class();
 
-            return call_user_func_array([$controller, $method], $this->_matches);
+            if (!is_callable([$controller, $method])) {
+                Error::create('Router: method ' . $method . 'does not exists', 500);
+            }
+
+            return call_user_func_array([$controller, $method], $this->matches);
         } else {
-            return call_user_func_array($this->_callable, $this->_matches);
+            if (!is_callable($this->callable)) {
+                Error::create('Router: method does not exists', 500);
+            }
+
+            return call_user_func_array($this->callable, $this->matches);
         }
     }
 
-    public function with($parameter, $regex)
+    public function with(string $parameter, string $regex): Route
     {
-        $this->_parameters[$parameter] = str_replace('(', '(?:', $regex);
+        $this->parameters[$parameter] = str_replace('(', '(?:', $regex);
         return $this;
     }
 
-    public function getUrl($parameters)
+    public function getUrl(array $parameters): string
     {
-        $path = $this->_path;
+        $path = $this->path;
 
         foreach ($parameters as $key => $value)
         {

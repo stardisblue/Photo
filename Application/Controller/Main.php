@@ -4,7 +4,7 @@ namespace Rave\Application\Controller;
 
 use Rave\Core\Controller;
 use Rave\Library\Custom\Cron;
-use Rave\Application\Model\PhotoModel;
+use Rave\Application\Model\GalleryModel;
 
 class Main extends Controller
 {
@@ -12,12 +12,12 @@ class Main extends Controller
     public function __construct()
     {
         $this->setLayout('main');
-        $this->setI18n('header');
+        $this->setI18n(true);
     }
 
     public function index()
     {
-	    $this->loadView('slider', ['photos' => PhotoModel::selectAll()]);
+	    $this->loadView('slider', ['photos' => GalleryModel::selectPhoto()]);
 
         Cron::execute();
     }

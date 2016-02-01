@@ -2,58 +2,53 @@
 
 namespace Rave\Core;
 
-use PDOException, PDO;
 use Rave\Config\Config;
-use Rave\Core\Database\DriverFactory;
 
-/**
- * Super classe abstraite Model, doit être héritée par
- * tous les models nécessitants des interractions avec
- * la base de données
- */
+use Rave\Core\Database\DriverFactory;
+use Rave\Core\Database\Driver\GenericDriver;
+use Rave\Core\Exception\UnknownDriverException;
+
 abstract class Model
 {
+    private static $driver;
 
-    /**
-     * Attribut désignant la table sur laquelle le model opère
-     * @var string
-     *  Nom de la table
-     */
     protected static $table;
-    
-    /**
-     * Attribut désignant la clé primaire de la table
-     * @var string
-     *  Nom de la clé primaire
-     */
+
     protected static $primary;
-    
-    /**
-     * Attribut statique pour pattern Singleton
-     * @var \Rave\Core\Database\Driver\SQLDriver
-     * 	Driver de la base de données
-     */
-    private static $_driver;
-    
-    /**
-     * Méthode accesseur utilisant le pattern Singleton
-     * @return \Rave\Core\Database\Driver\DriverInterface
-     * 	Driver de la base de données
-     */
-	protected static function _getInstance()
+
+	private static function getDriver(): GenericDriver
 	{
-		if (isset(self::$_driver) === false) {
-			self::$_driver = DriverFactory::connect(Config::getDatabaseDriver());
+		if (!isset(self::$driver)) {
+            try {
+                self::$driver = DriverFactory::get(Config::getDatabase('driver'));
+            } catch (UnknownDriverException $exception) {
+                Error::create($exception->getMessage(), '500');
+            }
 		}
 
-		return self::$_driver;
+		return self::$driver;
 	}
-    
-    /**
-     * Méthode d'insertion générique
-     * @param array $rows
-     *  Valeurs à inserer
-     */
+
+    public static function query(string $statement, array $values = []): array
+    {
+        return self::getDriver()->query($statement, $values);
+    }
+
+    public static function queryOne(string $statement, array $values = [])
+    {
+        return self::getDriver()->queryOne($statement, $values);
+    }
+
+    public static function execute(string $statement, array $values = [])
+    {
+        self::getDriver()->execute($statement, $values);
+    }
+
+    public static function lastInsertId(): string
+    {
+        return self::getDriver()->lastInsertId();
+    }
+
     public static function insert(array $rows)
     {
 		$firstHalfStatement = 'INSERT INTO ' . static::$table . ' (';
@@ -74,40 +69,20 @@ abstract class Model
 
 		$statement = $firstHalfRequest . $secondHalfRequest . ')';
 
-		self::_getInstance()->execute($statement, $rows);
+		self::execute($statement, $rows);
     }
 
-    /**
-     * Méthode de selection d'une table entière générique
-     * @return array
-     *  Tableau d'objets
-     */
-    public static function selectAll()
+    public static function selectAll(): array
     {
-		return self::_getInstance()->query('SELECT * FROM ' . static::$table);
+		return self::query('SELECT * FROM ' . static::$table);
     }
 
-    /**
-     * Méthode générique de selection selon une valeur
-     * de la clé primaire
-     * @param string $primary
-     *  Valeur de la clé primaire
-     * @return object
-     *  Objet contenant les valeurs selectionnées
-     */
     public static function select($primary)
     {
-		return self::_getInstance()->queryOne('SELECT * FROM ' . static::$table . ' WHERE ' . static::$primary . ' = :primary', [':primary' => $primary]);
+		return self::queryOne('SELECT * FROM ' . static::$table . ' WHERE ' . static::$primary . ' = :primary', [':primary' => $primary]);
     }
 
-    /**
-     * Méthode générique de mise à jour
-     * @param array $rows
-     *  Nouvelles valeurs
-     * @param mixed $primary
-     *  Valeur de la clé primaire
-     */
-    public static function update($primary, array $rows)
+    public static function update(string $primary, array $rows)
     {
 		$statement = 'UPDATE ' . static::$table . ' SET ';
 
@@ -123,42 +98,17 @@ abstract class Model
 
 		$rows[':primary'] = $primary;
 
-		self::_getInstance()->execute($request, $rows);
+		self::execute($request, $rows);
     }
 
-    /**
-     * Méthode générique permettant de supprimer
-     * une ligne dans la base de données
-     * @param string $primary
-     *  Clauses de la condition WHERE
-     */
-    public static function delete($primary)
+    public static function delete(string $primary)
     {
-		self::_getInstance()->execute('DELETE FROM ' . static::$table . ' WHERE ' . static::$primary . ' = :primary', [':primary' => $primary]);
+		self::execute('DELETE FROM ' . static::$table . ' WHERE ' . static::$primary . ' = :primary', [':primary' => $primary]);
     }
 
-    /**
-     * Méthode permettant de conter le nombre d'entrées
-     * d'une table
-     * @return int
-     *  Nombre de lignes comptées
-     */
-    public static function count()
+    public static function count(): int
     {
-		return self::_getInstance()->queryOne('SELECT Count(' . static::$primary . ') AS count FROM ' . static::$table)->count;
-    }
-
-    /**
-     * Méthode permettant de vérifier l'existance
-     * d'une entrée
-     * @param $primary
-     *  Valeur de la clé primaire
-     * @return bool
-     *  Retourne true si la valeur existe
-     */
-    public static function exists($primary)
-    {
-        return self::_getInstance()->queryOne('SELECT Count(' . static::$primary . ') AS count FROM ' . static::$table . ' WHERE ' . static::$primary . ' = :primary', [':primary' => $primary])->count > 0;
+		return self::queryOne('SELECT COUNT(' . static::$primary . ') AS count FROM ' . static::$table)->count;
     }
 
 }

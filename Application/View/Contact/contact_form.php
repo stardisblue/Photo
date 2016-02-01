@@ -9,23 +9,23 @@
                                 <div class="contentarea">
                                     <div class="row">
                                         <div class="span8 first-module module_number_1 module_cont pb0 module_html">
-                                            <div class="bg_title"><h4 class="headInModule">Get in touch with me</h4></div>
+                                            <div class="bg_title"><h4 class="headInModule"><?= $i18n->contactTouch ?></h4></div>
                                             <div class="module_content contact_form">
                                                 <div id="note"></div>
                                                 <div id="fields">
                                                     <form id="ajax-contact-form" action="#">
-                                                        <div class="w50 pr7"><input type="text" name="name" value="" placeholder="Name" /></div>
-                                                        <div class="w50"><input type="text" name="email" value="" placeholder="Email" /></div>
+                                                        <div class="w50 pr7"><input type="text" name="name" value="" placeholder="<?= $i18n->contactName ?>" /></div>
+                                                        <div class="w50"><input type="text" name="email" value="" placeholder="<?= $i18n->contactEmail ?>" /></div>
                                                         <div class="clear"></div>
-                                                        <input type="text" name="subject" value="" placeholder="Subject" />
-                                                        <textarea name="message" id="message" placeholder="Message"></textarea>
-                                                        <input type="submit" value="Send a message">
+                                                        <input type="text" name="subject" value="" placeholder="<?= $i18n->contactSubject ?>" />
+                                                        <textarea name="message" id="message" placeholder="<?= $i18n->contactMessage ?>"></textarea>
+                                                        <input type="submit" value="<?= $i18n->contactSend ?>">
                                                     </form>
                                                 </div>
                                             </div>
                                         </div><!-- .module_cont -->
                                         <div class="span4 module_number_2 module_cont no_bg pb0 module_contact_info">
-                                            <div class="bg_title"><h4 class="headInModule">Contact Information</h4></div>
+                                            <div class="bg_title"><h4 class="headInModule"><?= $i18n->contactInformation ?></h4></div>
                                             <ul class="contact_info_list contact_icons">
                                                 <li class="contact_info_item">
                                                     <div class="contact_info_wrapper">
@@ -85,18 +85,18 @@
     jQuery(window).resize(function(){
         "use strict";
         centerWindow();
-        setTimeout('centerWindow()',500);
-        setTimeout('centerWindow()',1000);
+        setTimeout('centerWindow()', 500);
+        setTimeout('centerWindow()', 1000);
     });
     function centerWindow() {
         "use strict";
-        var setTop = (window_h - jQuery('.fw_content_wrapper').height() - header.height())/2+header.height();
-        if (setTop < header.height()+50) {
+        var setTop = (window_h - jQuery('.fw_content_wrapper').height() - header.height()) / 2 + header.height();
+        if (setTop < header.height() + 50) {
             jQuery('.fw_content_wrapper').addClass('fixed');
             jQuery('body').addClass('addPadding');
-            jQuery('.fw_content_wrapper').css('top', header.height()+50+'px');
+            jQuery('.fw_content_wrapper').css('top', header.height() + 50 + 'px');
         } else {
-            jQuery('.fw_content_wrapper').css('top', setTop +'px');
+            jQuery('.fw_content_wrapper').css('top', setTop + 'px');
             jQuery('.fw_content_wrapper').removeClass('fixed');
             jQuery('body').removeClass('addPadding');
         }

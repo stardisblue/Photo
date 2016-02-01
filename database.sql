@@ -58,3 +58,10 @@ CREATE TABLE IF NOT EXISTS `rave_contact` (
   `contact_ip` VARCHAR(128) NOT NULL,
   PRIMARY KEY (`contact_ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `rave_gallery` (
+  `photo_id` INT(11) NOT NULL,
+  PRIMARY KEY (`photo_id`),
+  FOREIGN KEY (`photo_id`) REFERENCES `rave_photo` (`photo_id`)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -1,0 +1,32 @@
+{
+  "headerHome": "Accueil",
+  "headerGallery": "Gallerie",
+  "headerContact": "Contact",
+  "headerSearch": "Rechercher",
+
+  "likeBan": "Vous avez déjà aimé cette photo",
+  "likeAdd": "Merci d'avoir aimé :)",
+
+  "commentMarkdown": "Vous pouvez utiliser ces tags <abbr title=\"Markdown\">Markdown</abbr>: <code>[Un exemple de lien](votrelien.com) ou **message** pour la police en gras</code>",
+  "commentEnough": "Vous avez posté suffisament de commentaires pour aujourd'hui :)",
+  "commentRequired": "Les champs obligatoires sont marqués par une *",
+  "commentEmpty": "Veuillez écrire un message",
+  "commentLeave": "Laissez un commentaire !",
+  "commentSingular": "commentaire",
+  "commentPlural": "commentaires",
+  "commentPost": "Poster Commentaire",
+  "commentMessage": "Message *",
+  "commentName": "Nom *",
+
+  "contactInformation": "Informations de contact",
+  "contactTouch": "Prenez contact avec moi",
+  "contactSend": "Envoyer un message",
+  "contactMessage": "Message",
+  "contactSubject": "Objet",
+  "contactEmail": "Email",
+  "contactName": "Nom",
+
+  "photoShare": "Partagez:",
+
+  "tagAll": "Toutes les photos"
+}

@@ -13,12 +13,12 @@ class LikeModel extends Model
 
     public static function liked($ip, $id)
     {
-        return self::_getInstance()->queryOne('SELECT COUNT(' . self::$primary . ') AS ip_count FROM ' . self::$table . ' WHERE photo_id = :photo_id AND like_ip = :like_ip', [':photo_id' => $id, ':like_ip' => $ip])->ip_count > 0;
+        return self::queryOne('SELECT COUNT(' . self::$primary . ') AS ip_count FROM ' . self::$table . ' WHERE photo_id = :photo_id AND like_ip = :like_ip', [':photo_id' => $id, ':like_ip' => $ip])->ip_count > 0;
     }
 
     public static function deleteAll()
     {
-        self::_getInstance()->execute('DELETE FROM ' . self::$table);
+        self::execute('DELETE FROM ' . self::$table);
     }
 
 }

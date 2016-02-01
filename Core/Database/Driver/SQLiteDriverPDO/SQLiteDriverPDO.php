@@ -2,63 +2,71 @@
 
 namespace Rave\Core\Database\Driver\SQLiteDriverPDO;
 
+use PDO, PDOException;
+
 use Rave\Core\Error;
 use Rave\Config\Config;
 
-use Rave\Core\Database\Driver\DriverInterface;
+use Rave\Core\Database\Driver\GenericDriver;
 
-use PDO, PDOException;
-
-class SQLiteDriverPDO implements DriverInterface
+class SQLiteDriverPDO implements GenericDriver
 {
-    private static $_instance;
+    private static $instance;
 
-    private static function _getInstance()
+    private static function getInstance()
     {
-        if (isset(self::$_instance) === false) {
+        if (!isset(self::$instance)) {
             try {
-		self::$_instance = new PDO('sqlite:' . Config::getDatabase('path'));
-		self::$_instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		        self::$instance = new PDO('sqlite:' . Config::getDatabase('path'));
+		        self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $pdoException) {
                 Error::create($pdoException->getMessage(), '500');
             }
         }
 
-	return self::$_instance;
+	    return self::$instance;
     }
 
-    private static function _queryDatabase($statement, array $values, $unique) {
-	try {
-            $sql = self::_getInstance()->prepare($statement);
+    private function queryDatabase(string $statement, array $values, bool $unique)
+    {
+        try {
+            $sql = self::getInstance()->prepare($statement);
             $sql->execute($values);
+
             if ($unique === true) {
-                return $sql->fetch(PDO::FETCH_OBJ);
-            } else {
-		return $sql->fetchAll(PDO::FETCH_OBJ);
+                $result = $sql->fetch(PDO::FETCH_OBJ);
+                return $result === false ? null : $result;
             }
-	} catch (PDOException $pdoException) {
-            Error::create($pdoException->getMessage(), '500');
-	}
+            $result = $sql->fetchAll(PDO::FETCH_OBJ);
+            return $result === false ? null : $result;
+        } catch (PDOException $pdoException) {
+            Error::create($pdoException->getMessage(), 500);
+        }
     }
 
-    public static function query($statement, array $values = [])
+    public function query(string $statement, array $values = []): array
     {
-	return self::_queryDatabase($statement, $values, false);
+	    return $this->queryDatabase($statement, $values, false);
     }
 
-    public static function queryOne($statement, array $values = [])
+    public function queryOne(string $statement, array $values = [])
     {
-	return self::_queryDatabase($statement, $values, true);
+	    return $this->queryDatabase($statement, $values, true);
     }
 
-    public static function execute($statement, array $values = [])
+    public function execute(string $statement, array $values = [])
     {
-	try {
-            $sql = self::_getInstance()->prepare($statement);
+        try {
+            $sql = self::getInstance()->prepare($statement);
             $sql->execute($values);
-	} catch (PDOException $pdoException) {
-            Error::create($pdoException->getMessage(), '500');
-	}
+        } catch (PDOException $pdoException) {
+            Error::create($pdoException->getMessage(), 500);
+        }
+    }
+
+    public function lastInsertId(): string
+    {
+        return self::getInstance()->lastInsertId();
     }
 
 }

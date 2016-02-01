@@ -1,13 +1,14 @@
 <?php
 
-ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
+ini_set('display_errors', true);
+ini_set('display_startup_errors', true);
 error_reporting(-1);
 
 session_start();
 
 use Rave\Core\Error;
-use Rave\Core\Autoloader;
+use Rave\Config\Config;
+use Rave\Core\AutoLoader;
 use Rave\Core\Router\Router;
 use Rave\Core\Exception\RouterException;
 
@@ -15,17 +16,24 @@ use Rave\Core\Exception\RouterException;
  * Some useful constants
  */
 define('ROOT', __DIR__);
-define('WEB_ROOT', dirname(filter_input(INPUT_SERVER, 'SCRIPT_NAME')));
+
+$webRoot = dirname(filter_input(INPUT_SERVER, 'SCRIPT_NAME'));
+
+if ($webRoot === '/') {
+    define('WEB_ROOT', null);
+} else {
+    define('WEB_ROOT', $webRoot);
+}
 
 /**
- * Include the autoloader class
+ * Include the autoloader
  */
-require_once ROOT . '/Core/Autoloader.php';
+require_once ROOT . '/Core/AutoLoader.php';
 
 /**
  * Enable the autoloader
  */
-Autoloader::register();
+AutoLoader::register();
 
 /**
  * Instantiation of the Router object
@@ -53,7 +61,6 @@ $router->post('/search', ['Photo' => 'search']);
 
 $router->post('/comment-add-:id', ['Comment' => 'add'])->with('id', '([0-9]{1,6})');
 
-
 /**
  * Back office routes
  */
@@ -75,13 +82,19 @@ $router->get('/admin-add-photo', ['Admin' => 'addPhoto']);
 
 $router->post('/admin-add-photo', ['Admin' => 'addPhoto']);
 
+$router->post('/admin-add-gallery', ['Admin' => 'addGallery']);
+
 $router->get('/admin-manage-photo', ['Admin' => 'managePhoto']);
+
+$router->get('/admin-manage-gallery', ['Admin' => 'manageGallery']);
 
 $router->get('/admin-manage-comment', ['Admin' => 'manageComment']);
 
 $router->get('/admin-delete-photo-:id', ['Admin' => 'deletePhoto'])->with('id', '([0-9]{0,6})');
 
 $router->get('/admin-delete-comment-:id', ['Admin' => 'deleteComment'])->with('id', '([0-9]{0,6})');
+
+$router->get('/admin-delete-gallery-:id', ['Admin' => 'deleteGallery'])->with('id', '([0-9]{0,6})');
 
 $router->get('/admin-update-photo-:id', ['Admin' => 'updatePhoto'])->with('id', '([0-9]{0,6})');
 
@@ -104,11 +117,11 @@ $router->get('/admin-modification-success', ['Admin' => 'modificationSuccess']);
 /**
  * Error routes
  */
-$router->get('/not-found', ['Error' => 'notFound']);
+$router->get(Config::getError('404'), ['Error' => 'notFound']);
 
-$router->get('/forbidden', ['Error' => 'forbidden']);
+$router->get(Config::getError('403'), ['Error' => 'forbidden']);
 
-$router->get('/internal-server-error', ['Error' => 'internalServerError']);
+$router->get(Config::getError('500'), ['Error' => 'internalServerError']);
 
 /**
  * Run the router. If an exception is caught, the user
@@ -117,5 +130,5 @@ $router->get('/internal-server-error', ['Error' => 'internalServerError']);
 try {
     $router->run();
 } catch (RouterException $exception) {
-    Error::create($exception->getMessage(), '404');
+    Error::create($exception->getMessage(), 404);
 }
