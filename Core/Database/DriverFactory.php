@@ -11,7 +11,8 @@ class DriverFactory
 {
     const MYSQL_PDO = 'MySQLPDO';
     const SQLITE_PDO = 'SQLitePDO';
-	
+    const PGSQL = 'PostgreSQLPDO';
+
     public static function get(string $driverConstant): GenericDriver
     {
         switch ($driverConstant) {
