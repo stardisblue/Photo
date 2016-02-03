@@ -11,7 +11,7 @@
                 <div class="fw_preview_wrapper">
                     <div class="gallery_item_wrapper">
                         <a href="<?= WEB_ROOT ?>/photo-display-<?= $photo->photo_id ?>" >
-                            <img src="<?= WEB_ROOT ?>/public/img/photo/gallery/<?= $photo->photo_name ?>" alt="" class="fw_featured_image" width="540">
+                            <img src="<?= WEB_ROOT ?>/img/photo/gallery/<?= $photo->photo_name ?>" alt="" class="fw_featured_image" width="540">
                             <div class="gallery_fadder"></div>
                             <span class="gallery_ico"><i class="stand_icon icon-eye"></i></span>
                         </a>
@@ -50,11 +50,11 @@
 </footer>
 
 <div class="content_bg"></div>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/modules.js"></script>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/theme.js"></script>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/jquery.isotope.min.js"></script>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/sorting.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/js/modules.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/js/theme.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/js/jquery.isotope.min.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/js/sorting.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         "use strict";

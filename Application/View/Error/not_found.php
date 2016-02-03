@@ -11,9 +11,9 @@
 <div class="custom_bg img_bg"></div>
 
 <div class="content_bg"></div>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/modules.js"></script>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/theme.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/js/modules.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/js/theme.js"></script>
 <script>
     jQuery(document).ready(function(){
         "use strict";

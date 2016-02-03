@@ -9,13 +9,13 @@
     </div>
 </div>
 <div class="content_bg"></div>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/modules.js"></script>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/theme.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/js/modules.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/js/theme.js"></script>
 <script>
     gallery_set = [
         <?php foreach ($photos as $photo): ?>
-            {image: "<?= WEB_ROOT ?>/public/img/photo/<?= $photo->photo_name ?>", thmb: "<?= WEB_ROOT ?>/public/img/photo/<?= $photo->photo_name ?>", alt: "<?= $photo->photo_title ?>", title: "<?= $photo->photo_title ?>", description: "<?= $photo->photo_subtitle ?>", titleColor: "#ffffff", descriptionColor: "#ffffff"},
+            {image: "<?= WEB_ROOT ?>/img/photo/<?= $photo->photo_name ?>", thmb: "<?= WEB_ROOT ?>/img/photo/<?= $photo->photo_name ?>", alt: "<?= $photo->photo_title ?>", title: "<?= $photo->photo_title ?>", description: "<?= $photo->photo_subtitle ?>", titleColor: "#ffffff", descriptionColor: "#ffffff"},
         <?php endforeach; ?>
     ];
 
@@ -68,4 +68,4 @@
         $('body').attr('style', 'background: #000 !important');
     });
 </script>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/fs_gallery.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/js/fs_gallery.js"></script>

@@ -1,3 +1,7 @@
+cron/
+log/
+Config/
+
 nbproject
 
 ### Windows template

@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `rave_admin` (
   PRIMARY KEY (`admin_login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `rave_admin` (`admin_login`, `admin_password`) VALUES ('admin', 'a46bd2c15e3c249de6e5da2b5e05baae53c77158c4e75a6355b60aa479ac40d8067c016a5c1effbaefe1637b9630627f163aa519f00c527d0575666e2ab0bc35');
+INSERT INTO `rave_admin` (`admin_login`, `admin_password`) VALUES ('admin', '$2y$12$kq/VVk2YTVat8zrqkkoquuclihrmdoNZ3k/LC58uledg5uWU.6ugO');
 
 CREATE TABLE IF NOT EXISTS `rave_photo` (
   `photo_id` INT(11) NOT NULL AUTO_INCREMENT,

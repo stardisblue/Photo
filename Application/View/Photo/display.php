@@ -11,7 +11,7 @@
                                         <div class="blog_post_page sp_post">
                                             <div class="pf_output_container">
                                                 <div class="slider-wrapper theme-default ">
-                                                    <img src="<?= WEB_ROOT ?>/public/img/photo/<?= $photo->photo_name ?>" alt="<?= $photo->photo_title ?>"/>
+                                                    <img src="<?= WEB_ROOT ?>/img/photo/<?= $photo->photo_name ?>" alt="<?= $photo->photo_title ?>"/>
                                                 </div>
                                             </div>
                                             <div class="blogpreview_top">
@@ -123,9 +123,9 @@
 </footer>
 
 <div class="content_bg"></div>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/$-ui.min.js"></script>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/modules.js"></script>
-<script type="text/javascript" src="<?= WEB_ROOT ?>/public/js/theme.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/js/$-ui.min.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/js/modules.js"></script>
+<script type="text/javascript" src="<?= WEB_ROOT ?>/js/theme.js"></script>
 <script>
     $(document).ready(function(){
         "use strict";
