@@ -14,7 +14,8 @@ class Config
         'host'     => 'localhost',
         'database' => 'photo',
         'login'    => 'root',
-        'password' => 'root'
+        'password' => 'root',
+        //'port'     => ''
     ];
 
     private static $_error = [

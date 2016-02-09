@@ -1,6 +1,6 @@
 cron/
 log/
-Config/
+Config/Config.php
 
 nbproject
 
