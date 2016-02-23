@@ -44,7 +44,7 @@ class Photo extends Controller
 
         $photo = PhotoModel::selectWithFormattedDate($photoId);
 
-        if ($photo === false) {
+        if (is_null($photo)) {
             $this->redirect('photo');
         }
 
