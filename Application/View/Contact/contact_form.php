@@ -9,23 +9,31 @@
                                 <div class="contentarea">
                                     <div class="row">
                                         <div class="span8 first-module module_number_1 module_cont pb0 module_html">
-                                            <div class="bg_title"><h4 class="headInModule"><?= $i18n->contactTouch ?></h4></div>
+                                            <div class="bg_title"><h4
+                                                    class="headInModule"><?= $i18n->contactTouch ?></h4></div>
                                             <div class="module_content contact_form">
                                                 <div id="note"></div>
                                                 <div id="fields">
                                                     <form id="ajax-contact-form" action="#">
-                                                        <div class="w50 pr7"><input type="text" name="name" value="" placeholder="<?= $i18n->contactName ?>" /></div>
-                                                        <div class="w50"><input type="text" name="email" value="" placeholder="<?= $i18n->contactEmail ?>" /></div>
+                                                        <div class="w50 pr7"><input type="text" name="name" value=""
+                                                                                    placeholder="<?= $i18n->contactName ?>"/>
+                                                        </div>
+                                                        <div class="w50"><input type="text" name="email" value=""
+                                                                                placeholder="<?= $i18n->contactEmail ?>"/>
+                                                        </div>
                                                         <div class="clear"></div>
-                                                        <input type="text" name="subject" value="" placeholder="<?= $i18n->contactSubject ?>" />
-                                                        <textarea name="message" id="message" placeholder="<?= $i18n->contactMessage ?>"></textarea>
+                                                        <input type="text" name="subject" value=""
+                                                               placeholder="<?= $i18n->contactSubject ?>"/>
+                                                        <textarea name="message" id="message"
+                                                                  placeholder="<?= $i18n->contactMessage ?>"></textarea>
                                                         <input type="submit" value="<?= $i18n->contactSend ?>">
                                                     </form>
                                                 </div>
                                             </div>
                                         </div><!-- .module_cont -->
                                         <div class="span4 module_number_2 module_cont no_bg pb0 module_contact_info">
-                                            <div class="bg_title"><h4 class="headInModule"><?= $i18n->contactInformation ?></h4></div>
+                                            <div class="bg_title"><h4
+                                                    class="headInModule"><?= $i18n->contactInformation ?></h4></div>
                                             <ul class="contact_info_list contact_icons">
                                                 <li class="contact_info_item">
                                                     <div class="contact_info_wrapper">
@@ -35,19 +43,24 @@
                                                 </li>
                                                 <li class="contact_info_item">
                                                     <div class="contact_info_wrapper">
-                                                        <span class="contact_info_icon"><i class="icon-envelope"></i></span>
-                                                        <div class="contact_info_text"><a href="mailto:contact@florianpascual.com">contact@florianpascual.com</a></div>
+                                                        <span class="contact_info_icon"><i
+                                                                class="icon-envelope"></i></span>
+                                                        <div class="contact_info_text"><a
+                                                                href="mailto:contact@florianpascual.com">contact@florianpascual.com</a>
+                                                        </div>
                                                     </div>
                                                 </li>
                                                 <li class="contact_info_item">
                                                     <div class="contact_info_wrapper">
-                                                        <span class="contact_info_icon"><i class="icon-facebook-square"></i></span>
+                                                        <span class="contact_info_icon"><i
+                                                                class="icon-facebook-square"></i></span>
                                                         <div class="contact_info_text"><a href="#">Facebook</a></div>
                                                     </div>
                                                 </li>
                                                 <li class="contact_info_item">
                                                     <div class="contact_info_wrapper">
-                                                        <span class="contact_info_icon"><i class="icon-flickr"></i></span>
+                                                        <span class="contact_info_icon"><i
+                                                                class="icon-flickr"></i></span>
                                                         <div class="contact_info_text"><a href="#">Flickr</a></div>
                                                     </div>
                                                 </li>
@@ -71,18 +84,18 @@
 <script type="text/javascript" src="<?= WEB_ROOT ?>/js/modules.js"></script>
 <script type="text/javascript" src="<?= WEB_ROOT ?>/js/theme.js"></script>
 <script>
-    jQuery(document).ready(function(){
+    jQuery(document).ready(function () {
         "use strict";
         centerWindow();
         if (window_w > 760) {
             jQuery('html').addClass('without_border');
         }
     });
-    jQuery(window).load(function(){
+    jQuery(window).load(function () {
         "use strict";
         centerWindow();
     });
-    jQuery(window).resize(function(){
+    jQuery(window).resize(function () {
         "use strict";
         centerWindow();
         setTimeout('centerWindow()', 500);

@@ -1,4 +1,4 @@
-<form action="<?= WEB_ROOT ?>/admin-update-comment-<?= $comment->comment_id ?>" method="post">
+<form action="<?= WEB_ROOT ?>/admin/comment/update-<?= $comment->comment_id ?>" method="post">
     <div class="form-group">
         <label>Author</label>
         <input class="form-control" type="text" name="author" value="<?= $comment->comment_author ?>"/>

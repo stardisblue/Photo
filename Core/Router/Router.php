@@ -16,6 +16,11 @@ class Router
         $this->url = $url;
     }
 
+    public function put(string $path, $callable, string $name = null): Route
+    {
+        return $this->add('PUT', $path, $callable, $name);
+    }
+
     private function add(string $method, string $path, $callable, $name): Route
     {
         $route = new Route($path, $callable);
@@ -30,11 +35,6 @@ class Router
         }
 
         return $route;
-    }
-
-    public function put(string $path, $callable, string $name = null): Route
-    {
-        return $this->add('PUT', $path, $callable, $name);
     }
 
     public function get(string $path, $callable, string $name = null): Route
@@ -54,12 +54,13 @@ class Router
 
     public function run()
     {
+
         if (!isset($this->routes[$_SERVER['REQUEST_METHOD']])) {
             throw new RouterException('REQUEST_METHOD does not exists');
         }
 
-        foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route)
-        {
+        foreach ($this->routes[$_SERVER['REQUEST_METHOD']] as $route) {
+            /** @var Route $route */
             if ($route->match($this->url)) {
                 return $route->call();
             }

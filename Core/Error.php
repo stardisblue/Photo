@@ -3,7 +3,6 @@
 namespace Rave\Core;
 
 use Rave\Config\Config;
-
 use Rave\Core\Exception\UnknownErrorException;
 
 class Error

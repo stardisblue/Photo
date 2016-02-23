@@ -2,12 +2,11 @@
 
 namespace Rave\Core\Database\Driver\SQLiteDriverPDO;
 
-use PDO, PDOException;
-
-use Rave\Core\Error;
+use PDO;
+use PDOException;
 use Rave\Config\Config;
-
 use Rave\Core\Database\Driver\GenericDriver;
+use Rave\Core\Error;
 
 class SQLiteDriverPDO implements GenericDriver
 {
@@ -17,14 +16,14 @@ class SQLiteDriverPDO implements GenericDriver
     {
         if (!isset(self::$instance)) {
             try {
-		        self::$instance = new PDO('sqlite:' . Config::getDatabase('path'));
-		        self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                self::$instance = new PDO('sqlite:' . Config::getDatabase('path'));
+                self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $pdoException) {
                 Error::create($pdoException->getMessage(), '500');
             }
         }
 
-	    return self::$instance;
+        return self::$instance;
     }
 
     private function queryDatabase(string $statement, array $values, bool $unique)
@@ -46,12 +45,12 @@ class SQLiteDriverPDO implements GenericDriver
 
     public function query(string $statement, array $values = []): array
     {
-	    return $this->queryDatabase($statement, $values, false);
+        return $this->queryDatabase($statement, $values, false);
     }
 
     public function queryOne(string $statement, array $values = [])
     {
-	    return $this->queryDatabase($statement, $values, true);
+        return $this->queryDatabase($statement, $values, true);
     }
 
     public function execute(string $statement, array $values = [])

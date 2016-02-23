@@ -15,12 +15,12 @@
 <script type="text/javascript" src="<?= WEB_ROOT ?>/js/modules.js"></script>
 <script type="text/javascript" src="<?= WEB_ROOT ?>/js/theme.js"></script>
 <script>
-    jQuery(document).ready(function(){
+    jQuery(document).ready(function () {
         "use strict";
-        jQuery('.wrapper404').css('margin-top', -1*(jQuery('.wrapper404').height()/2)+(jQuery('header.main_header').height()-30)/2);
+        jQuery('.wrapper404').css('margin-top', -1 * (jQuery('.wrapper404').height() / 2) + (jQuery('header.main_header').height() - 30) / 2);
     });
-    jQuery(window).resize(function(){
+    jQuery(window).resize(function () {
         "use strict";
-        jQuery('.wrapper404').css('margin-top', -1*(jQuery('.wrapper404').height()/2)+(jQuery('header.main_header').height()-30)/2);
+        jQuery('.wrapper404').css('margin-top', -1 * (jQuery('.wrapper404').height() / 2) + (jQuery('header.main_header').height() - 30) / 2);
     });
 </script>

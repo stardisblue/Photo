@@ -13,8 +13,8 @@
             <tr>
                 <td><?= $comment->photo_id ?></td>
                 <td><?= $comment->comment_publication ?></td>
-                <td><a href="<?= WEB_ROOT ?>/admin-delete-comment-<?= $comment->comment_id ?>">X</a></td>
-                <td><a href="<?= WEB_ROOT ?>/admin-update-comment-<?= $comment->comment_id ?>">Update</a></td>
+                <td><a href="<?= WEB_ROOT ?>/admin/comment/delete-<?= $comment->comment_id ?>">X</a></td>
+                <td><a href="<?= WEB_ROOT ?>/admin/comment/update-<?= $comment->comment_id ?>">Update</a></td>
             </tr>
         <?php endforeach ?>
         </tbody>

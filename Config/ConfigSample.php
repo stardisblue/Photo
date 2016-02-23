@@ -2,18 +2,18 @@
 
 namespace Rave\Config;
 
-use Rave\Core\Error;
 use Rave\Core\Database\DriverFactory;
+use Rave\Core\Error;
 
-class Config
+class ConfigSample # rename to Config
 {
     private static $_debug = true;
 
     private static $_database = [
-        'driver'   => DriverFactory::MYSQL_PDO,
-        'host'     => 'localhost',
+        'driver' => DriverFactory::MYSQL_PDO,
+        'host' => 'localhost',
         'database' => 'photo',
-        'login'    => 'root',
+        'login' => 'root',
         'password' => '',
         //'port'     => ''
     ];
@@ -27,15 +27,15 @@ class Config
     // Session salt
     private static $_session = [
         'admin' => '',
-        'user'  => ''
+        'user' => ''
     ];
 
     // key encryption
     private static $_encryption = [
-    	'mode'   => MCRYPT_MODE_CBC,
-    	'cypher' => MCRYPT_RIJNDAEL_256,
-    	'key'    => '',
-    	'iv'     => ''
+        'mode' => MCRYPT_MODE_CBC,
+        'cypher' => MCRYPT_RIJNDAEL_256,
+        'key' => '',
+        'iv' => ''
     ];
 
     public static function isDebug(): bool
@@ -45,20 +45,20 @@ class Config
 
     public static function getDatabase(string $key): string
     {
-    	if (isset(self::$_database[$key])) {
+        if (isset(self::$_database[$key])) {
             return self::$_database[$key];
-    	} else {
+        } else {
             Error::create('Unknown database key : ' . $key, 500);
-    	}
+        }
     }
 
     public static function getError(string $key): string
     {
-    	if (isset(self::$_error[$key])) {
+        if (isset(self::$_error[$key])) {
             return self::$_error[$key];
-    	} else {
+        } else {
             Error::create('Unknown error key : ' . $key, 404);
-    	}
+        }
     }
 
     public static function getSession(string $key): string

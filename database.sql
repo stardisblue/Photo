@@ -9,9 +9,9 @@ INSERT INTO `rave_admin` (`admin_login`, `admin_password`) VALUES ('admin', '$2y
 CREATE TABLE IF NOT EXISTS `rave_photo` (
   `photo_id` INT(11) NOT NULL AUTO_INCREMENT,
   `photo_name` VARCHAR(250) NOT NULL,
-  `photo_like` INT(11) NOT NULL,
+  `photo_like` INT(11) NOT NULL DEFAULT 0,
   `photo_title` VARCHAR(250) NOT NULL,
-  `photo_visit` INT(11) NOT NULL,
+  `photo_visit` INT(11) NOT NULL DEFAULT 0,
   `photo_subtitle` VARCHAR(250) NOT NULL,
   `photo_description` VARCHAR(1000) NOT NULL,
   `photo_publication` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

@@ -6,29 +6,18 @@ use Rave\Core\Error;
 
 class Route
 {
-    private $path;
-    private $callable;
-
-    private $matches = [];
-    private $parameters = [];
-
     const MATCH_INDEX = 1;
     const METHOD_INDEX = 1;
     const CONTROLLER_INDEX = 0;
+    private $path;
+    private $callable;
+    private $matches = [];
+    private $parameters = [];
 
     public function __construct(string $path, $callable)
     {
         $this->path = trim($path, '/');
         $this->callable = $callable;
-    }
-
-    private function parameterMatch(array $match): string
-    {
-        if (isset($this->parameters[$match[self::MATCH_INDEX]])) {
-            return '(' . $this->parameters[$match[self::MATCH_INDEX]] . ')';
-        }
-
-        return '([^/]+)';
     }
 
     public function match(string $url): bool
@@ -85,12 +74,20 @@ class Route
     {
         $path = $this->path;
 
-        foreach ($parameters as $key => $value)
-        {
+        foreach ($parameters as $key => $value) {
             $path = str_replace(':' . $key, $value, $path);
         }
 
         return $path;
+    }
+
+    private function parameterMatch(array $match): string
+    {
+        if (isset($this->parameters[$match[self::MATCH_INDEX]])) {
+            return '(' . $this->parameters[$match[self::MATCH_INDEX]] . ')';
+        }
+
+        return '([^/]+)';
     }
 
 }

@@ -6,7 +6,7 @@ use Rave\Core\Controller;
 
 class Error extends Controller
 {
-    
+
     public function __construct()
     {
         $this->setLayout('main');
@@ -17,7 +17,7 @@ class Error extends Controller
     {
         $this->loadView('internal_server_error');
     }
-    
+
     public function forbidden()
     {
         $this->loadView('forbidden');

@@ -3,10 +3,9 @@
 namespace Rave\Core\Database;
 
 use Rave\Core\Database\Driver\GenericDriver;
-use Rave\Core\Exception\UnknownDriverException;
 use Rave\Core\Database\Driver\MySQLDriverPDO\MySQLDriverPDO;
 use Rave\Core\Database\Driver\SQLiteDriverPDO\SQLiteDriverPDO;
-use Rave\Core\Database\Driver\SQLiteDriverPDO\PostgreSQLDriverPDO;
+use Rave\Core\Exception\UnknownDriverException;
 
 class DriverFactory
 {

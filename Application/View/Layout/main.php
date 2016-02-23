@@ -7,16 +7,17 @@
     <link rel="shortcut icon" href="<?= WEB_ROOT ?>/img/favico.ico" type="image/x-icon">
     <link href="http://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Roboto:400,300,500,900" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="<?= WEB_ROOT ?>/css/theme.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="<?= WEB_ROOT ?>/css/responsive.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="<?= WEB_ROOT ?>/css/custom.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="<?= WEB_ROOT ?>/css/theme.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="<?= WEB_ROOT ?>/css/responsive.css" type="text/css" media="all"/>
+    <link rel="stylesheet" href="<?= WEB_ROOT ?>/css/custom.css" type="text/css" media="all"/>
     <script type="text/javascript" src="<?= WEB_ROOT ?>/js/jquery.min.js"></script>
 </head>
 <body>
 <header class="main_header">
     <div class="header_wrapper">
         <div class="logo_sect">
-            <a href="<?= WEB_ROOT ?>/" class="logo"><img src="<?= WEB_ROOT ?>/img/logo.png" alt=""  class="logo_def"><img src="img/retina/logo.png" alt="" class="logo_retina"></a>
+            <a href="<?= WEB_ROOT ?>/" class="logo"><img src="<?= WEB_ROOT ?>/img/logo.png" alt="" class="logo_def"><img
+                    src="/img/retina/logo.png" alt="" class="logo_retina"></a>
             <div class="slogan">Florian Pascual Photography</div>
         </div>
         <div class="header_rp">
@@ -37,7 +38,8 @@
                 <div class="search_fadder"></div>
                 <div class="header_search">
                     <form name="search_form" method="post" action="<?= WEB_ROOT ?>/search" class="search_form">
-                        <input type="text" name="search" placeholder="<?= $i18n->headerSearch ?>..." class="field_search">
+                        <input type="text" name="search" placeholder="<?= $i18n->headerSearch ?>..."
+                               class="field_search">
                     </form>
                 </div>
             </nav>

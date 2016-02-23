@@ -2,11 +2,11 @@
 
 namespace Rave\Core\Database\Driver\MySQLDriverPDO;
 
-use PDO, PDOException;
-
-use Rave\Core\Error;
+use PDO;
+use PDOException;
 use Rave\Config\Config;
 use Rave\Core\Database\Driver\GenericDriver;
+use Rave\Core\Error;
 
 class MySQLDriverPDO implements GenericDriver
 {
@@ -25,29 +25,29 @@ class MySQLDriverPDO implements GenericDriver
 
         return self::$instance;
     }
-    
+
     private function queryDatabase(string $statement, array $values, bool $unique)
     {
-    	try {
+        try {
             $sql = self::getInstance()->prepare($statement);
             $sql->execute($values);
 
             if ($unique === true) {
                 $result = $sql->fetch(PDO::FETCH_OBJ);
-            	return $result === false ? null : $result;
+                return $result === false ? null : $result;
             }
             $result = $sql->fetchAll(PDO::FETCH_OBJ);
             return $result === false ? null : $result;
-    	} catch (PDOException $pdoException) {
+        } catch (PDOException $pdoException) {
             Error::create($pdoException->getMessage(), 500);
-    	}
+        }
     }
-    
+
     public function query(string $statement, array $values = []): array
     {
         return $this->queryDatabase($statement, $values, false);
     }
-    
+
     public function queryOne(string $statement, array $values = [])
     {
         return $this->queryDatabase($statement, $values, true);

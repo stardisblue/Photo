@@ -4,15 +4,12 @@ namespace Rave\Core\International;
 
 class I18n
 {
-    private $language;
-    private $parsed = [];
-
     const FRENCH = 'fr_FR';
     const ENGLISH = 'en_US';
-
-    private static $instance;
-
     const PATH = 'localization';
+    private static $instance;
+    private $language;
+    private $parsed = [];
 
     private function __construct()
     {

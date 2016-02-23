@@ -2,12 +2,10 @@
 
 namespace Rave\Application\Controller;
 
+use Rave\Application\Model\CommentModel;
 use Rave\Core\Controller;
-
 use Rave\Library\Core\IO\In;
 use Rave\Library\Core\Security\Text;
-
-use Rave\Application\Model\CommentModel;
 
 class Comment extends Controller
 {
@@ -16,7 +14,7 @@ class Comment extends Controller
     {
         if (In::isSetPost('author', 'message')) {
 
-            $photoId = is_numeric($id) ? (int) $id : 0;
+            $photoId = is_numeric($id) ? (int)$id : 0;
 
             if (In::post('author') === '' || In::post('message') === '') {
                 die('ERROR');

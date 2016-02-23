@@ -2,16 +2,14 @@
 
 namespace Rave\Application\Controller;
 
-use Rave\Core\Controller;
-
-use Rave\Library\Core\IO\In;
-use Rave\Library\Custom\Parsedown;
-use Rave\Library\Core\Security\Text;
-
-use Rave\Application\Model\TagModel;
+use Rave\Application\Model\CommentModel;
 use Rave\Application\Model\LikeModel;
 use Rave\Application\Model\PhotoModel;
-use Rave\Application\Model\CommentModel;
+use Rave\Application\Model\TagModel;
+use Rave\Core\Controller;
+use Rave\Library\Core\IO\In;
+use Rave\Library\Core\Security\Text;
+use Rave\Library\Custom\Parsedown;
 
 class Photo extends Controller
 {
@@ -29,8 +27,7 @@ class Photo extends Controller
         $photos = PhotoModel::selectAll();
         $popularTags = TagModel::selectPopularTag(10);
 
-        foreach ($photos as $photo)
-        {
+        foreach ($photos as $photo) {
             $tags[$photo->photo_id] = TagModel::selectPhotoTag($photo->photo_id);
         }
 
@@ -43,7 +40,7 @@ class Photo extends Controller
 
     public function display($id)
     {
-        $photoId = is_numeric($id) ? (int) $id : 0;
+        $photoId = is_numeric($id) ? (int)$id : 0;
 
         $photo = PhotoModel::selectWithFormattedDate($photoId);
 
@@ -67,7 +64,7 @@ class Photo extends Controller
 
     public function like($id)
     {
-        $photoId = is_numeric($id) ? (int) $id : 0;
+        $photoId = is_numeric($id) ? (int)$id : 0;
 
         if (LikeModel::liked(Text::hash($_SERVER['REMOTE_ADDR']), $photoId) === false) {
             $photo = PhotoModel::select($photoId);
@@ -94,8 +91,7 @@ class Photo extends Controller
             $photos = PhotoModel::selectLikeQuery(In::post('search'));
             $popularTags = TagModel::selectPopularTag(10);
 
-            foreach ($photos as $photo)
-            {
+            foreach ($photos as $photo) {
                 $tags[$photo->photo_id] = TagModel::selectPhotoTag($photo->photo_id);
             }
 

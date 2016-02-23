@@ -1,4 +1,6 @@
-<form action="<?= WEB_ROOT ?>/admin-update-photo-<?= $photo->photo_id ?>" method="post">
+<img class="img-responsive" src="/img/photo/<?= $photo->photo_name ?>"/>
+
+<form action="<?= WEB_ROOT ?>/admin/photo/update-<?= $photo->photo_id ?>" method="post">
     <div class="form-group">
         <label>Title</label>
         <input class="form-control" type="text" name="title" value="<?= $photo->photo_title ?>"/>

@@ -3,9 +3,8 @@
 namespace Rave\Core;
 
 use Rave\Config\Config;
-
-use Rave\Core\Database\DriverFactory;
 use Rave\Core\Database\Driver\GenericDriver;
+use Rave\Core\Database\DriverFactory;
 use Rave\Core\Exception\UnknownDriverException;
 
 abstract class Model
@@ -16,18 +15,18 @@ abstract class Model
 
     protected static $primary;
 
-	private static function getDriver(): GenericDriver
-	{
-		if (!isset(self::$driver)) {
+    private static function getDriver(): GenericDriver
+    {
+        if (!isset(self::$driver)) {
             try {
                 self::$driver = DriverFactory::get(Config::getDatabase('driver'));
             } catch (UnknownDriverException $exception) {
                 Error::create($exception->getMessage(), '500');
             }
-		}
+        }
 
-		return self::$driver;
-	}
+        return self::$driver;
+    }
 
     public static function query(string $statement, array $values = []): array
     {
@@ -51,64 +50,62 @@ abstract class Model
 
     public static function insert(array $rows)
     {
-		$firstHalfStatement = 'INSERT INTO ' . static::$table . ' (';
+        $firstHalfStatement = 'INSERT INTO ' . static::$table . ' (';
 
-		$secondHalfStatement = ') VALUES (';
+        $secondHalfStatement = ') VALUES (';
 
-		foreach ($rows as $key => $value)
-		{
-			$firstHalfStatement .= $key . ', ';
-			$key = ':' . $key;
-			$secondHalfStatement .= $key . ', ';
-			stripcslashes($value);
-			trim($value);
-		}
+        foreach ($rows as $key => $value) {
+            $firstHalfStatement .= $key . ', ';
+            $key = ':' . $key;
+            $secondHalfStatement .= $key . ', ';
+            stripcslashes($value);
+            trim($value);
+        }
 
-		$firstHalfRequest = rtrim($firstHalfStatement, ', ');
-		$secondHalfRequest = rtrim($secondHalfStatement, ', ');
+        $firstHalfRequest = rtrim($firstHalfStatement, ', ');
+        $secondHalfRequest = rtrim($secondHalfStatement, ', ');
 
-		$statement = $firstHalfRequest . $secondHalfRequest . ')';
+        $statement = $firstHalfRequest . $secondHalfRequest . ')';
 
-		self::execute($statement, $rows);
+        self::execute($statement, $rows);
     }
 
     public static function selectAll(): array
     {
-		return self::query('SELECT * FROM ' . static::$table);
+        return self::query('SELECT * FROM ' . static::$table);
     }
 
     public static function select($primary)
     {
-		return self::queryOne('SELECT * FROM ' . static::$table . ' WHERE ' . static::$primary . ' = :primary', [':primary' => $primary]);
+        return self::queryOne('SELECT * FROM ' . static::$table . ' WHERE ' . static::$primary . ' = :primary', [':primary' => $primary]);
     }
 
     public static function update(string $primary, array $rows)
     {
-		$statement = 'UPDATE ' . static::$table . ' SET ';
+        $statement = 'UPDATE ' . static::$table . ' SET ';
 
-		foreach ($rows as $key => $value)
-		{
-			$statement .= $key . ' = :' . $key . ', ';
-			stripcslashes($value);
-			trim($value);
-		}
-            
-		$request = rtrim($statement, ', ');
-		$request .= ' WHERE ' . static::$primary . ' = :primary';
+        foreach ($rows as $key => $value) {
+            $statement .= $key . ' = :' . $key . ', ';
+            stripcslashes($value);
+            trim($value);
+        }
 
-		$rows[':primary'] = $primary;
+        $request = rtrim($statement, ', ');
+        $request .= ' WHERE ' . static::$primary . ' = :primary';
 
-		self::execute($request, $rows);
+        $rows[':primary'] = $primary;
+
+        self::execute($request, $rows);
     }
 
     public static function delete(string $primary)
     {
-		self::execute('DELETE FROM ' . static::$table . ' WHERE ' . static::$primary . ' = :primary', [':primary' => $primary]);
+        self::execute('DELETE FROM ' . static::$table . ' WHERE ' . static::$primary . ' = :primary', [':primary' => $primary]);
     }
 
     public static function count(): int
     {
-		return self::queryOne('SELECT COUNT(' . static::$primary . ') AS count FROM ' . static::$table)->count;
+        return self::queryOne('SELECT COUNT(' . static::$primary . ') AS count FROM ' . static::$table)->count;
     }
 
 }
