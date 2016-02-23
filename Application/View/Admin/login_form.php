@@ -1,3 +1,10 @@
+<?php if (isset($logout)): ?>
+    <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+       <b>Logout success !</b>
+    </div>
+<?php endif ?>
 <form action="<?= WEB_ROOT ?>/admin/login" method="post">
     <div class="form-group">
         <label for="login">Login</label>

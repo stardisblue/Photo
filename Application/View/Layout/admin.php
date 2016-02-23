@@ -18,7 +18,7 @@
                     <li role="presentation" <?= isset($manage) ? 'class="active"' : null ?>><a
                             href="<?= WEB_ROOT ?>/admin/manage">Manage</a></li>
                     <li role="presentation"><a href="<?= WEB_ROOT ?>/">Home</a></li>
-                    <li role="presentation"><a href="<?= WEB_ROOT ?>/logout">Logout</a></li>
+                    <li role="presentation"><a href="<?= WEB_ROOT ?>/admin/logout">Logout</a></li>
                 </ul>
             </nav>
         <?php endif; ?>

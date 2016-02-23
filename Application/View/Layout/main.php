@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="fullscreen_page sticky_menu">
 <head>
-    <title>Pascual Photography</title>
+    <title>Plein air</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="shortcut icon" href="<?= WEB_ROOT ?>/img/favico.ico" type="image/x-icon">
@@ -18,7 +18,7 @@
         <div class="logo_sect">
             <a href="<?= WEB_ROOT ?>/" class="logo"><img src="<?= WEB_ROOT ?>/img/logo.png" alt="" class="logo_def"><img
                     src="/img/retina/logo.png" alt="" class="logo_retina"></a>
-            <div class="slogan">Florian Pascual Photography</div>
+            <div class="slogan">Plein air</div>
         </div>
         <div class="header_rp">
             <nav>

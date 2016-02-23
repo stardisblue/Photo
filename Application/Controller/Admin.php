@@ -33,7 +33,7 @@ class Admin extends Controller
             $this->redirect('admin/manage');
         }
 
-        $this->redirect('admin-login');
+        $this->redirect('admin/login');
     }
 
     public function login()
@@ -44,13 +44,13 @@ class Admin extends Controller
         }
 
         if (!AdminModel::exists(In::post('login'))) {
-            $this->redirect('admin-wrong-login');
+            $this->redirect('admin/wrong-login');
         }
 
         $admin = AdminModel::select(In::post('login'));
 
         if (!Password::verify(In::post('password'), $admin->admin_password)) {
-            $this->redirect('admin-wrong-password');
+            $this->redirect('admin/wrong-password');
         }
 
         Auth::login('admin');
@@ -63,7 +63,7 @@ class Admin extends Controller
     {
         $this->check();
         Out::unsetSession('admin');
-        $this->redirect('admin-logout-success');
+        $this->redirect('admin/logout-success');
     }
 
     public function manage()
@@ -94,16 +94,16 @@ class Admin extends Controller
 
                 Out::session('login', In::post('login'));
 
-                $this->redirect('admin-modification-success');
+                $this->redirect('admin/modification-success');
             } else {
-                $this->redirect('admin-wrong-password');
+                $this->redirect('admin/wrong-password');
             }
         } else {
             AdminModel::update($login, ['admin_login' => In::post('login')]);
             Out::session('login', In::post('login'));
         }
 
-        $this->redirect('admin-modification-success');
+        $this->redirect('admin/modification-success');
     }
 
     public function addPhoto()
@@ -310,7 +310,7 @@ class Admin extends Controller
 
     public function logoutSuccess()
     {
-        $this->loadView('logout_success');
+        $this->loadView('login_form',["logout" => true]);
     }
 
     public function logoutError()

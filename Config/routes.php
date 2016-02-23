@@ -29,17 +29,14 @@ $router->post('/comment/add-:id', ['Comment' => 'add'])->with('id', '([0-9]{1,6}
  */
 $router->get('/admin', ['Admin' => 'index']);
 
-$router->get('/admin/login', ['Admin' => 'login']);
-
-$router->post('/admin/login', ['Admin' => 'login']);
-
 $router->get('/admin/manage', ['Admin' => 'manage']);
+
+$router->get('/admin/modification-success', ['Admin' => 'modificationSuccess']);
+
 
 $router->get('/admin/account', ['Admin' => 'account']);
 
 $router->post('/admin/account', ['Admin' => 'account']);
-
-$router->get('/admin/logout', ['Admin' => 'logout']);
 
 
 $router->post('/admin/gallery/add', ['Admin' => 'addGallery']);
@@ -76,11 +73,15 @@ $router->get('/admin/wrong-login', ['Admin' => 'wrongLogin']);
 $router->get('/admin/wrong-password', ['Admin' => 'wrongPassword']);
 
 
-$router->get('/admin/logout/success', ['Admin' => 'logoutSuccess']);
+$router->get('/admin/login', ['Admin' => 'login']);
 
-$router->get('/admin/logout/error', ['Admin' => 'logoutError']);
+$router->post('/admin/login', ['Admin' => 'login']);
 
-$router->get('/admin/modification-success', ['Admin' => 'modificationSuccess']);
+$router->get('/admin/logout', ['Admin' => 'logout']);
+
+$router->get('/admin/logout-success', ['Admin' => 'logoutSuccess']);
+
+$router->get('/admin/logout-error', ['Admin' => 'logoutError']);
 
 /**
  * Error routes
