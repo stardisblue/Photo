@@ -12,6 +12,7 @@ namespace Rave\Application\Controller;
 use Rave\Application\Model\PhotoModel;
 use Rave\Application\Model\TagModel;
 use Rave\Core\Controller;
+use Rave\Library\Core\Security\Text;
 
 class Tag extends Controller
 {
@@ -37,6 +38,13 @@ class Tag extends Controller
             'photos' => $photos,
             'popularTags' => $popularTags
         ]);
+    }
+
+    public function display($id)
+    {
+        $photos = PhotoModel::selectAllByTag($id);
+
+        $this->loadView('gallery', ['photos' => $photos]);
     }
 
     public function displayAll()

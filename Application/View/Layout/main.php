@@ -31,6 +31,9 @@
                             <a href="<?= WEB_ROOT ?>/photo"><span><?= $i18n->headerGallery ?></span></a>
                         </li>
                         <li class="menu-item-has-children">
+                            <a href="<?= WEB_ROOT ?>/tags"><span><?= $i18n->headerTags ?></span></a>
+                        </li>
+                        <li class="menu-item-has-children">
                             <a href="<?= WEB_ROOT ?>/contact"><span><?= $i18n->headerContact ?></span></a>
                         </li>
                     </ul>

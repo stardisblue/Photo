@@ -5,7 +5,8 @@
                 <div class="content_block row no-sidebar">
                     <?php foreach ($tags as $tag): ?>
                         <p>
-                            <?= $tag->tag_name ?>
+                            <a href="<?= WEB_ROOT ?>/tag/<?= $tag->tag_id ?>-<?= $tag->tag_slug ?>"
+                               title="<?= $tag->tag_name ?>"><?= $tag->tag_name ?></a>
                         </p>
                     <?php endforeach ?>
                 </div>

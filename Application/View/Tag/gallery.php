@@ -1,18 +1,11 @@
 <div class="fullscreen_block hided">
-    <ul class="optionset" data-option-key="filter">
-        <li class="selected"><a href="#filter" data-option-value="*"><?= $i18n->tagAll ?></a></li>
-        <?php foreach ($popularTags as $tag): ?>
-            <li><a data-option-value=".<?= $tag->tag_name ?>" href="#filter"
-                   title="View all post filed under <?= $tag->tag_name ?>"><?= ucfirst($tag->tag_name) ?></a></li>
-        <?php endforeach; ?>
-    </ul>
     <div class="fs_blog_module image-grid">
         <?php foreach ($photos as $photo): ?>
             <div
-                class="blogpost_preview_fw element<?php foreach ($tags[$photo->photo_id] as $tag): ?> <?php echo $tag->tag_name; endforeach; ?>">
+                class="blogpost_preview_fw element">
                 <div class="fw_preview_wrapper">
                     <div class="gallery_item_wrapper">
-                        <a href="<?= WEB_ROOT ?>/photo/<?= $photo->photo_id .'-'. $photo->photo_slug ?>">
+                        <a href="<?= WEB_ROOT ?>/photo/<?= $photo->photo_id ?>-<?= $photo->photo_slug?>">
                             <img src="<?= WEB_ROOT ?>/img/photo/gallery/<?= $photo->photo_name ?>" alt=""
                                  class="fw_featured_image" width="540">
                             <div class="gallery_fadder"></div>
@@ -21,7 +14,7 @@
                     </div>
                     <div class="grid-port-cont">
                         <h6>
-                            <a href="<?= WEB_ROOT ?>/photo/<?= $photo->photo_id ?>-<?= $photo->photo_slug ?>"><?= $photo->photo_slug ?></a>
+                            <a href="<?= WEB_ROOT ?>/photo/<?= $photo->photo_id ?>-<?= $photo->photo_slug ?>"><?= $photo->photo_title ?></a>
                         </h6>
                         <div class="block_likes">
                             <div class="post-views"><i class="stand_icon icon-eye"></i>

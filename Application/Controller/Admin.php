@@ -16,6 +16,7 @@ use Rave\Library\Core\IO\In;
 use Rave\Library\Core\IO\Out;
 use Rave\Library\Core\Security\Auth;
 use Rave\Library\Core\Security\Password;
+use Rave\Library\Core\Security\Text;
 use Rave\Library\Custom\Photo;
 
 class Admin extends Controller
@@ -133,6 +134,7 @@ class Admin extends Controller
             PhotoModel::insert([
                 'photo_name' => $fileName,
                 'photo_title' => In::post('title'),
+                'photo_slug' => Text::slug(In::post('title')),
                 'photo_subtitle' => In::post('subtitle'),
                 'photo_description' => In::post('description')
             ]);
@@ -143,7 +145,7 @@ class Admin extends Controller
 
             foreach ($tags as $tag) {
                 if (TagModel::existsTagName($tag) === false) {
-                    TagModel::insert(['tag_name' => $tag]);
+                    TagModel::insert(['tag_name' => $tag, 'tag_slug' => Text::slug($tag)]);
                 }
 
                 IdentifyModel::insert([
@@ -184,6 +186,7 @@ class Admin extends Controller
         if (In::isSetPost('title', 'subtitle', 'description', 'tags')) {
             PhotoModel::update($photoId, [
                 'photo_title' => In::post('title'),
+                'photo_slug' => Text::slug(In::post('title')),
                 'photo_subtitle' => In::post('subtitle'),
                 'photo_description' => In::post('description')
             ]);
@@ -194,7 +197,7 @@ class Admin extends Controller
 
             foreach ($tags as $tag) {
                 if (TagModel::existsTagName($tag) === false) {
-                    TagModel::insert(['tag_name' => $tag]);
+                    TagModel::insert(['tag_name' => $tag, 'tag_slug' => Text::slug($tag)]);
                 }
 
                 IdentifyModel::insert([
@@ -310,7 +313,7 @@ class Admin extends Controller
 
     public function logoutSuccess()
     {
-        $this->loadView('login_form',["logout" => true]);
+        $this->loadView('login_form', ["logout" => true]);
     }
 
     public function logoutError()
