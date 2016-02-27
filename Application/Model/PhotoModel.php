@@ -13,12 +13,17 @@ class PhotoModel extends Model
 
     public static function selectAllByTag($tag_id)
     {
-        return self::query('SELECT * FROM ' . self::$table . ' NATURAL JOIN rave_identify WHERE tag_id = :tag_id GROUP BY photo_id', [':tag_id' => $tag_id]);
+        return self::query('SELECT * FROM ' . self::$table . ' NATURAL JOIN rave_identify WHERE tag_id = :tag_id GROUP BY ' . self::$primary, [':tag_id' => $tag_id]);
+    }
+
+    public static function selectNotInGallery()
+    {
+        return self::query('SELECT * FROM ' . self::$table . ' WHERE ' . self::$primary . ' NOT IN (SELECT ' . self::$primary . ' FROM rave_gallery)');
     }
 
     public static function selectWithFormattedDate($id)
     {
-        return self::queryOne('SELECT photo_id, photo_name, photo_title, photo_visit, photo_like, photo_description, DATE_FORMAT(photo_publication, \'%b\') AS photo_month, DATE_FORMAT(photo_publication, \'%d\') AS photo_day FROM ' . self::$table . ' WHERE photo_id = :photo_id', [':photo_id' => $id]);
+        return self::queryOne('SELECT photo_id, photo_name, photo_title, photo_visit, photo_like, photo_description, DATE_FORMAT(photo_publication, \'%b\') AS photo_month, DATE_FORMAT(photo_publication, \'%d\') AS photo_day FROM ' . self::$table . ' WHERE ' . self::$primary . ' = :photo_id', [':photo_id' => $id]);
     }
 
     public static function selectLikeQuery($query)

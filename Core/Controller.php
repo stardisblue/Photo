@@ -4,6 +4,7 @@ namespace Rave\Core;
 
 use Rave\Core\Exception\IOException;
 use Rave\Core\International\I18n;
+use Rave\Library\Core\Security\Auth;
 
 abstract class Controller
 {
@@ -20,6 +21,8 @@ abstract class Controller
 
     protected function loadView(string $view, array $data = [])
     {
+        $admin = Auth::check('admin');
+
         if (!empty($data) || !empty($this->data)) {
             extract(array_merge($this->data, $data));
         }

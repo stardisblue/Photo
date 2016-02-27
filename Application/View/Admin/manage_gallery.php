@@ -19,7 +19,9 @@
         <?php foreach ($photos as $photo): ?>
             <tr>
                 <td><?= $photo->photo_title ?></td>
-                <td><a href="<?= WEB_ROOT ?>/admin/gallery/delete-<?= $photo->photo_id ?>">X</a></td>
+                <td><a href="<?= WEB_ROOT ?>/admin/gallery/delete-<?= $photo->photo_id ?>">
+                        <div class="btn btn-danger"><i class=" glyphicon-check"></i></div>
+                    </a></td>
             </tr>
         <?php endforeach ?>
         </tbody>

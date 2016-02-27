@@ -36,6 +36,11 @@
                         <li class="menu-item-has-children">
                             <a href="<?= WEB_ROOT ?>/contact"><span><?= $i18n->headerContact ?></span></a>
                         </li>
+                        <?php if ($admin): ?>
+                            <li class="menu-item-has-children">
+                                <a href="<?= WEB_ROOT ?>/admin"><span><?= $i18n->headerAdmin ?></span></a>
+                            </li>
+                        <?php endif ?>
                     </ul>
                 </div>
                 <div class="search_fadder"></div>

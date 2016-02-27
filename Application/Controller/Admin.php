@@ -69,13 +69,13 @@ class Admin extends Controller
 
     public function manage()
     {
-        $this->check();
+        $this->checkAdmin();
         $this->loadView('manage', ['manage' => true]);
     }
 
     public function account()
     {
-        $this->check();
+        $this->checkAdmin();
 
         $login = In::session('login');
 
@@ -109,7 +109,7 @@ class Admin extends Controller
 
     public function addPhoto()
     {
-        $this->check();
+        $this->checkAdmin();
 
         if (In::isSetPost('title', 'subtitle', 'description', 'tags')) {
             $fileName = self::DEFAULT_IMAGE_NAME;
@@ -162,7 +162,7 @@ class Admin extends Controller
 
     public function addGallery()
     {
-        $this->check();
+        $this->checkAdmin();
 
         if (In::isSetPost('photo')) {
             GalleryModel::insert(['photo_id' => In::post('photo')]);
@@ -173,14 +173,14 @@ class Admin extends Controller
 
     public function managePhoto()
     {
-        $this->check();
+        $this->checkAdmin();
         $photos = PhotoModel::selectAll();
         $this->loadView('manage_photo', ['photos' => $photos]);
     }
 
     public function updatePhoto($id)
     {
-        $this->check();
+        $this->checkAdmin();
         $photoId = is_numeric($id) ? (int)$id : 0;
 
         if (In::isSetPost('title', 'subtitle', 'description', 'tags')) {
@@ -236,7 +236,7 @@ class Admin extends Controller
 
     public function deletePhoto($id)
     {
-        $this->check();
+        $this->checkAdmin();
         $photoId = is_numeric($id) ? (int)$id : 0;
         $photo = PhotoModel::select($photoId);
         PhotoModel::delete($photoId);
@@ -251,7 +251,7 @@ class Admin extends Controller
 
     public function deleteGallery($id)
     {
-        $this->check();
+        $this->checkAdmin();
         $photoId = is_numeric($id) ? (int)$id : 0;
         GalleryModel::delete($photoId);
         $this->redirect('admin/gallery/manage');
@@ -259,23 +259,23 @@ class Admin extends Controller
 
     public function manageComment()
     {
-        $this->check();
+        $this->checkAdmin();
         $comments = CommentModel::selectAll();
         $this->loadView('manage_comment', ['comments' => $comments]);
     }
 
     public function manageGallery()
     {
-        $this->check();
+        $this->checkAdmin();
         $this->loadView('manage_gallery', [
-            'select' => PhotoModel::selectAll(),
+            'select' => PhotoModel::selectNotInGallery(),
             'photos' => GalleryModel::selectPhoto()
         ]);
     }
 
     public function updateComment($id)
     {
-        $this->check();
+        $this->checkAdmin();
         $commentId = is_numeric($id) ? (int)$id : 0;
 
         if (In::isSetPost('author', 'message')) {
@@ -298,7 +298,7 @@ class Admin extends Controller
 
     public function deleteComment($id)
     {
-        $this->check();
+        $this->checkAdmin();
         $commentId = is_numeric($id) ? (int)$id : 0;
         CommentModel::delete($commentId);
         $this->redirect('admin/comment/manage');
@@ -329,7 +329,7 @@ class Admin extends Controller
         $this->loadView('modification_success');
     }
 
-    private function check()
+    protected function checkAdmin()
     {
         if (!Auth::check('admin')) {
             $this->redirect('admin');

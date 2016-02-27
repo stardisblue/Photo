@@ -1,3 +1,7 @@
+<div>
+    <a href="<?=WEB_ROOT?>/admin/photo/add" class="btn btn-success"><i class="glyphicon-plus"></i> Add photo</a>
+</div>
+
 <div class="table-responsive">
     <table class="table table-striped">
         <thead>
