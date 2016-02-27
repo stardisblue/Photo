@@ -14,6 +14,9 @@ class File
         return file_exists($filePath) ? hash('sha1', file_get_contents($filePath)) : null;
     }
 
+    /**
+     * Move the file in the $uploadPath or gets the existing file from it, using sha1 as a comparator
+     */
     public static function moveUploadedFile(string $fileName, string $uploadPath, array $extensions = [], array $mimeTypes = [])
     {
         if (isset($_FILES[$fileName]) === false) {
@@ -26,7 +29,7 @@ class File
             throw new FileTypeException('Wrong file extension');
         }
 
-        $uploadedFileName = hash_file('sha1', $_FILES[$fileName]['tmp_name']) . $fileExtension;
+        $uploadedFileName = sha1_file($_FILES[$fileName]['tmp_name']) . $fileExtension;
 
         if (!file_exists($uploadedFileName)) {
 
