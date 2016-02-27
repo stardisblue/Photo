@@ -197,14 +197,13 @@ class Admin extends Controller
                     TagModel::insert(['tag_name' => $tag]);
                 }
 
-                var_dump($photoId);
-
                 IdentifyModel::insert([
                     'photo_id' => $photoId,
                     'tag_id' => TagModel::selectTagId($tag)
                 ]);
-
             }
+
+            TagModel::deleteUnusedTags();
 
             $this->redirect('admin/photo/manage');
         } else {
@@ -238,6 +237,7 @@ class Admin extends Controller
         $photoId = is_numeric($id) ? (int)$id : 0;
         $photo = PhotoModel::select($photoId);
         PhotoModel::delete($photoId);
+        TagModel::deleteUnusedTags();
         unlink(ROOT . '/public/img/photo/' . $photo->photo_name);
         unlink(ROOT . '/public/img/photo/gallery/' . $photo->photo_name);
         $this->redirect('admin/photo/manage');

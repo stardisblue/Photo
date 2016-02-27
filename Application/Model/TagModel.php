@@ -26,9 +26,14 @@ class TagModel extends Model
         return self::query('SELECT tag_name, count(tag_id) as count_id FROM rave_tag NATURAL JOIN rave_identify GROUP BY tag_name ORDER BY count_id DESC', [':limit' => $limit]);
     }
 
-    public static function existsTagName($name)
+    public static function existsTagName($name) : bool
     {
         return self::queryOne('SELECT Count(tag_id) AS tag_count FROM ' . self::$table . ' WHERE tag_name = :tag_name', [':tag_name' => $name])->tag_count > 0;
+    }
+
+    public static function deleteUnusedTags()
+    {
+        self::execute('DELETE FROM ' . self::$table . ' WHERE tag_id not IN (SELECT  tag_id FROM rave_identify GROUP BY tag_id)');
     }
 
 }
