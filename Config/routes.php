@@ -10,6 +10,8 @@ $router->get('/', ['Main' => 'index']);
 
 $router->get('/photo', ['Photo' => 'index']);
 
+$router->get('/tags', ['Tag' => 'displayAll']);
+
 $router->post('/photo/like-:id', ['Photo' => 'like'])->with('id', '([0-9]{1,6})');
 
 $router->get('/photo/display-:id', ['Photo' => 'display'])->with('id', '([0-9]{1,6})');
