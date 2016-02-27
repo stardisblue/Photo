@@ -1,6 +1,6 @@
-/public/img/photo
+/public/img/photo/*.*
 cron/
-log/
+log/*.*
 Config/Config.php
 
 nbproject
@@ -56,7 +56,7 @@ Temporary Items
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 
-*.iml
+#*.iml
 
 
 ## Directory based project format:
