@@ -2,9 +2,9 @@
 
 namespace Rave\Library\Core\IO;
 
+use Rave\Core\Exception\FileTypeException;
 use Rave\Core\Exception\IOException;
 use Rave\Core\Exception\UploadException;
-use Rave\Core\Exception\FileTypeException;
 
 class File
 {
@@ -26,23 +26,27 @@ class File
             throw new FileTypeException('Wrong file extension');
         }
 
-        $uploadedFileName = hash('sha1', uniqid() . time()) . $fileExtension;
-        $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+        $uploadedFileName = hash_file('sha1', $_FILES[$fileName]['tmp_name']) . $fileExtension;
 
-        if (empty($mimeTypes) === false && in_array(finfo_file($fileInfo, $_FILES[$fileName]['tmp_name']), $mimeTypes) === false) {
-            throw new FileTypeException('Wrong MIME type');
+        if (!file_exists($uploadedFileName)) {
+
+            $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+
+            if (empty($mimeTypes) === false && in_array(finfo_file($fileInfo, $_FILES[$fileName]['tmp_name']), $mimeTypes) === false) {
+                throw new FileTypeException('Wrong MIME type');
+            }
+
+            if (!is_writable(ROOT . '/' . $uploadPath)) {
+                throw new IOException('Cannot write in destination directory');
+            }
+
+            finfo_close($fileInfo);
+
+            if (move_uploaded_file($_FILES[$fileName]['tmp_name'], ROOT . '/' . $uploadPath . '/' . $uploadedFileName) === false) {
+                throw new IOException('Failed to move the uploaded file');
+            }
         }
 
-        if (!is_writable(ROOT . '/' . $uploadPath)) {
-            throw new IOException('Cannot write in destination directory');
-        }
-
-        finfo_close($fileInfo);
-
-        if (move_uploaded_file($_FILES[$fileName]['tmp_name'], ROOT . '/' . $uploadPath . '/' . $uploadedFileName) === false) {
-            throw new IOException('Failed to move the uploaded file');
-        }
-	
         return $uploadedFileName;
     }
 
