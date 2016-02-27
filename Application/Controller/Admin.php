@@ -241,8 +241,11 @@ class Admin extends Controller
         $photo = PhotoModel::select($photoId);
         PhotoModel::delete($photoId);
         TagModel::deleteUnusedTags();
-        unlink(ROOT . '/public/img/photo/' . $photo->photo_name);
-        unlink(ROOT . '/public/img/photo/gallery/' . $photo->photo_name);
+        if (!PhotoModel::photoIsUsed($photo->photo_name)) {
+            unlink(ROOT . '/public/img/photo/' . $photo->photo_name);
+            unlink(ROOT . '/public/img/photo/gallery/' . $photo->photo_name);
+        }
+
         $this->redirect('admin/photo/manage');
     }
 

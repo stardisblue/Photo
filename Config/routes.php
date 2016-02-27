@@ -12,11 +12,11 @@ $router->get('/photo', ['Photo' => 'index']);
 
 $router->get('/tags', ['Tag' => 'displayAll']);
 
-$router->get('/tag/:id:slug', ['Tag' => 'display'])->with('id','([0-9]{1,6})')->with('slug','(-[a-z_0-9]+)?');
+$router->get('/tag/:id:slug', ['Tag' => 'display'])->with('id','([0-9]{1,6})')->with('slug','-([-a-z0-9]+)?');
 
 $router->post('/photo/like-:id', ['Photo' => 'like'])->with('id', '([0-9]{1,6})');
 
-$router->get('/photo/:id:slug', ['Photo' => 'display'])->with('id', '([0-9]{1,6})')->with('slug','(-[a-z_]+)?');
+$router->get('/photo/:id:slug', ['Photo' => 'display'])->with('id', '([0-9]{1,6})')->with('slug','-([-a-z0-9]+)?');
 
 $router->get('/contact', ['Contact' => 'index']);
 

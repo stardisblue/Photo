@@ -28,4 +28,10 @@ class PhotoModel extends Model
         return self::query('SELECT * FROM ' . self::$table . ' NATURAL JOIN rave_identify NATURAL JOIN rave_tag WHERE tag_name LIKE :tag_name OR photo_title LIKE :photo_title GROUP BY photo_id', [':tag_name' => $tagName, ':photo_title' => $photoTitle]);
     }
 
+    public static function photoIsUsed($photo_name) : bool
+    {
+        return self::queryOne('SELECT * FROM ' . self::$table . ' WHERE photo_name = :photo_name', [':photo_name' => $photo_name]) !== null;
+
+    }
+
 }
