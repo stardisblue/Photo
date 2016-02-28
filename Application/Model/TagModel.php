@@ -18,7 +18,7 @@ class TagModel extends Model
 
     public static function selectPhotoTag($id)
     {
-        return self::query('SELECT tag_name FROM ' . self::$table . ' NATURAL JOIN rave_identify NATURAL JOIN rave_photo WHERE photo_id = :photo_id', [':photo_id' => $id]);
+        return self::query('SELECT tag_id, tag_name, tag_slug FROM ' . self::$table . ' NATURAL JOIN rave_identify NATURAL JOIN rave_photo WHERE photo_id = :photo_id', [':photo_id' => $id]);
     }
 
     public static function selectPopularTag($limit)

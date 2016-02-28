@@ -21,7 +21,11 @@
                                                     <span class="box_day"><?= $photo->photo_day ?></span>
                                                 </div>
                                                 <div class="listing_meta">
-                                                    <span><?php foreach ($tags as $tag): ?> #<?= $tag->tag_name ?><?php endforeach; ?></span>
+                                                    <span>
+                                                        <?php foreach ($tags as $tag): ?>
+                                                            <a href="/tag/<?= $tag->tag_id ?>-<?= $tag->tag_slug ?>">#<?= $tag->tag_name ?></a>
+                                                        <?php endforeach; ?>
+                                                    </span>
                                                     <span><a
                                                             href="javascript:void(0)"><?= count($comments) === 1 ? '1 ' . $i18n->commentSingular : count($comments) . ' ' . $i18n->commentPlural ?></a></span>
                                                 </div>
@@ -177,7 +181,7 @@
     $('#ajax_like').click(function (event) {
         event.preventDefault();
 
-        var url = '<?= WEB_ROOT ?>/photo-like-<?= $photo->photo_id ?>';
+        var url = '<?= WEB_ROOT ?>/photo/like-<?= $photo->photo_id ?>';
 
         $.ajax({
             url: url,
