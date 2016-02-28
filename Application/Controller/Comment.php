@@ -3,12 +3,15 @@
 namespace Rave\Application\Controller;
 
 use Rave\Application\Model\CommentModel;
-use Rave\Core\Controller;
 use Rave\Library\Core\IO\In;
 use Rave\Library\Core\Security\Text;
 
-class Comment extends Controller
+class Comment extends FrontController
 {
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function add($id)
     {

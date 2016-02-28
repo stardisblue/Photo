@@ -28,7 +28,7 @@
                             <a href="<?= WEB_ROOT ?>/"><span><?= $i18n->headerHome ?></span></a>
                         </li>
                         <li class="menu-item-has-children">
-                            <a href="<?= WEB_ROOT ?>/photo"><span><?= $i18n->headerGallery ?></span></a>
+                            <a href="<?= WEB_ROOT ?>/photos"><span><?= $i18n->headerGallery ?></span></a>
                         </li>
                         <li class="menu-item-has-children">
                             <a href="<?= WEB_ROOT ?>/tags"><span><?= $i18n->headerTags ?></span></a>

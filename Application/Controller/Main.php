@@ -3,16 +3,14 @@
 namespace Rave\Application\Controller;
 
 use Rave\Application\Model\GalleryModel;
-use Rave\Core\Controller;
 use Rave\Library\Custom\Cron;
 
-class Main extends Controller
+class Main extends FrontController
 {
 
     public function __construct()
     {
-        $this->setLayout('main');
-        $this->setI18n(true);
+        parent::__construct();
     }
 
     public function index()

@@ -6,19 +6,17 @@ use Rave\Application\Model\CommentModel;
 use Rave\Application\Model\LikeModel;
 use Rave\Application\Model\PhotoModel;
 use Rave\Application\Model\TagModel;
-use Rave\Core\Controller;
 use Rave\Library\Core\IO\In;
 use Rave\Library\Core\Security\Text;
 use Rave\Library\Custom\Parsedown;
 
-class Photo extends Controller
+class Photo extends FrontController
 {
     const COMMENT_LIMIT = 10;
 
     public function __construct()
     {
-        $this->setLayout('main');
-        $this->setI18n(true);
+        parent::__construct();
     }
 
     public function index()

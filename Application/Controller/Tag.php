@@ -11,16 +11,13 @@ namespace Rave\Application\Controller;
 
 use Rave\Application\Model\PhotoModel;
 use Rave\Application\Model\TagModel;
-use Rave\Core\Controller;
-use Rave\Library\Core\Security\Text;
 
-class Tag extends Controller
+class Tag extends FrontController
 {
 
     public function __construct()
     {
-        $this->setLayout('main');
-        $this->setI18n(true);
+        parent::__construct();
     }
 
     public function index()

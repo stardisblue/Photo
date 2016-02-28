@@ -2,15 +2,12 @@
 
 namespace Rave\Application\Controller;
 
-use Rave\Core\Controller;
-
-class Error extends Controller
+class Error extends FrontController
 {
 
     public function __construct()
     {
-        $this->setLayout('main');
-        $this->setI18n(true);
+        parent::__construct();
     }
 
     public function internalServerError()

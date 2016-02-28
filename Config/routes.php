@@ -8,15 +8,15 @@ use Rave\Config\Config;
 
 $router->get('/', ['Main' => 'index']);
 
-$router->get('/photo', ['Photo' => 'index']);
+$router->get('/photos', ['Photo' => 'index']);
 
 $router->get('/tags', ['Tag' => 'displayAll']);
 
-$router->get('/tag/:id:slug', ['Tag' => 'display'])->with('id','([0-9]{1,6})')->with('slug','-([-a-z0-9]+)?');
+$router->get('/tag/:id:slug', ['Tag' => 'display'])->with('id', '([0-9]{1,6})')->with('slug', '-([-a-z0-9]+)?');
 
 $router->post('/photo/like-:id', ['Photo' => 'like'])->with('id', '([0-9]{1,6})');
 
-$router->get('/photo/:id:slug', ['Photo' => 'display'])->with('id', '([0-9]{1,6})')->with('slug','-([-a-z0-9]+)?');
+$router->get('/photo/:id:slug', ['Photo' => 'display'])->with('id', '([0-9]{1,6})')->with('slug', '-([-a-z0-9]+)?');
 
 $router->get('/contact', ['Contact' => 'index']);
 
@@ -72,20 +72,11 @@ $router->get('/admin/photo/update-:id', ['Admin' => 'updatePhoto'])->with('id', 
 $router->post('/admin/photo/update-:id', ['Admin' => 'updatePhoto'])->with('id', '([0-9]{0,6})');
 
 
-$router->get('/admin/wrong-login', ['Admin' => 'wrongLogin']);
-
-$router->get('/admin/wrong-password', ['Admin' => 'wrongPassword']);
-
-
 $router->get('/admin/login', ['Admin' => 'login']);
 
 $router->post('/admin/login', ['Admin' => 'login']);
 
 $router->get('/admin/logout', ['Admin' => 'logout']);
-
-$router->get('/admin/logout-success', ['Admin' => 'logoutSuccess']);
-
-$router->get('/admin/logout-error', ['Admin' => 'logoutError']);
 
 /**
  * Error routes

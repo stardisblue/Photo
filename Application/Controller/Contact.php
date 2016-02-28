@@ -3,18 +3,16 @@
 namespace Rave\Application\Controller;
 
 use Rave\Application\Model\ContactModel;
-use Rave\Core\Controller;
 use Rave\Library\Core\IO\In;
 use Rave\Library\Core\Security\Text;
 
-class Contact extends Controller
+class Contact extends FrontController
 {
     const EMAIL = 'email@mail.com';
 
     public function __construct()
     {
-        $this->setLayout('main');
-        $this->setI18n(true);
+        parent::__construct();
     }
 
     public function index()
