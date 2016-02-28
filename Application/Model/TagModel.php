@@ -33,7 +33,7 @@ class TagModel extends Model
 
     public static function deleteUnusedTags()
     {
-        self::execute('DELETE FROM ' . self::$table . ' WHERE tag_id NOT IN (SELECT  tag_id FROM rave_identify GROUP BY tag_id)');
+        self::execute('DELETE FROM ' . self::$table . ' WHERE ' . self::$primary . ' NOT IN (SELECT tag_id FROM rave_identify GROUP BY tag_id)');
     }
 
 }
