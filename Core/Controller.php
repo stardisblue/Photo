@@ -4,7 +4,6 @@ namespace Rave\Core;
 
 use Rave\Core\Exception\IOException;
 use Rave\Core\International\I18n;
-use Rave\Library\Core\Security\Auth;
 
 abstract class Controller
 {
@@ -19,10 +18,12 @@ abstract class Controller
 
     private static $currentLogFile;
 
+    public function beforeCall(string $method)
+    {
+    }
+
     protected function loadView(string $view, array $data = [])
     {
-        $admin = Auth::check('admin');
-
         if (!empty($data) || !empty($this->data)) {
             extract(array_merge($this->data, $data));
         }
@@ -38,6 +39,7 @@ abstract class Controller
         ob_start();
 
         if (file_exists($file)) {
+            /** @noinspection PhpIncludeInspection */
             include_once $file;
         } else {
             Error::create('Erreur chargement vue', 404);
@@ -48,6 +50,7 @@ abstract class Controller
         if (!$this->layout) {
             echo $content;
         } else {
+            /** @noinspection PhpIncludeInspection */
             include_once ROOT . '/Application/View/Layout/' . $this->layout . '.php';
         }
     }

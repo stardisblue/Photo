@@ -54,6 +54,7 @@ class Route
                 Error::create('Router: method ' . $method . 'does not exists', 500);
             }
 
+            call_user_func_array([$controller, 'beforeCall'], $this->callable);
             return call_user_func_array([$controller, $method], $this->matches);
         } else {
             if (!is_callable($this->callable)) {

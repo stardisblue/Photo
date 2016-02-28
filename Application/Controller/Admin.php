@@ -28,6 +28,13 @@ class Admin extends Controller
         $this->setLayout('admin', ['loggedIn' => Auth::check('admin')]);
     }
 
+    public function beforeCall(string $method)
+    {
+        if ($method != 'index' && $method != 'login' && $method != 'logout') {
+            $this->checkAdmin();
+        }
+    }
+
     public function index()
     {
         if (Auth::check('admin')) {
@@ -40,18 +47,23 @@ class Admin extends Controller
     public function login()
     {
         if (!In::isSetPost('login', 'password')) {
-            $this->loadView('login_form');
+
+            $info = In::session('login_info');
+            $this->loadView('login_form', ["info" => $info]);
+            Out::unsetSession('login_info');
             exit;
         }
 
         if (!AdminModel::exists(In::post('login'))) {
-            $this->redirect('admin/wrong-login');
+            Out::session('login_info', 'login_error');
+            $this->redirect('admin/');
         }
 
         $admin = AdminModel::select(In::post('login'));
 
         if (!Password::verify(In::post('password'), $admin->admin_password)) {
-            $this->redirect('admin/wrong-password');
+            Out::session('login_info', 'password_error');
+            $this->redirect('admin/');
         }
 
         Auth::login('admin');
@@ -62,20 +74,21 @@ class Admin extends Controller
 
     public function logout()
     {
-        $this->check();
+
         Out::unsetSession('admin');
-        $this->redirect('admin/logout-success');
+        Out::session('login_info', 'logout_success');
+        $this->redirect('admin/');
     }
 
     public function manage()
     {
-        $this->checkAdmin();
+
         $this->loadView('manage', ['manage' => true]);
     }
 
     public function account()
     {
-        $this->checkAdmin();
+
 
         $login = In::session('login');
 
@@ -109,7 +122,7 @@ class Admin extends Controller
 
     public function addPhoto()
     {
-        $this->checkAdmin();
+
 
         if (In::isSetPost('title', 'subtitle', 'description', 'tags')) {
             $fileName = self::DEFAULT_IMAGE_NAME;
@@ -162,7 +175,7 @@ class Admin extends Controller
 
     public function addGallery()
     {
-        $this->checkAdmin();
+
 
         if (In::isSetPost('photo')) {
             GalleryModel::insert(['photo_id' => In::post('photo')]);
@@ -173,14 +186,14 @@ class Admin extends Controller
 
     public function managePhoto()
     {
-        $this->checkAdmin();
+
         $photos = PhotoModel::selectAll();
         $this->loadView('manage_photo', ['photos' => $photos]);
     }
 
     public function updatePhoto($id)
     {
-        $this->checkAdmin();
+
         $photoId = is_numeric($id) ? (int)$id : 0;
 
         if (In::isSetPost('title', 'subtitle', 'description', 'tags')) {
@@ -236,7 +249,7 @@ class Admin extends Controller
 
     public function deletePhoto($id)
     {
-        $this->checkAdmin();
+
         $photoId = is_numeric($id) ? (int)$id : 0;
         $photo = PhotoModel::select($photoId);
         PhotoModel::delete($photoId);
@@ -251,7 +264,7 @@ class Admin extends Controller
 
     public function deleteGallery($id)
     {
-        $this->checkAdmin();
+
         $photoId = is_numeric($id) ? (int)$id : 0;
         GalleryModel::delete($photoId);
         $this->redirect('admin/gallery/manage');
@@ -259,14 +272,14 @@ class Admin extends Controller
 
     public function manageComment()
     {
-        $this->checkAdmin();
+
         $comments = CommentModel::selectAll();
         $this->loadView('manage_comment', ['comments' => $comments]);
     }
 
     public function manageGallery()
     {
-        $this->checkAdmin();
+
         $this->loadView('manage_gallery', [
             'select' => PhotoModel::selectNotInGallery(),
             'photos' => GalleryModel::selectPhoto()
@@ -275,13 +288,13 @@ class Admin extends Controller
 
     public function updateComment($id)
     {
-        $this->checkAdmin();
+
         $commentId = is_numeric($id) ? (int)$id : 0;
 
         if (In::isSetPost('author', 'message')) {
             CommentModel::update($commentId, [
                 'comment_author' => In::post('author'),
-                'comment_message' => String::clean(In::post('message'))
+                'comment_message' => Text::clean(In::post('message'))
             ]);
 
             $this->redirect('admin/comment/manage');
@@ -298,30 +311,10 @@ class Admin extends Controller
 
     public function deleteComment($id)
     {
-        $this->checkAdmin();
+
         $commentId = is_numeric($id) ? (int)$id : 0;
         CommentModel::delete($commentId);
         $this->redirect('admin/comment/manage');
-    }
-
-    public function wrongLogin()
-    {
-        $this->loadView('wrong_login');
-    }
-
-    public function wrongPassword()
-    {
-        $this->loadView('wrong_password');
-    }
-
-    public function logoutSuccess()
-    {
-        $this->loadView('login_form', ["logout" => true]);
-    }
-
-    public function logoutError()
-    {
-        $this->loadView('logout_error');
     }
 
     public function modificationSuccess()
