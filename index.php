@@ -1,15 +1,8 @@
 <?php
 
-ini_set('display_errors', true);
-ini_set('display_startup_errors', true);
-error_reporting(-1);
-
 session_start();
 
-use Rave\Core\AutoLoader;
-use Rave\Core\Error;
-use Rave\Core\Exception\RouterException;
-use Rave\Core\Router\Router;
+use rave\core\AutoLoader;
 
 /**
  * Some useful constants
@@ -27,26 +20,11 @@ if ($webRoot === '/') {
 /**
  * Include the autoloader
  */
-require_once ROOT . '/Core/AutoLoader.php';
+require_once ROOT . '/core/AutoLoader.php';
 
 /**
  * Enable the autoloader
  */
 AutoLoader::register();
 
-/**
- * Instantiation of the Router object
- */
-$router = new Router($_GET['url']);
-
-require_once "Config/routes.php";
-
-/**
- * Run the router. If an exception is caught, the user
- * will be redirected to a 404 error page.
- */
-try {
-    $router->run();
-} catch (RouterException $exception) {
-    Error::create($exception->getMessage(), 404);
-}
+require_once ROOT . '/routes.php';

@@ -1,0 +1,11 @@
+{
+  "name": "stardisblue/RaveFramework",
+  "description": "Simple MVC Framework",
+  "minimum-stability": "dev",
+  "license": "GNU",
+  "authors": [
+    {
+      "name": "stardisblue"
+    }
+  ]
+}
