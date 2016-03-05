@@ -1,10 +1,10 @@
 <?php
 
-namespace Rave\Application\Controller;
+namespace rave\app\Controller;
 
-use Rave\Application\Model\ContactModel;
-use Rave\Library\Core\IO\In;
-use Rave\Library\Core\Security\Text;
+use rave\app\model\ContactModel;
+use rave\lib\core\io\In;
+use rave\lib\core\Security\Text;
 
 class Contact extends FrontController
 {

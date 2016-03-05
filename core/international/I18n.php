@@ -1,6 +1,6 @@
 <?php
 
-namespace Rave\Core\International;
+namespace rave\core\International;
 
 class I18n
 {

@@ -1,23 +1,23 @@
 <?php
 
-namespace Rave\Application\Controller;
+namespace rave\app\Controller;
 
 use Exception;
-use Rave\Application\Model\AdminModel;
-use Rave\Application\Model\CommentModel;
-use Rave\Application\Model\GalleryModel;
-use Rave\Application\Model\IdentifyModel;
-use Rave\Application\Model\PhotoModel;
-use Rave\Application\Model\TagModel;
-use Rave\Core\Controller;
-use Rave\Core\Error;
-use Rave\Library\Core\IO\File;
-use Rave\Library\Core\IO\In;
-use Rave\Library\Core\IO\Out;
-use Rave\Library\Core\Security\Auth;
-use Rave\Library\Core\Security\Password;
-use Rave\Library\Core\Security\Text;
-use Rave\Library\Custom\Photo;
+use rave\app\model\AdminModel;
+use rave\app\model\CommentModel;
+use rave\app\model\GalleryModel;
+use rave\app\model\IdentifyModel;
+use rave\app\model\PhotoModel;
+use rave\app\model\TagModel;
+use rave\core\Controller;
+use rave\core\Error;
+use rave\lib\core\io\File;
+use rave\lib\core\io\In;
+use rave\lib\core\io\Out;
+use rave\lib\core\Security\Auth;
+use rave\lib\core\Security\Password;
+use rave\lib\core\Security\Text;
+use rave\lib\custom\Photo;
 
 class Admin extends Controller
 {

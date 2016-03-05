@@ -1,6 +1,6 @@
 <?php
 
-namespace Rave\Library\Custom;
+namespace rave\lib\custom;
 
 #
 #

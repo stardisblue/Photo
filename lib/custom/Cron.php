@@ -1,9 +1,9 @@
 <?php
 
-namespace Rave\Library\Custom;
+namespace rave\lib\custom;
 
-use Rave\Application\Model\LikeModel;
-use Rave\Application\Model\ContactModel;
+use rave\app\model\LikeModel;
+use rave\app\model\ContactModel;
 
 class Cron
 {

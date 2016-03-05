@@ -1,9 +1,9 @@
 <?php
 
-namespace Rave\Library\Custom;
+namespace rave\lib\custom;
 
-use Rave\Core\Exception\IOException;
-use Rave\Core\Exception\FileTypeException;
+use rave\core\Exception\IOException;
+use rave\core\Exception\FileTypeException;
 
 class Photo
 {

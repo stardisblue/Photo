@@ -6,17 +6,16 @@
  * Time: 21:27
  */
 
-namespace Rave\Application\Controller;
+namespace rave\app\Controller;
 
-use Rave\Core\Controller;
-use Rave\Library\Core\Security\Auth;
+use rave\core\Controller;
+use rave\lib\core\security\Auth;
 
 class FrontController extends Controller
 {
     public function __construct()
     {
         $this->setLayout('main');
-        $this->setI18n(true);
         $this->data['admin'] = Auth::check('admin');
     }
 }

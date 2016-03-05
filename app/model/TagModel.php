@@ -1,8 +1,8 @@
 <?php
 
-namespace Rave\Application\Model;
+namespace rave\app\Model;
 
-use Rave\Core\Model;
+use rave\core\Model;
 
 class TagModel extends Model
 {

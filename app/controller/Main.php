@@ -9,12 +9,13 @@ class Main extends Controller
 
     public function __construct()
     {
-        $this->setLayout('default');
+
+        $this->setLayout('main');
     }
 
     public function index()
     {
-        $this->loadView('main');
+        $this->loadView('slider');
     }
 
 }

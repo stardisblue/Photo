@@ -1,14 +1,14 @@
 <?php
 
-namespace Rave\Application\Controller;
+namespace rave\app\Controller;
 
-use Rave\Application\Model\CommentModel;
-use Rave\Application\Model\LikeModel;
-use Rave\Application\Model\PhotoModel;
-use Rave\Application\Model\TagModel;
-use Rave\Library\Core\IO\In;
-use Rave\Library\Core\Security\Text;
-use Rave\Library\Custom\Parsedown;
+use rave\app\model\CommentModel;
+use rave\app\model\LikeModel;
+use rave\app\model\PhotoModel;
+use rave\app\model\TagModel;
+use rave\lib\core\io\In;
+use rave\lib\core\Security\Text;
+use rave\lib\custom\Parsedown;
 
 class Photo extends FrontController
 {

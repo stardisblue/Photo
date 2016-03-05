@@ -6,11 +6,11 @@
  * Time: 14:50
  */
 
-namespace Rave\Application\Controller;
+namespace rave\app\Controller;
 
 
-use Rave\Application\Model\PhotoModel;
-use Rave\Application\Model\TagModel;
+use rave\app\model\PhotoModel;
+use rave\app\model\TagModel;
 
 class Tag extends FrontController
 {

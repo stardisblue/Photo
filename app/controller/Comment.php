@@ -1,10 +1,10 @@
 <?php
 
-namespace Rave\Application\Controller;
+namespace rave\app\Controller;
 
-use Rave\Application\Model\CommentModel;
-use Rave\Library\Core\IO\In;
-use Rave\Library\Core\Security\Text;
+use rave\app\model\CommentModel;
+use rave\lib\core\io\In;
+use rave\lib\core\Security\Text;
 
 class Comment extends FrontController
 {
