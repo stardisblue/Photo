@@ -1,6 +1,6 @@
 <?php
 
-namespace rave\app\Model;
+namespace rave\app\model;
 
 use rave\core\Model;
 
@@ -30,6 +30,7 @@ class PhotoModel extends Model
     {
         $tagName = '%' . $query . '%';
         $photoTitle = '%' . $query . '%';
+
         return self::query('SELECT * FROM ' . self::$table . ' NATURAL JOIN rave_identify NATURAL JOIN rave_tag WHERE tag_name LIKE :tag_name OR photo_title LIKE :photo_title GROUP BY photo_id', [':tag_name' => $tagName, ':photo_title' => $photoTitle]);
     }
 

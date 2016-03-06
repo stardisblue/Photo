@@ -6,7 +6,7 @@
  * Time: 14:50
  */
 
-namespace rave\app\Controller;
+namespace rave\app\controller;
 
 
 use rave\app\model\PhotoModel;

@@ -1,6 +1,6 @@
 <?php
 
-namespace rave\app\Model;
+namespace rave\app\model;
 
 use rave\core\Model;
 

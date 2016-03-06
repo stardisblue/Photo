@@ -3,20 +3,19 @@
 namespace rave\core;
 
 use rave\core\exception\IOException;
+use rave\core\international\I18n;
 
 abstract class Controller
 {
     const LOG_NOTICE = 0;
     const LOG_WARNING = 1;
     const LOG_FATAL_ERROR = 2;
-
+    private static $currentLogFile;
     protected $data = [];
-
+    protected $i18n = false;
     protected $layout = false;
 
-    private static $currentLogFile;
-
-    public function beforeCall($method)
+    public function beforeCall(string $method)
     {
     }
 
@@ -26,6 +25,10 @@ abstract class Controller
             extract(array_merge($this->data, $data));
         }
 
+        if ($this->i18n) {
+            extract(I18n::getInstance()->parse());
+        }
+
         $controller = explode('\\', static::class);
 
         $file = ROOT . '/app/view/' . strtolower(end($controller)) . '/' . $view . '.php';
@@ -33,6 +36,7 @@ abstract class Controller
         ob_start();
 
         if (file_exists($file)) {
+            /** @noinspection PhpIncludeInspection */
             include_once $file;
         } else {
             Error::create('Error while loading view', 404);
@@ -43,6 +47,7 @@ abstract class Controller
         if (!$this->layout) {
             echo $content;
         } else {
+            /** @noinspection PhpIncludeInspection */
             include_once ROOT . '/app/view/layout/' . $this->layout . '.php';
         }
     }
@@ -66,6 +71,7 @@ abstract class Controller
                 break;
             case self::LOG_FATAL_ERROR:
                 $log .= ' FATAL ERROR : ' . $message;
+                break;
         }
 
         try {
@@ -94,10 +100,15 @@ abstract class Controller
         }
     }
 
-    protected function setLayout($layout, array $data = [])
+    protected function setLayout(string $layout, array $data = [])
     {
         $this->data = $data;
         $this->layout = file_exists(ROOT . '/app/view/layout/' . $layout . '.php') ? $layout : false;
+    }
+
+    protected function setI18n(bool $status)
+    {
+        $this->i18n = $status;
     }
 
 }

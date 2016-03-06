@@ -16,6 +16,14 @@ class File
 
     /**
      * Move the file in the $uploadPath or gets the existing file from it, using sha1 as a comparator
+     * @param string $fileName
+     * @param string $uploadPath
+     * @param array $extensions
+     * @param array $mimeTypes
+     * @return string
+     * @throws FileTypeException
+     * @throws IOException
+     * @throws UploadException
      */
     public static function moveUploadedFile(string $fileName, string $uploadPath, array $extensions = [], array $mimeTypes = [])
     {

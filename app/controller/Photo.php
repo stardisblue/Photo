@@ -1,13 +1,13 @@
 <?php
 
-namespace rave\app\Controller;
+namespace rave\app\controller;
 
 use rave\app\model\CommentModel;
 use rave\app\model\LikeModel;
 use rave\app\model\PhotoModel;
 use rave\app\model\TagModel;
 use rave\lib\core\io\In;
-use rave\lib\core\Security\Text;
+use rave\lib\core\security\Text;
 use rave\lib\custom\Parsedown;
 
 class Photo extends FrontController
@@ -19,6 +19,9 @@ class Photo extends FrontController
         parent::__construct();
     }
 
+    /**
+     *
+     */
     public function index()
     {
         $tags = [];
@@ -70,10 +73,10 @@ class Photo extends FrontController
             if ($photo !== false) {
                 PhotoModel::update($photoId, ['photo_like' => $photo->photo_like + 1]);
 
-                LikeModel::insert([
+                LikeModel::insert(array(
                     'photo_id' => $photoId,
                     'like_ip' => Text::hash($_SERVER['REMOTE_ADDR'])
-                ]);
+                ));
 
                 echo PhotoModel::select($photoId)->photo_like;
             }

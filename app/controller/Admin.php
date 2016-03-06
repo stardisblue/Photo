@@ -1,6 +1,6 @@
 <?php
 
-namespace rave\app\Controller;
+namespace rave\app\controller;
 
 use Exception;
 use rave\app\model\AdminModel;
@@ -14,9 +14,9 @@ use rave\core\Error;
 use rave\lib\core\io\File;
 use rave\lib\core\io\In;
 use rave\lib\core\io\Out;
-use rave\lib\core\Security\Auth;
-use rave\lib\core\Security\Password;
-use rave\lib\core\Security\Text;
+use rave\lib\core\security\Auth;
+use rave\lib\core\security\Password;
+use rave\lib\core\security\Text;
 use rave\lib\custom\Photo;
 
 class Admin extends Controller

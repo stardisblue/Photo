@@ -2,20 +2,21 @@
 
 namespace rave\app\controller;
 
-use rave\core\Controller;
+use rave\app\model\GalleryModel;
+use rave\lib\custom\Cron;
 
-class Main extends Controller
+class Main extends FrontController
 {
 
     public function __construct()
     {
-
-        $this->setLayout('main');
+        parent::__construct();
     }
 
     public function index()
     {
-        $this->loadView('slider');
+        $this->loadView('slider', ['photos' => GalleryModel::selectPhoto()]);
+        Cron::execute();
     }
 
 }

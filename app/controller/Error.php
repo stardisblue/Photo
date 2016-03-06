@@ -2,7 +2,7 @@
 
 namespace rave\app\controller;
 
-use rave\core\Controller;
+use rave\core\controller;
 
 class Error extends Controller
 {

@@ -1,17 +1,21 @@
 <?php
 
-namespace rave\core\International;
+namespace rave\core\international;
 
 class I18n
 {
     const FRENCH = 'fr_FR';
     const ENGLISH = 'en_US';
     const PATH = 'localization';
+
+    /**
+     * @deprecated
+     */
     private static $instance;
     private $language;
     private $parsed = [];
 
-    private function __construct()
+    public function __construct()
     {
         if (preg_match('#^fr(\S+)#', $_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             $this->language = self::FRENCH;
@@ -20,12 +24,17 @@ class I18n
         }
     }
 
-    public static function getInstance()
+    /**
+     * @return I18n
+     * @deprecated use Dependancy injection instead
+     */
+    public static function getInstance(): self
     {
-        if (!isset(self::$instance)) {
-            self::$instance = new self();
+        if (null === static::$instance) {
+            static::$instance = new static();
         }
-        return self::$instance;
+
+        return static::$instance;
     }
 
     public function parse()

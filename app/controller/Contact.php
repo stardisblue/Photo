@@ -1,6 +1,6 @@
 <?php
 
-namespace rave\app\Controller;
+namespace rave\app\controller;
 
 use rave\app\model\ContactModel;
 use rave\lib\core\io\In;
